@@ -1,7 +1,6 @@
 package cz.uruba.ets2mpcompanion.tasks;
 
 import android.os.AsyncTask;
-import android.widget.TextView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,14 +9,14 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import cz.uruba.ets2mpcompanion.MainActivity;
+import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
 
 public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
-    private MainActivity callbackActivity;
+    private ServerListFragment callbackFragment;
 
-    public FetchServersInfoTask(MainActivity callbackActivity) {
+    public FetchServersInfoTask(ServerListFragment callbackFragment) {
         super();
-        this.callbackActivity = callbackActivity;
+        this.callbackFragment = callbackFragment;
     }
 
     // Reads an InputStream and converts it to a String.
@@ -55,7 +54,7 @@ public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        callbackActivity.populateServerList(result);
+        callbackFragment.populateServerList(result);
     }
 
 }
