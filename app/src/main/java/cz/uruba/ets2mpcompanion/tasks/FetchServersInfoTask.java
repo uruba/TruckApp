@@ -30,26 +30,24 @@ public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... params) {
-        InputStream is = null;
-        try {
-            try {
-                URL url = new URL("http://api.ets2mp.com/servers/");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setReadTimeout(10000);
-                connection.setConnectTimeout(15000);
-                connection.setRequestMethod("GET");
-                connection.setDoInput(true);
-                connection.connect();
-                is = connection.getInputStream();
+        InputStream is;
 
-                // Convert the InputStream into a string
-                String contentAsString = readIt(is, 800);
-                return contentAsString;
-            } finally {
-                if (is != null) {
-                    is.close();
-                }
-            }
+        try {
+            URL url = new URL("http://api.ets2mp.com/servers/");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(15000);
+            connection.setRequestMethod("GET");
+            connection.setDoInput(true);
+            connection.connect();
+            is = connection.getInputStream();
+
+            // Convert the InputStream into a string
+            String contentAsString = readIt(is, 800);
+
+            is.close();
+
+            return contentAsString;
         } catch (IOException e) {
             return null;
         }
