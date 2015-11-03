@@ -38,9 +38,8 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
     @Override
     public void onBindViewHolder(ServerInfoViewHolder holder, int position) {
         ServerInfo serverInfo = serverList.get(position);
+
         holder.serverName.setText(serverInfo.getServerName());
-
-
         holder.numberOfPlayers.setText(
                 String.format(
                         context
