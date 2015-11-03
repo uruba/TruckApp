@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">ETS2MP Companion</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="player_count"> %1$d / %2$d players</string>
+    <string name="json_error">The received data could not be resolved. Please try again later.</string>
+    <string name="download_error">The data could not be downloaded. Please try again later.</string>
+</resources>
