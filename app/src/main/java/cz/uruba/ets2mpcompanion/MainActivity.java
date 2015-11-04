@@ -2,7 +2,9 @@ package cz.uruba.ets2mpcompanion;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import android.view.MenuItem;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -19,6 +22,9 @@ public class MainActivity extends AppCompatActivity
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
     @Bind(R.id.nav_view) NavigationView navigationView;
+    @Bind(R.id.tabs_area) TabLayout tabsArea;
+    @Bind(R.id.viewpager) ViewPager viewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +41,14 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        if(findViewById(R.id.main_content_container) != null) {
-            ServerListFragment serverListFragment = new ServerListFragment();
-            serverListFragment.setArguments(getIntent().getExtras());
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.main_content_container, serverListFragment).commit();
-        }
+        setupViewPager(viewPager);
+        tabsArea.setupWithViewPager(viewPager);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ServerListFragment(), "SERVERS");
+        viewPager.setAdapter(adapter);
     }
 
     @Override
