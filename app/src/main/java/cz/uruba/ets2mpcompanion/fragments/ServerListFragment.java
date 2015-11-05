@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -54,7 +55,7 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
 
     public void processData(String jsonSource) {
         if (jsonSource == null) {
-            Snackbar.make(this.serverList, this.getResources().getText(R.string.download_error), Snackbar.LENGTH_LONG)
+            Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
             return;
@@ -77,7 +78,7 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
                 serverList.add(serverInfo);
             }
         } catch(JSONException e) {
-            Snackbar.make(this.serverList, this.getResources().getText(R.string.json_error), Snackbar.LENGTH_LONG)
+            Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
 
@@ -86,5 +87,10 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
         ServerListAdapter serverListAdapter = new ServerListAdapter(serverList);
         this.serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.serverList.setAdapter(serverListAdapter);
+    }
+
+    public void handleIOException(IOException e) {
+        Snackbar.make(this.serverList, String.format(this.getResources().getString(R.string.download_error_IOException), e.getMessage()), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }

@@ -50,6 +50,7 @@ public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
 
             return contentAsString;
         } catch (IOException e) {
+            callbackObject.handleIOException(e);
             return null;
         }
     }
