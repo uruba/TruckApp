@@ -9,14 +9,16 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
+import cz.uruba.ets2mpcompanion.interfaces.HttpDataReceiver;
 
-public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
-    private ServerListFragment callbackFragment;
+public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
+    private HttpDataReceiver callbackObject;
+    private String requestURL;
 
-    public FetchServersInfoTask(ServerListFragment callbackFragment) {
+    public FetchHttpDataTask(HttpDataReceiver callbackObject, String requestURL) {
         super();
-        this.callbackFragment = callbackFragment;
+        this.callbackObject = callbackObject;
+        this.requestURL = requestURL;
     }
 
     // Reads an InputStream and converts it to a String.
@@ -32,7 +34,7 @@ public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
         InputStream is;
 
         try {
-            URL url = new URL("http://api.ets2mp.com/servers/");
+            URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setReadTimeout(10000);
             connection.setConnectTimeout(15000);
@@ -54,7 +56,7 @@ public class FetchServersInfoTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        callbackFragment.populateServerList(result);
+        callbackObject.processData(result);
     }
 
 }

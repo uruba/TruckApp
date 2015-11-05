@@ -22,10 +22,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
+import cz.uruba.ets2mpcompanion.interfaces.HttpDataReceiver;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
-import cz.uruba.ets2mpcompanion.tasks.FetchServersInfoTask;
+import cz.uruba.ets2mpcompanion.tasks.FetchHttpDataTask;
 
-public class ServerListFragment extends Fragment {
+public class ServerListFragment extends Fragment implements HttpDataReceiver {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -48,10 +49,10 @@ public class ServerListFragment extends Fragment {
     }
 
     private void fetchServerList() {
-        new FetchServersInfoTask(this).execute();
+        new FetchHttpDataTask(this, "http://api.ets2mp.com/servers/").execute();
     }
 
-    public void populateServerList(String jsonSource) {
+    public void processData(String jsonSource) {
         if (jsonSource == null) {
             Snackbar.make(this.serverList, this.getResources().getText(R.string.download_error), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
