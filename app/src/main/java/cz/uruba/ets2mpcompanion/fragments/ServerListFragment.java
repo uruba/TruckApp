@@ -31,8 +31,8 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
-
-    @Override public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_serverlist, container, false);
 
         ButterKnife.bind(this, view);

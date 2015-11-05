@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
+import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new ServerListFragment(), "SERVERS");
+        adapter.addFragment(new MeetupListFragment(), "MEETUPS");
         viewPager.setAdapter(adapter);
     }
 
