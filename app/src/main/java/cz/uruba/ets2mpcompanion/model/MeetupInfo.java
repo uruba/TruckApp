@@ -1,18 +1,22 @@
 package cz.uruba.ets2mpcompanion.model;
 
 public class MeetupInfo {
+    private String when;
     private String location;
     private String organiser;
-    private String when;
     private String language;
-    private int participants;
+    private String participants;
 
-    public MeetupInfo(String location, String organiser, String when, String language, int participants) {
+    public MeetupInfo(String when, String location, String organiser, String language, String participants) {
+        this.when = when;
         this.location = location;
         this.organiser = organiser;
-        this.when = when;
         this.language = language;
         this.participants = participants;
+    }
+
+    public String getWhen() {
+        return when;
     }
 
     public String getLocation() {
@@ -23,15 +27,11 @@ public class MeetupInfo {
         return organiser;
     }
 
-    public String getWhen() {
-        return when;
-    }
-
     public String getLanguage() {
         return language;
     }
 
-    public int getParticipants() {
+    public String getParticipants() {
         return participants;
     }
 }

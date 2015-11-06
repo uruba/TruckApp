@@ -15,7 +15,6 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 
 public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.ServerInfoViewHolder> {
-
     private Context context;
 
     private List<ServerInfo> serverList;
@@ -28,9 +27,9 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
     public ServerInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
 
-        View itemView = LayoutInflater.
-                from(context).
-                inflate(R.layout.cardview_serverinfo, parent, false);
+        View itemView = LayoutInflater
+                .from(context)
+                .inflate(R.layout.cardview_serverinfo, parent, false);
 
         return new ServerInfoViewHolder(itemView);
     }
@@ -57,7 +56,6 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {
-
         @Bind(R.id.server_name) TextView serverName;
         @Bind(R.id.number_of_players) TextView numberOfPlayers;
 
