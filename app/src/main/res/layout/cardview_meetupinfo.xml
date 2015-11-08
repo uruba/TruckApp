@@ -10,31 +10,59 @@
         android:id="@+id/meetup_card"
         android:layout_gravity="center"
         card_view:cardUseCompatPadding="true"
-        card_view:cardElevation="3dp"
+        card_view:cardElevation="2dp"
         card_view:cardCornerRadius="2dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/time"
+                android:orientation="horizontal"
                 android:layout_alignParentTop="true"
-                />
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:id="@+id/top_row">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="left"
+                    android:textColor="@android:color/darker_gray"
+                    android:id="@+id/time"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:textColor="@android:color/darker_gray"
+                    android:id="@+id/participants"
+                    />
+
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/location"
-                android:layout_below="@+id/time"
+                android:textStyle="bold"
+                android:layout_below="@+id/top_row"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/organiser"
                 android:layout_below="@+id/location"
                 />
@@ -42,15 +70,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/language"
+                android:textStyle="italic"
                 android:layout_below="@+id/organiser"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/participants"
-                android:layout_below="@+id/language"
                 />
 
         </RelativeLayout>

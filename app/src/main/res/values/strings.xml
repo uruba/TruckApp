@@ -10,4 +10,6 @@
     <string name="download_error">The data could not be downloaded. Please try again later.</string>
     <string name="download_error_IOException">The data could not be downloaded due to the following error: \'%1$s\'</string>
     <string name="search_meetups_title">Filter meetups</string>
+    <string name="participant_count_singular">%1$s participant</string>
+    <string name="participant_count_plural">%1$s participants</string>
 </resources>

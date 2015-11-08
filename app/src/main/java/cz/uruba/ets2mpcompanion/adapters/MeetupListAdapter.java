@@ -43,7 +43,17 @@ public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.Me
         holder.location.setText(meetupInfo.getLocation());
         holder.organiser.setText(meetupInfo.getOrganiser());
         holder.language.setText(meetupInfo.getLanguage());
-        holder.participants.setText(meetupInfo.getParticipants());
+        holder.participants.setText(
+                String.format(
+                        context
+                                .getResources()
+                                .getString(
+                                        meetupInfo.getParticipants().equals("1") ?
+                                                R.string.participant_count_singular :
+                                                R.string.participant_count_plural),
+                        meetupInfo.getParticipants()
+                )
+        );
     }
 
     @Override
