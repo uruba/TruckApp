@@ -7,16 +7,18 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-import cz.uruba.ets2mpcompanion.interfaces.JsoupDataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 
 public class FetchJsoupDataTask extends AsyncTask<Void, Void, Document> {
-    private JsoupDataReceiver callbackObject;
+    private DataReceiver<Document> callbackObject;
     private String requestURL;
+    private boolean notifyUser;
 
-    public FetchJsoupDataTask(JsoupDataReceiver callbackObject, String requestURL) {
+    public FetchJsoupDataTask(DataReceiver<Document> callbackObject, String requestURL, boolean notifyUser) {
         super();
         this.callbackObject = callbackObject;
         this.requestURL = requestURL;
+        this.notifyUser = notifyUser;
     }
 
     @Override
@@ -31,6 +33,6 @@ public class FetchJsoupDataTask extends AsyncTask<Void, Void, Document> {
 
     @Override
     protected  void onPostExecute(Document result) {
-        callbackObject.processData(result);
+        callbackObject.processData(result, notifyUser);
     }
 }

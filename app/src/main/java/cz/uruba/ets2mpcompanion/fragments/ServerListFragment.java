@@ -23,11 +23,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
-import cz.uruba.ets2mpcompanion.interfaces.HttpDataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchHttpDataTask;
 
-public class ServerListFragment extends Fragment implements HttpDataReceiver {
+public class ServerListFragment extends Fragment implements DataReceiver<String> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -40,7 +40,7 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchServerList();
+                fetchServerList(true);
             }
         });
 
@@ -50,10 +50,14 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
     }
 
     private void fetchServerList() {
-        new FetchHttpDataTask(this, "http://api.ets2mp.com/servers/").execute();
+        fetchServerList(false);
     }
 
-    public void processData(String jsonSource) {
+    private void fetchServerList(boolean notifyUser) {
+        new FetchHttpDataTask(this, "http://api.ets2mp.com/servers/", notifyUser).execute();
+    }
+
+    public void processData(String jsonSource, boolean notifyUser) {
         if (jsonSource == null) {
             return;
         }
@@ -75,7 +79,7 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
                 serverList.add(serverInfo);
             }
         } catch(JSONException e) {
-            Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_LONG)
+            Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
 
@@ -84,10 +88,15 @@ public class ServerListFragment extends Fragment implements HttpDataReceiver {
         ServerListAdapter serverListAdapter = new ServerListAdapter(serverList);
         this.serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.serverList.setAdapter(serverListAdapter);
+
+        if (notifyUser) {
+            Snackbar.make(this.serverList, this.getResources().getString(R.string.server_list_refreshed), Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+        }
     }
 
     public void handleIOException(IOException e) {
-        Snackbar.make(this.serverList, String.format(this.getResources().getString(R.string.download_error_IOException), e.getMessage()), Snackbar.LENGTH_LONG)
+        Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 }

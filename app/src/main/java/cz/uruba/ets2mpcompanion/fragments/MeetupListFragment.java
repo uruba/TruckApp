@@ -2,6 +2,7 @@ package cz.uruba.ets2mpcompanion.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,11 +27,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
-import cz.uruba.ets2mpcompanion.interfaces.JsoupDataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
-public class MeetupListFragment extends Fragment implements JsoupDataReceiver, SearchView.OnQueryTextListener {
+public class MeetupListFragment extends Fragment implements DataReceiver<Document>, SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -48,7 +49,7 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchMeetupList();
+                fetchMeetupList(true);
             }
         });
 
@@ -67,11 +68,15 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
     }
 
     private void fetchMeetupList() {
-        new FetchJsoupDataTask(this, "http://ets2c.com/").execute();
+        fetchMeetupList(false);
+    }
+
+    private void fetchMeetupList(boolean notifyUser) {
+        new FetchJsoupDataTask(this, "http://ets2c.com/", notifyUser).execute();
     }
 
     @Override
-    public void processData(Document data) {
+    public void processData(Document data, boolean notifyUser) {
         if (data == null) {
             return;
         }
@@ -118,11 +123,17 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
         meetupListAdapter = new MeetupListAdapter(meetups);
         this.meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.meetupList.setAdapter(meetupListAdapter);
+
+        if (notifyUser) {
+            Snackbar.make(this.meetupList, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT)
+                    .setAction("Action", null).show();
+        }
     }
 
     @Override
     public void handleIOException(IOException e) {
-
+        Snackbar.make(this.meetupList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 
     @Override

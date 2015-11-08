@@ -4,7 +4,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 
-public interface JsoupDataReceiver {
-    void processData(Document data);
+public interface DataReceiver<T> {
+    void processData(T data, boolean notifyUser);
     void handleIOException(IOException e);
 }

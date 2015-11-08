@@ -9,16 +9,18 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import cz.uruba.ets2mpcompanion.interfaces.HttpDataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 
 public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
-    private HttpDataReceiver callbackObject;
+    private DataReceiver<String> callbackObject;
     private String requestURL;
+    private boolean notifyUser;
 
-    public FetchHttpDataTask(HttpDataReceiver callbackObject, String requestURL) {
+    public FetchHttpDataTask(DataReceiver<String> callbackObject, String requestURL, boolean notifyUser) {
         super();
         this.callbackObject = callbackObject;
         this.requestURL = requestURL;
+        this.notifyUser = notifyUser;
     }
 
     // Reads an InputStream and converts it to a String.
@@ -57,7 +59,7 @@ public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        callbackObject.processData(result);
+        callbackObject.processData(result, notifyUser);
     }
 
 }
