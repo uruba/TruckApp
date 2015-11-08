@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
 public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -23,9 +23,11 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private Context context;
 
     private List<MeetupInfo> meetupList;
+    DataReceiver<?> callbackDataReceiver;
 
-    public MeetupListAdapter(List<MeetupInfo> meetupList) {
+    public MeetupListAdapter(List<MeetupInfo> meetupList, DataReceiver<?> callbackDataReceiver) {
         this.meetupList = new ArrayList<>(meetupList);
+        this.callbackDataReceiver = callbackDataReceiver;
     }
 
     @Override
@@ -62,7 +64,7 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 lastUpdatedViewHolder.lastUpdated.setText(
                         String.format(
                                 context.getResources().getString(R.string.last_updated),
-                                Calendar.getInstance().getTime()
+                                callbackDataReceiver.getLastUpdated()
                         )
                 );
                 break;

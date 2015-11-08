@@ -21,6 +21,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -37,6 +38,8 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
 
     List<MeetupInfo> meetups = new ArrayList<>();
     MeetupListAdapter meetupListAdapter;
+
+    Date lastUpdated;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -120,7 +123,9 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
             meetups.add(meetupInfo);
         }
 
-        meetupListAdapter = new MeetupListAdapter(meetups);
+        lastUpdated = new Date();
+
+        meetupListAdapter = new MeetupListAdapter(meetups, this);
         this.meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.meetupList.setAdapter(meetupListAdapter);
 
@@ -134,6 +139,11 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
     public void handleIOException(IOException e) {
         Snackbar.make(this.meetupList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    @Override
+    public Date getLastUpdated() {
+        return lastUpdated;
     }
 
     @Override

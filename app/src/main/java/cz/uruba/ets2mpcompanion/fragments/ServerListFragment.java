@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,6 +58,7 @@ public class ServerListFragment extends Fragment implements DataReceiver<String>
         new FetchHttpDataTask(this, "http://api.ets2mp.com/servers/", notifyUser).execute();
     }
 
+    @Override
     public void processData(String jsonSource, boolean notifyUser) {
         if (jsonSource == null) {
             return;
@@ -95,8 +97,14 @@ public class ServerListFragment extends Fragment implements DataReceiver<String>
         }
     }
 
+    @Override
     public void handleIOException(IOException e) {
         Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    @Override
+    public Date getLastUpdated() {
+        return null;
     }
 }
