@@ -14,4 +14,5 @@
     <string name="participant_count_plural">%1$s participants</string>
     <string name="server_list_refreshed">The server list was refreshed.</string>
     <string name="meetup_list_refreshed">The meetup list was refreshed.</string>
+    <string name="last_updated">Last updated %1$s</string>
 </resources>

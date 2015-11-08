@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -15,7 +16,10 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
-public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.MeetupInfoViewHolder> {
+public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final int TYPE_LAST_UPDATED = 1;
+    private static final int TYPE_MEETUP_ENTRY = 2;
+
     private Context context;
 
     private List<MeetupInfo> meetupList;
@@ -25,40 +29,81 @@ public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.Me
     }
 
     @Override
-    public MeetupInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
 
-        View itemView = LayoutInflater
-                .from(context)
-                .inflate(R.layout.cardview_meetupinfo, parent, false);
+        View itemView;
 
-        return new MeetupInfoViewHolder(itemView);
+        switch (viewType) {
+            case TYPE_LAST_UPDATED:
+                itemView = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.block_lastupdated, parent, false);
+
+                return new LastUpdatedViewHolder(itemView);
+
+            case TYPE_MEETUP_ENTRY:
+                itemView = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.cardview_meetupinfo, parent, false);
+
+                return new MeetupInfoViewHolder(itemView);
+        }
+
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(MeetupInfoViewHolder holder, int position) {
-        MeetupInfo meetupInfo = meetupList.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case TYPE_LAST_UPDATED:
+                LastUpdatedViewHolder lastUpdatedViewHolder = (LastUpdatedViewHolder) holder;
 
-        holder.time.setText(meetupInfo.getWhen());
-        holder.location.setText(meetupInfo.getLocation());
-        holder.organiser.setText(meetupInfo.getOrganiser());
-        holder.language.setText(meetupInfo.getLanguage());
-        holder.participants.setText(
-                String.format(
-                        context
-                                .getResources()
-                                .getString(
-                                        meetupInfo.getParticipants().equals("1") ?
-                                                R.string.participant_count_singular :
-                                                R.string.participant_count_plural),
-                        meetupInfo.getParticipants()
-                )
-        );
+                lastUpdatedViewHolder.lastUpdated.setText(
+                        String.format(
+                                context.getResources().getString(R.string.last_updated),
+                                Calendar.getInstance().getTime()
+                        )
+                );
+                break;
+            case TYPE_MEETUP_ENTRY:
+                MeetupInfo meetupInfo = meetupList.get(position - 1);
+
+                MeetupInfoViewHolder meetupInfoViewHolder = (MeetupInfoViewHolder) holder;
+
+                meetupInfoViewHolder.time.setText(meetupInfo.getWhen());
+                meetupInfoViewHolder.location.setText(meetupInfo.getLocation());
+                meetupInfoViewHolder.organiser.setText(meetupInfo.getOrganiser());
+                meetupInfoViewHolder.language.setText(meetupInfo.getLanguage());
+                meetupInfoViewHolder.participants.setText(
+                        String.format(
+                                context
+                                        .getResources()
+                                        .getString(
+                                                meetupInfo.getParticipants().equals("1") ?
+                                                        R.string.participant_count_singular :
+                                                        R.string.participant_count_plural),
+                                meetupInfo.getParticipants()
+                        )
+                );
+                break;
+        }
     }
+
+    @Override
+    public int getItemViewType (int position) {
+        if (position == 0) {
+            return TYPE_LAST_UPDATED;
+        }
+
+        return TYPE_MEETUP_ENTRY;
+    }
+
+
 
     @Override
     public int getItemCount() {
-        return meetupList.size();
+        return meetupList.size() + 1;
     }
 
     public void refreshAdapter(List<MeetupInfo> newMeetupList) {
@@ -110,6 +155,15 @@ public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.Me
         @Bind(R.id.participants) TextView participants;
 
         public MeetupInfoViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public static class LastUpdatedViewHolder extends RecyclerView.ViewHolder {
+        @Bind(R.id.last_updated) TextView lastUpdated;
+
+        public LastUpdatedViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
