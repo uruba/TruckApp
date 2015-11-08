@@ -101,8 +101,6 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return TYPE_MEETUP_ENTRY;
     }
 
-
-
     @Override
     public int getItemCount() {
         return meetupList.size() + 1;
@@ -134,19 +132,19 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public MeetupInfo removeItem(int position) {
         MeetupInfo meetup = meetupList.remove(position);
-        notifyItemRemoved(position);
+        notifyItemRemoved(++position);
         return meetup;
     }
 
     public void addItem(int position, MeetupInfo meetup) {
         meetupList.add(position, meetup);
-        notifyItemInserted(position);
+        notifyItemInserted(++position);
     }
 
     public void moveItem(int fromPosition, int toPosition) {
         MeetupInfo meetup = meetupList.remove(fromPosition);
         meetupList.add(toPosition, meetup);
-        notifyItemMoved(fromPosition, toPosition);
+        notifyItemMoved(++fromPosition, ++toPosition);
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {
