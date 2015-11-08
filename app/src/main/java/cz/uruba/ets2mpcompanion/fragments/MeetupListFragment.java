@@ -20,6 +20,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +33,9 @@ import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 public class MeetupListFragment extends Fragment implements JsoupDataReceiver, SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
     @Bind(R.id.fab) FloatingActionButton fab;
+
+    List<MeetupInfo> meetups = new ArrayList<>();
+    MeetupListAdapter meetupListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,7 +76,7 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
             return;
         }
 
-        ArrayList<MeetupInfo> meetupList = new ArrayList<>();
+        meetups = new ArrayList<>();
 
         Elements elem_table_list = data.select(".table_list .row");
         elem_table_list.remove(0);
@@ -108,10 +112,10 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
             }
 
             MeetupInfo meetupInfo = new MeetupInfo(time, location, organiser, language, participants);
-            meetupList.add(meetupInfo);
+            meetups.add(meetupInfo);
         }
 
-        MeetupListAdapter meetupListAdapter = new MeetupListAdapter(meetupList);
+        meetupListAdapter = new MeetupListAdapter(meetups);
         this.meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.meetupList.setAdapter(meetupListAdapter);
     }
@@ -128,6 +132,27 @@ public class MeetupListFragment extends Fragment implements JsoupDataReceiver, S
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        newText = newText.toLowerCase();
+
+        List<MeetupInfo> filteredMeetups = new ArrayList<>();
+        for (MeetupInfo meetup : meetups) {
+            String [] fields = new String[3];
+
+            fields[0] = meetup.getLocation().toLowerCase();
+            fields[1] = meetup.getOrganiser().toLowerCase();
+            fields[2] = meetup.getLanguage().toLowerCase();
+
+            for (String field : fields) {
+                if (field.contains(newText)) {
+                    filteredMeetups.add(meetup);
+                    break;
+                }
+            }
+        }
+
+        meetupListAdapter.refreshAdapter(filteredMeetups);
+        meetupList.scrollToPosition(0);
+
+        return true;
     }
 }

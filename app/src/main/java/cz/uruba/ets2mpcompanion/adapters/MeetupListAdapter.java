@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -20,7 +21,7 @@ public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.Me
     private List<MeetupInfo> meetupList;
 
     public MeetupListAdapter(List<MeetupInfo> meetupList) {
-        this.meetupList = meetupList;
+        this.meetupList = new ArrayList<>(meetupList);
     }
 
     @Override
@@ -48,6 +49,47 @@ public class MeetupListAdapter extends RecyclerView.Adapter<MeetupListAdapter.Me
     @Override
     public int getItemCount() {
         return meetupList.size();
+    }
+
+    public void refreshAdapter(List<MeetupInfo> newMeetupList) {
+        for (int i = meetupList.size() - 1; i >= 0; i--) {
+            MeetupInfo meetup = meetupList.get(i);
+            if (!newMeetupList.contains(meetup)) {
+                removeItem(i);
+            }
+        }
+
+        for (int i = 0, count = newMeetupList.size(); i < count; i++) {
+            MeetupInfo meetup = newMeetupList.get(i);
+            if (!meetupList.contains(meetup)) {
+                addItem(i, meetup);
+            }
+        }
+
+        for (int toPosition = newMeetupList.size() - 1; toPosition >= 0; toPosition--) {
+            MeetupInfo meetup = newMeetupList.get(toPosition);
+            final int fromPosition = meetupList.indexOf(meetup);
+            if (fromPosition >= 0 && fromPosition != toPosition) {
+                moveItem(fromPosition, toPosition);
+            }
+        }
+    }
+
+    public MeetupInfo removeItem(int position) {
+        MeetupInfo meetup = meetupList.remove(position);
+        notifyItemRemoved(position);
+        return meetup;
+    }
+
+    public void addItem(int position, MeetupInfo meetup) {
+        meetupList.add(position, meetup);
+        notifyItemInserted(position);
+    }
+
+    public void moveItem(int fromPosition, int toPosition) {
+        MeetupInfo meetup = meetupList.remove(fromPosition);
+        meetupList.add(toPosition, meetup);
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {
