@@ -68,11 +68,21 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
         MenuItem item = menu.findItem(R.id.action_meetup_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    fab.setVisibility(View.GONE);
+                } else {
+                    fab.setVisibility(View.VISIBLE);
+                }
+            }
+        });
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 meetupListAdapter.refreshAdapter(meetups);
-                return true;
+                return false;
             }
         });
     }
