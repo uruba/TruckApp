@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -38,16 +39,22 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
     public void onBindViewHolder(ServerInfoViewHolder holder, int position) {
         ServerInfo serverInfo = serverList.get(position);
 
+        int playerCountCurrent = serverInfo.getPlayerCountCurrent();
+        int playerCountCapacity = serverInfo.getPlayerCountCapacity();
+
         holder.serverName.setText(serverInfo.getServerName());
         holder.numberOfPlayers.setText(
                 String.format(
                         context
                                 .getResources()
                                 .getString(R.string.player_count),
-                        serverInfo.getPlayerCountCurrent(),
-                        serverInfo.getPlayerCountCapacity()
+                        playerCountCurrent,
+                        playerCountCapacity
                 )
         );
+
+        int playerCountRatio = (int) (((float) playerCountCurrent / (float) playerCountCapacity) * 100);
+        holder.numberOfPlayersProgressBar.setProgress(playerCountRatio);
     }
 
     @Override
@@ -58,6 +65,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.server_name) TextView serverName;
         @Bind(R.id.number_of_players) TextView numberOfPlayers;
+        @Bind(R.id.number_of_players_progressbar) ProgressBar numberOfPlayersProgressBar;
 
         public ServerInfoViewHolder(View itemView) {
             super(itemView);
