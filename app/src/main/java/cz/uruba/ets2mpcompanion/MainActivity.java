@@ -48,9 +48,35 @@ public class MainActivity extends AppCompatActivity
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ServerListFragment(), "SERVERS");
-        adapter.addFragment(new MeetupListFragment(), "MEETUPS");
+
+        final int SERVER_LIST_FRAG_POS = 0;
+        final int MEETUP_LIST_FRAG_POS = 1;
+
+        final ServerListFragment serverListFragment = new ServerListFragment();
+        final MeetupListFragment meetupListFragment = new MeetupListFragment();
+
+        adapter.addFragment(serverListFragment, "SERVERS", SERVER_LIST_FRAG_POS);
+        adapter.addFragment(meetupListFragment, "MEETUPS", MEETUP_LIST_FRAG_POS);
         viewPager.setAdapter(adapter);
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (Math.abs(MEETUP_LIST_FRAG_POS - position) == 1) {
+                    meetupListFragment.resetMeetupList();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     @Override

@@ -95,6 +95,10 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
         new FetchJsoupDataTask(this, "http://ets2c.com/", notifyUser).execute();
     }
 
+    public void resetMeetupList() {
+        meetupListAdapter.refreshAdapter(meetups);
+    }
+
     @Override
     public void processData(Document data, boolean notifyUser) {
         if (data == null) {
