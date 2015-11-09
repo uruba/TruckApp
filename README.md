@@ -8,5 +8,9 @@ It is still very early in the development, so there's not much to see here just 
 ## Early screenshots
 
 <p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/4870410/10924035/72a1fe7c-8284-11e5-8709-ffd141360cf6.png" alt="Main screen (and so far also the only available screen :-)) with the server list"/>
+  <img src="https://cloud.githubusercontent.com/assets/4870410/11044511/9b297cec-8722-11e5-8e87-46389026739c.png" alt="Server list screen"/>
+</p>
+
+<p align="center">
+  <img src="https://cloud.githubusercontent.com/assets/4870410/11044534/c05c6a74-8722-11e5-9581-7d6a0438e3f1.png" alt="Player meetups screen"/>
 </p>
