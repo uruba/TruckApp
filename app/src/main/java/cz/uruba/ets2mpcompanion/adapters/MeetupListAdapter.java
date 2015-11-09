@@ -1,6 +1,5 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,37 +13,23 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
-public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_LAST_UPDATED = 1;
-    private static final int TYPE_MEETUP_ENTRY = 2;
-
-    private Context context;
-
+public class MeetupListAdapter extends DataReceiverListAdapter {
     private List<MeetupInfo> meetupList;
-    DataReceiver<?> callbackDataReceiver;
 
     public MeetupListAdapter(List<MeetupInfo> meetupList, DataReceiver<?> callbackDataReceiver) {
+        super(meetupList, callbackDataReceiver);
         this.meetupList = new ArrayList<>(meetupList);
-        this.callbackDataReceiver = callbackDataReceiver;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
-
         View itemView;
 
         switch (viewType) {
-            case TYPE_LAST_UPDATED:
-                itemView = LayoutInflater
-                        .from(context)
-                        .inflate(R.layout.block_lastupdated, parent, false);
-
-                return new LastUpdatedViewHolder(itemView);
-
-            case TYPE_MEETUP_ENTRY:
+            case TYPE_DATA_ENTRY:
                 itemView = LayoutInflater
                         .from(context)
                         .inflate(R.layout.cardview_meetupinfo, parent, false);
@@ -52,23 +37,13 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return new MeetupInfoViewHolder(itemView);
         }
 
-        return null;
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
-            case TYPE_LAST_UPDATED:
-                LastUpdatedViewHolder lastUpdatedViewHolder = (LastUpdatedViewHolder) holder;
-
-                lastUpdatedViewHolder.lastUpdated.setText(
-                        String.format(
-                                context.getResources().getString(R.string.last_updated),
-                                callbackDataReceiver.getLastUpdated()
-                        )
-                );
-                break;
-            case TYPE_MEETUP_ENTRY:
+            case TYPE_DATA_ENTRY:
                 MeetupInfo meetupInfo = meetupList.get(position - 1);
 
                 MeetupInfoViewHolder meetupInfoViewHolder = (MeetupInfoViewHolder) holder;
@@ -90,20 +65,8 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 );
                 break;
         }
-    }
 
-    @Override
-    public int getItemViewType (int position) {
-        if (position == 0) {
-            return TYPE_LAST_UPDATED;
-        }
-
-        return TYPE_MEETUP_ENTRY;
-    }
-
-    @Override
-    public int getItemCount() {
-        return meetupList.size() + 1;
+        super.onBindViewHolder(holder, position);
     }
 
     public void refreshAdapter(List<MeetupInfo> newMeetupList) {
@@ -155,15 +118,6 @@ public class MeetupListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @Bind(R.id.participants) TextView participants;
 
         public MeetupInfoViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
-    }
-
-    public static class LastUpdatedViewHolder extends RecyclerView.ViewHolder {
-        @Bind(R.id.last_updated) TextView lastUpdated;
-
-        public LastUpdatedViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

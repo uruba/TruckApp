@@ -4,7 +4,6 @@ package cz.uruba.ets2mpcompanion.fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,11 +23,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchHttpDataTask;
 
-public class ServerListFragment extends Fragment implements DataReceiver<String> {
+public class ServerListFragment extends DataReceiverFragment<String> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -86,9 +85,11 @@ public class ServerListFragment extends Fragment implements DataReceiver<String>
                     .setAction("Action", null).show();
         }
 
+        lastUpdated = new Date();
+
         Collections.sort(serverList, Collections.reverseOrder());
 
-        ServerListAdapter serverListAdapter = new ServerListAdapter(serverList);
+        ServerListAdapter serverListAdapter = new ServerListAdapter(serverList, this);
         this.serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.serverList.setAdapter(serverListAdapter);
 
@@ -102,10 +103,5 @@ public class ServerListFragment extends Fragment implements DataReceiver<String>
     public void handleIOException(IOException e) {
         Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-    }
-
-    @Override
-    public Date getLastUpdated() {
-        return null;
     }
 }

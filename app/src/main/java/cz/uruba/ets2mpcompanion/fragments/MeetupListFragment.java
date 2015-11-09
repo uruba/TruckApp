@@ -3,7 +3,6 @@ package cz.uruba.ets2mpcompanion.fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,18 +27,16 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
-public class MeetupListFragment extends Fragment implements DataReceiver<Document>, SearchView.OnQueryTextListener {
+public class MeetupListFragment extends DataReceiverFragment<Document> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
     List<MeetupInfo> meetups = new ArrayList<>();
     MeetupListAdapter meetupListAdapter;
-
-    Date lastUpdated;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -162,11 +159,6 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
     public void handleIOException(IOException e) {
         Snackbar.make(this.meetupList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
-    }
-
-    @Override
-    public Date getLastUpdated() {
-        return lastUpdated;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,56 +12,63 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
-public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.ServerInfoViewHolder> {
-    private Context context;
-
+public class ServerListAdapter extends DataReceiverListAdapter {
     private List<ServerInfo> serverList;
 
-    public ServerListAdapter(List<ServerInfo> serverList) {
+    public ServerListAdapter(List<ServerInfo> serverList, DataReceiver<?> callbackDataReceiver) {
+        super(serverList, callbackDataReceiver);
         this.serverList = serverList;
     }
 
     @Override
-    public ServerInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            case TYPE_DATA_ENTRY:
+                View itemView = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.cardview_serverinfo, parent, false);
 
-        View itemView = LayoutInflater
-                .from(context)
-                .inflate(R.layout.cardview_serverinfo, parent, false);
+                return new ServerInfoViewHolder(itemView);
+        }
 
-        return new ServerInfoViewHolder(itemView);
+        return super.onCreateViewHolder(parent, viewType);
     }
 
     @Override
-    public void onBindViewHolder(ServerInfoViewHolder holder, int position) {
-        ServerInfo serverInfo = serverList.get(position);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        switch (holder.getItemViewType()) {
+            case TYPE_DATA_ENTRY:
+                ServerInfo serverInfo = serverList.get(position - 1);
 
-        int playerCountCurrent = serverInfo.getPlayerCountCurrent();
-        int playerCountCapacity = serverInfo.getPlayerCountCapacity();
+                ServerInfoViewHolder serverInfoViewHolder = (ServerInfoViewHolder) holder;
 
-        holder.serverStatus.setStatus(serverInfo.isOnline());
+                int playerCountCurrent = serverInfo.getPlayerCountCurrent();
+                int playerCountCapacity = serverInfo.getPlayerCountCapacity();
 
-        holder.serverName.setText(serverInfo.getServerName());
-        holder.numberOfPlayers.setText(
-                String.format(
-                        context
-                                .getResources()
-                                .getString(R.string.player_count),
-                        playerCountCurrent,
-                        playerCountCapacity
-                )
-        );
+                serverInfoViewHolder.serverStatus.setStatus(serverInfo.isOnline());
 
-        int playerCountRatio = (int) (((float) playerCountCurrent / (float) playerCountCapacity) * 100);
-        holder.numberOfPlayersProgressBar.setProgress(playerCountRatio);
-    }
+                serverInfoViewHolder.serverName.setText(serverInfo.getServerName());
+                serverInfoViewHolder.numberOfPlayers.setText(
+                        String.format(
+                                context
+                                        .getResources()
+                                        .getString(R.string.player_count),
+                                playerCountCurrent,
+                                playerCountCapacity
+                        )
+                );
 
-    @Override
-    public int getItemCount() {
-        return serverList.size();
+                int playerCountRatio = (int) (((float) playerCountCurrent / (float) playerCountCapacity) * 100);
+                serverInfoViewHolder.numberOfPlayersProgressBar.setProgress(playerCountRatio);
+                break;
+        }
+
+        super.onBindViewHolder(holder, position);
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {
