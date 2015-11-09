@@ -96,7 +96,9 @@ public class MeetupListFragment extends Fragment implements DataReceiver<Documen
     }
 
     public void resetMeetupList() {
-        meetupListAdapter.refreshAdapter(meetups);
+        if (meetupListAdapter != null) {
+            meetupListAdapter.refreshAdapter(meetups);
+        }
     }
 
     @Override
