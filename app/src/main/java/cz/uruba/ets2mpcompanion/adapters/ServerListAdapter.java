@@ -14,6 +14,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
 public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.ServerInfoViewHolder> {
     private Context context;
@@ -42,6 +43,8 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
         int playerCountCurrent = serverInfo.getPlayerCountCurrent();
         int playerCountCapacity = serverInfo.getPlayerCountCapacity();
 
+        holder.serverStatus.setStatus(serverInfo.isOnline());
+
         holder.serverName.setText(serverInfo.getServerName());
         holder.numberOfPlayers.setText(
                 String.format(
@@ -66,6 +69,7 @@ public class ServerListAdapter extends RecyclerView.Adapter<ServerListAdapter.Se
         @Bind(R.id.server_name) TextView serverName;
         @Bind(R.id.number_of_players) TextView numberOfPlayers;
         @Bind(R.id.number_of_players_progressbar) ProgressBar numberOfPlayersProgressBar;
+        @Bind(R.id.server_status) ServerStatusTextView serverStatus;
 
         public ServerInfoViewHolder(View itemView) {
             super(itemView);

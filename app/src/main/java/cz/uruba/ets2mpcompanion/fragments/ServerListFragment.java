@@ -73,11 +73,12 @@ public class ServerListFragment extends Fragment implements DataReceiver<String>
             for (int i = 0; i < responseArray.length(); i++) {
                 JSONObject item = responseArray.getJSONObject(i);
 
+                boolean online = item.getBoolean("online");
                 String name = item.getString("name");
                 int playerCountCurrent = item.getInt("players");
                 int playerCountCapacity = item.getInt("maxplayers");
 
-                ServerInfo serverInfo = new ServerInfo(name, playerCountCurrent, playerCountCapacity);
+                ServerInfo serverInfo = new ServerInfo(online, name, playerCountCurrent, playerCountCapacity);
                 serverList.add(serverInfo);
             }
         } catch(JSONException e) {
