@@ -11,22 +11,16 @@ public class ServerStatusTextView extends TextView {
     static final CharSequence TEXT_OFFLINE = "offline";
     static final CharSequence TEXT_ONLINE = "online";
 
-    Context context;
-
     public ServerStatusTextView(Context context) {
         super(context);
-        this.context = context;
     }
 
-    public ServerStatusTextView(Context context, AttributeSet attrs)
-    {
+    public ServerStatusTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        this.context = context;
     }
 
     public ServerStatusTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        this.context = context;
     }
 
     public void setStatus(boolean online) {
@@ -38,7 +32,7 @@ public class ServerStatusTextView extends TextView {
     }
 
     private void processAndSetText(CharSequence text, int colour) {
-        setTextColor(ContextCompat.getColor(context, colour));
+        setTextColor(ContextCompat.getColor(getContext(), colour));
 
         text = text.toString().toUpperCase();
         setText(text);
