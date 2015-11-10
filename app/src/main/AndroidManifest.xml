@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".widgets.ServerListWidget" >
+            <intent-filter>
+                <action android:name="cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/serverlist_widget_info" />
+        </receiver>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
