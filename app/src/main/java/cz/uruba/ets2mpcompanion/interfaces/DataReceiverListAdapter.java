@@ -64,7 +64,7 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
         switch (holder.getItemViewType()) {
             case TYPE_LAST_UPDATED:
                 LastUpdatedViewHolder lastUpdatedViewHolder = (LastUpdatedViewHolder) holder;
-                lastUpdatedViewHolder.setTextLastUpdated(context, callbackDataReceiver.getLastUpdated());
+                lastUpdatedViewHolder.lastUpdated.setTime(callbackDataReceiver.getLastUpdated());
                 break;
         }
     }
