@@ -2,21 +2,28 @@ package cz.uruba.ets2mpcompanion.tasks;
 
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
+import cz.uruba.ets2mpcompanion.model.ServerInfo;
 
-public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
-    private DataReceiver<String> callbackObject;
+public class FetchServerListTask extends AsyncTask<Void, Void, ArrayList<ServerInfo>> {
+    private DataReceiverJSON<ArrayList<ServerInfo>> callbackObject;
     private String requestURL;
     private boolean notifyUser;
 
-    public FetchHttpDataTask(DataReceiver<String> callbackObject, String requestURL, boolean notifyUser) {
+    public FetchServerListTask(DataReceiverJSON<ArrayList<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super();
         this.callbackObject = callbackObject;
         this.requestURL = requestURL;
@@ -32,8 +39,10 @@ public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... params) {
+    protected ArrayList<ServerInfo> doInBackground(Void... params) {
         InputStream is;
+
+        ArrayList<ServerInfo> serverList = new ArrayList<>();
 
         try {
             URL url = new URL(requestURL);
@@ -50,15 +59,33 @@ public class FetchHttpDataTask extends AsyncTask<Void, Void, String> {
 
             is.close();
 
-            return contentAsString;
+            JSONObject jsonObject = new JSONObject(contentAsString);
+            JSONArray responseArray = jsonObject.getJSONArray("response");
+
+            for (int i = 0; i < responseArray.length(); i++) {
+                JSONObject item = responseArray.getJSONObject(i);
+
+                boolean online = item.getBoolean("online");
+                String name = item.getString("name");
+                int playerCountCurrent = item.getInt("players");
+                int playerCountCapacity = item.getInt("maxplayers");
+
+                ServerInfo serverInfo = new ServerInfo(online, name, playerCountCurrent, playerCountCapacity);
+                serverList.add(serverInfo);
+            }
         } catch (IOException e) {
             callbackObject.handleIOException(e);
             return null;
+        } catch (JSONException e) {
+            callbackObject.handleJSONException(e);
+            return null;
         }
+
+        return serverList;
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(ArrayList<ServerInfo> result) {
         callbackObject.processData(result, notifyUser);
     }
 

@@ -10,9 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -24,10 +22,11 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
-import cz.uruba.ets2mpcompanion.tasks.FetchHttpDataTask;
+import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 
-public class ServerListFragment extends DataReceiverFragment<String> {
+public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInfo>> implements DataReceiverJSON<ArrayList<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
     @Bind(R.id.fab) FloatingActionButton fab;
 
@@ -54,35 +53,13 @@ public class ServerListFragment extends DataReceiverFragment<String> {
     }
 
     private void fetchServerList(boolean notifyUser) {
-        new FetchHttpDataTask(this, "http://api.ets2mp.com/servers/", notifyUser).execute();
+        new FetchServerListTask(this, "http://api.ets2mp.com/servers/", notifyUser).execute();
     }
 
     @Override
-    public void processData(String jsonSource, boolean notifyUser) {
-        if (jsonSource == null) {
+    public void processData(ArrayList<ServerInfo> serverList, boolean notifyUser) {
+        if (serverList.isEmpty()) {
             return;
-        }
-
-        ArrayList<ServerInfo> serverList = new ArrayList<>();
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonSource);
-            JSONArray responseArray = jsonObject.getJSONArray("response");
-
-            for (int i = 0; i < responseArray.length(); i++) {
-                JSONObject item = responseArray.getJSONObject(i);
-
-                boolean online = item.getBoolean("online");
-                String name = item.getString("name");
-                int playerCountCurrent = item.getInt("players");
-                int playerCountCapacity = item.getInt("maxplayers");
-
-                ServerInfo serverInfo = new ServerInfo(online, name, playerCountCurrent, playerCountCapacity);
-                serverList.add(serverInfo);
-            }
-        } catch(JSONException e) {
-            Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
         }
 
         lastUpdated = new Date();
@@ -102,6 +79,12 @@ public class ServerListFragment extends DataReceiverFragment<String> {
     @Override
     public void handleIOException(IOException e) {
         Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    @Override
+    public void handleJSONException(JSONException e) {
+        Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show();
     }
 }
