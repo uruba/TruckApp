@@ -21,6 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
+import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
@@ -53,7 +54,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
     }
 
     private void fetchServerList(boolean notifyUser) {
-        new FetchServerListTask(this, "http://api.ets2mp.com/servers/", notifyUser).execute();
+        new FetchServerListTask(this, URL.SERVER_LIST, notifyUser).execute();
     }
 
     @Override

@@ -19,13 +19,18 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".widgets.ServerListWidget" >
+        <receiver android:name=".widgets.ServerListWidget">
             <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH" />
             </intent-filter>
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/serverlist_widget_info" />
         </receiver>
+
+        <service android:name=".widgets.ServerListWidget$WidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
