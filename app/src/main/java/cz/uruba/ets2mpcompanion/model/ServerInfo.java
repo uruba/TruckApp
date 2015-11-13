@@ -1,6 +1,9 @@
 package cz.uruba.ets2mpcompanion.model;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
+
+import cz.uruba.ets2mpcompanion.R;
 
 public class ServerInfo implements Comparable<ServerInfo> {
     private boolean online;
@@ -34,5 +37,19 @@ public class ServerInfo implements Comparable<ServerInfo> {
     @Override
     public int compareTo(@NonNull ServerInfo another) {
         return this.playerCountCurrent - another.playerCountCurrent;
+    }
+
+    public String getFormattedPlayerCountString(Context context) {
+        return String.format(
+                context
+                        .getResources()
+                        .getString(R.string.player_count),
+                playerCountCurrent,
+                playerCountCapacity
+        );
+    }
+
+    public float getPlayerCountRatio() {
+        return ((float) playerCountCurrent / (float) playerCountCapacity) * 100;
     }
 }

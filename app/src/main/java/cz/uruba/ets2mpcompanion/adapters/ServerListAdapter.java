@@ -47,24 +47,11 @@ public class ServerListAdapter extends DataReceiverListAdapter {
 
                 ServerInfoViewHolder serverInfoViewHolder = (ServerInfoViewHolder) holder;
 
-                int playerCountCurrent = serverInfo.getPlayerCountCurrent();
-                int playerCountCapacity = serverInfo.getPlayerCountCapacity();
-
                 serverInfoViewHolder.serverStatus.setStatus(serverInfo.isOnline());
 
                 serverInfoViewHolder.serverName.setText(serverInfo.getServerName());
-                serverInfoViewHolder.numberOfPlayers.setText(
-                        String.format(
-                                context
-                                        .getResources()
-                                        .getString(R.string.player_count),
-                                playerCountCurrent,
-                                playerCountCapacity
-                        )
-                );
-
-                int playerCountRatio = (int) (((float) playerCountCurrent / (float) playerCountCapacity) * 100);
-                serverInfoViewHolder.numberOfPlayersProgressBar.setProgress(playerCountRatio);
+                serverInfoViewHolder.numberOfPlayers.setText(serverInfo.getFormattedPlayerCountString(context));
+                serverInfoViewHolder.numberOfPlayersProgressBar.setProgress((int) serverInfo.getPlayerCountRatio());
                 break;
         }
 
