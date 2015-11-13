@@ -9,4 +9,6 @@
 
     <dimen name="lastupdated_top_padding">10dp</dimen>
     <dimen name="lastupdated_bottom_padding">6dp</dimen>
+
+    <dimen name="widget_padding">10dp</dimen>
 </resources>

@@ -14,6 +14,7 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -79,6 +80,7 @@ public class ServerListWidget extends AppWidgetProvider {
         public void onDataSetChanged() {
             try {
                 serverList = new FetchServerListTask(this, URL.SERVER_LIST, false).execute().get();
+                Collections.sort(serverList, Collections.reverseOrder());
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
