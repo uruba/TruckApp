@@ -19,12 +19,14 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -124,7 +126,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
                 Collections.sort(serverList, Collections.reverseOrder());
                 RemoteViews rv = remoteViews.get(widgetID);
-                rv.setTextViewText(R.id.last_updated, DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(new Date()));
+                rv.setTextViewText(R.id.last_updated, String.format(context.getString(R.string.as_of), new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date())));
                 appWidgetManager.updateAppWidget(widgetID, rv);
 
                 if (!firstRun) {
