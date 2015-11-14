@@ -20,7 +20,7 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
     private List<MeetupInfo> meetupList;
 
     public MeetupListAdapter(List<MeetupInfo> meetupList, DataReceiver<?> callbackDataReceiver) {
-        super(meetupList, callbackDataReceiver);
+        super(callbackDataReceiver);
         this.meetupList = new ArrayList<>(meetupList);
     }
 
@@ -83,31 +83,35 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
                 addItem(i, meetup);
             }
         }
-
-        for (int toPosition = newMeetupList.size() - 1; toPosition >= 0; toPosition--) {
-            MeetupInfo meetup = newMeetupList.get(toPosition);
-            final int fromPosition = meetupList.indexOf(meetup);
-            if (fromPosition >= 0 && fromPosition != toPosition) {
-                moveItem(fromPosition, toPosition);
-            }
-        }
     }
 
     public MeetupInfo removeItem(int position) {
         MeetupInfo meetup = meetupList.remove(position);
-        notifyItemRemoved(++position);
+        notifyItemRemoved(position + 1);
         return meetup;
     }
 
     public void addItem(int position, MeetupInfo meetup) {
         meetupList.add(position, meetup);
-        notifyItemInserted(++position);
+        notifyItemInserted(position + 1);
     }
 
-    public void moveItem(int fromPosition, int toPosition) {
-        MeetupInfo meetup = meetupList.remove(fromPosition);
-        meetupList.add(toPosition, meetup);
-        notifyItemMoved(++fromPosition, ++toPosition);
+    // TODO: Find a way how to defer this method to the abstract parent
+    @Override
+    public int getItemViewType (int position) {
+        if (position == 0) {
+            return TYPE_LAST_UPDATED;
+        } else if (position == meetupList.size() + 1) {
+            return TYPE_FOOTER;
+        }
+
+        return TYPE_DATA_ENTRY;
+    }
+
+    // TODO: Find a way how to defer this method to the abstract parent
+    @Override
+    public int getItemCount() {
+        return meetupList.size() + 2;
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {

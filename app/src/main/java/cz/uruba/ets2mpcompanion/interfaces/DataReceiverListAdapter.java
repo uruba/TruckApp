@@ -23,10 +23,7 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
 
     protected DataReceiver<?> callbackDataReceiver;
 
-    protected List<?> receivedDataList;
-
-    public DataReceiverListAdapter(List<?> receivedDataList, DataReceiver<?> callbackDataReceiver) {
-        this.receivedDataList = receivedDataList;
+    public DataReceiverListAdapter(DataReceiver<?> callbackDataReceiver) {
         this.callbackDataReceiver = callbackDataReceiver;
     }
 
@@ -67,21 +64,5 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
                 lastUpdatedViewHolder.lastUpdated.setTime(callbackDataReceiver.getLastUpdated());
                 break;
         }
-    }
-
-    @Override
-    public int getItemViewType (int position) {
-        if (position == 0) {
-            return TYPE_LAST_UPDATED;
-        } else if (position == receivedDataList.size() + 1) {
-            return TYPE_FOOTER;
-        }
-
-        return TYPE_DATA_ENTRY;
-    }
-
-    @Override
-    public int getItemCount() {
-        return receivedDataList.size() + 2;
     }
 }
