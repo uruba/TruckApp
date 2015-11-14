@@ -10,6 +10,7 @@
     <dimen name="lastupdated_top_padding">10dp</dimen>
     <dimen name="lastupdated_bottom_padding">6dp</dimen>
 
-    <dimen name="widget_padding">10dp</dimen>
+    <dimen name="widget_padding_horizontal">10dp</dimen>
+    <dimen name="widget_padding_vertical">8dp</dimen>
     <dimen name="progress_bar_height_material">4dp</dimen>
 </resources>

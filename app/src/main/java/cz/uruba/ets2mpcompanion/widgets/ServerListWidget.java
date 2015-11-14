@@ -1,22 +1,32 @@
 package cz.uruba.ets2mpcompanion.widgets;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import cz.uruba.ets2mpcompanion.R;
@@ -29,8 +39,13 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 public class ServerListWidget extends AppWidgetProvider {
     static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
 
+    private static Map<Integer, RemoteViews> remoteViews = new HashMap<>();
+    private static AppWidgetManager appWidgetManager = null;
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIDs) {
+        ServerListWidget.appWidgetManager = appWidgetManager;
+
         for (int widgetID : widgetIDs) {
             Intent intent = new Intent(context, WidgetService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -39,11 +54,29 @@ public class ServerListWidget extends AppWidgetProvider {
 
             RemoteViews rv = new RemoteViews(context.getPackageName(),
                     R.layout.widget_serverlist);
+
+            Intent updateIntent = new Intent(context, getClass());
+            updateIntent.setAction(ACTION_REFRESH);
+            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID);
+            rv.setOnClickPendingIntent(R.id.refresh, PendingIntent.getBroadcast(context, widgetID, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+
             rv.setRemoteAdapter(R.id.widget_listview, intent);
 
             appWidgetManager.updateAppWidget(widgetID, rv);
+            remoteViews.put(widgetID, rv);
         }
         super.onUpdate(context, appWidgetManager, widgetIDs);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        if (intent.getAction().equals(ACTION_REFRESH)) {
+            int widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+
+            appWidgetManager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_listview);
+        }
     }
 
     public static class WidgetService extends RemoteViewsService {
@@ -67,6 +100,8 @@ public class ServerListWidget extends AppWidgetProvider {
 
         List<ServerInfo> serverList = new ArrayList<>();
 
+        boolean firstRun = true;
+
         public ServerListWidgetRemoteViewsFactory(Context context, Intent intent) {
             this.context = context;
             widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -82,7 +117,20 @@ public class ServerListWidget extends AppWidgetProvider {
         public void onDataSetChanged() {
             try {
                 serverList = new FetchServerListTask(this, URL.SERVER_LIST, false).execute().get();
+
+                if (serverList == null) {
+                    return;
+                }
+
                 Collections.sort(serverList, Collections.reverseOrder());
+                RemoteViews rv = remoteViews.get(widgetID);
+                rv.setTextViewText(R.id.last_updated, DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT).format(new Date()));
+                appWidgetManager.updateAppWidget(widgetID, rv);
+
+                if (!firstRun) {
+                    displayToast(context.getString(R.string.server_list_refreshed_widget));
+                    firstRun = false;
+                }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -90,12 +138,14 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void onDestroy() {
-            serverList.clear();
+            if (serverList != null) {
+                serverList.clear();
+            }
         }
 
         @Override
         public int getCount() {
-            return serverList.size();
+            return serverList == null ? 0 : serverList.size();
         }
 
         @Override
@@ -148,12 +198,23 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void handleIOException(IOException e) {
-
+            displayToast(context.getString(R.string.download_error));
         }
 
         @Override
         public Date getLastUpdated() {
             return null;
+        }
+
+        private void displayToast(final String text) {
+            Handler handler = new Handler(Looper.getMainLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context,
+                            text, Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }

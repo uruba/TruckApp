@@ -59,7 +59,8 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
     @Override
     public void processData(ArrayList<ServerInfo> serverList, boolean notifyUser) {
-        if (serverList.isEmpty()) {
+        if (serverList == null || serverList.isEmpty()) {
+            handleIOException(null);
             return;
         }
 
