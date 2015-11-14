@@ -3,7 +3,7 @@
     <item android:id="@android:id/background">
         <shape>
             <solid
-                android:color="@android:color/darker_gray" />
+                android:color="#5aaaaaaa" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
