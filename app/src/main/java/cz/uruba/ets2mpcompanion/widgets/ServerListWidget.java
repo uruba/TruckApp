@@ -129,6 +129,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
                 if (!firstRun) {
                     displayToast(context.getString(R.string.server_list_refreshed_widget));
+                } else {
                     firstRun = false;
                 }
             } catch (InterruptedException | ExecutionException e) {
