@@ -28,8 +28,8 @@
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="4dp"
+        android:layout_height="@dimen/progress_bar_height_material"
+        android:layout_marginTop="@dimen/progress_bar_height_material"
         android:id="@+id/number_of_players_progressbar"
         android:layout_below="@+id/number_of_players"
         android:progressDrawable="@drawable/widget_progressbar"
