@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
 import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
+import cz.uruba.ets2mpcompanion.utils.UI;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity
 
         setupViewPager(viewPager);
         tabsArea.setupWithViewPager(viewPager);
+
+        UI.setOverscrollEffectColour(getApplicationContext());
     }
 
     private void setupViewPager(ViewPager viewPager) {

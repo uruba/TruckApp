@@ -24,6 +24,7 @@ import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
+import cz.uruba.ets2mpcompanion.utils.UI;
 
 public class ServerListWidget extends AppWidgetProvider {
     static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
@@ -74,6 +75,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void onCreate() {
+            UI.setOverscrollEffectColour(context);
         }
 
         @Override

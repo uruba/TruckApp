@@ -25,6 +25,7 @@
         android:layout_height="match_parent"
         android:id="@+id/widget_listview"
         android:listSelector="@android:color/transparent"
+        android:overScrollMode="never"
         />
 
 </LinearLayout>
