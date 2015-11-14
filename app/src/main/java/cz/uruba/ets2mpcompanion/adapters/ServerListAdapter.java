@@ -1,5 +1,6 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.utils.UI;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
 public class ServerListAdapter extends DataReceiverListAdapter {
@@ -52,6 +54,7 @@ public class ServerListAdapter extends DataReceiverListAdapter {
                 serverInfoViewHolder.serverName.setText(serverInfo.getServerName());
                 serverInfoViewHolder.numberOfPlayers.setText(serverInfo.getFormattedPlayerCountString(context));
                 serverInfoViewHolder.numberOfPlayersProgressBar.setProgress((int) serverInfo.getPlayerCountRatio());
+                UI.setProgressBarColour(context, serverInfoViewHolder.numberOfPlayersProgressBar);
                 break;
         }
 
