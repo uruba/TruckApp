@@ -9,11 +9,11 @@ import android.widget.ProgressBar;
 
 import cz.uruba.ets2mpcompanion.R;
 
-public class UI {
+public class UICompat {
     public static final int DEFAULT_COLOUR = R.color.colorPrimary;
 
     public static void setOverscrollEffectColour(Context context) {
-        UI.setOverscrollEffectColour(context, UI.DEFAULT_COLOUR);
+        UICompat.setOverscrollEffectColour(context, UICompat.DEFAULT_COLOUR);
     }
 
     @SuppressWarnings("deprecation")
@@ -37,7 +37,7 @@ public class UI {
     }
 
     public static void setProgressBarColour(Context context, ProgressBar progressBar) {
-        UI.setProgressBarColour(context, progressBar, UI.DEFAULT_COLOUR);
+        UICompat.setProgressBarColour(context, progressBar, UICompat.DEFAULT_COLOUR);
     }
 
     @SuppressWarnings("deprecation")
