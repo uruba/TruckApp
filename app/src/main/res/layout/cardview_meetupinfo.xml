@@ -10,7 +10,7 @@
         android:id="@+id/meetup_card"
         android:layout_gravity="center"
         card_view:cardUseCompatPadding="true"
-        card_view:cardElevation="2dp"
+        card_view:cardElevation="3dp"
         card_view:cardCornerRadius="2dp">
 
         <RelativeLayout
