@@ -1,7 +1,6 @@
 package cz.uruba.ets2mpcompanion.fragments;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +32,7 @@ import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
 public class MeetupListFragment extends DataReceiverFragment<Document> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
-    @Bind(R.id.fab) FloatingActionButton fab;
+
 
     List<MeetupInfo> meetups = new ArrayList<>();
     MeetupListAdapter meetupListAdapter;
@@ -89,6 +88,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
     }
 
     private void fetchMeetupList(boolean notifyUser) {
+        showLoadingOverlay();
+
         new FetchJsoupDataTask(this, "http://ets2c.com/", notifyUser).execute();
     }
 
@@ -149,15 +150,19 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
         this.meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.meetupList.setAdapter(meetupListAdapter);
 
+        hideLoadingOverlay();
+
         if (notifyUser) {
-            Snackbar.make(this.meetupList, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT)
+            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT)
                     .setAction("Action", null).show();
         }
     }
 
     @Override
     public void handleIOException(IOException e) {
-        Snackbar.make(this.meetupList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
+        hideLoadingOverlayOnMainLooper();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 

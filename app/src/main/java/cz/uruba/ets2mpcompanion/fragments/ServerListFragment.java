@@ -2,7 +2,6 @@ package cz.uruba.ets2mpcompanion.fragments;
 
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +28,6 @@ import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 
 public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInfo>> implements DataReceiverJSON<ArrayList<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
-    @Bind(R.id.fab) FloatingActionButton fab;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +52,8 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
     }
 
     private void fetchServerList(boolean notifyUser) {
+        showLoadingOverlay();
+
         new FetchServerListTask(this, URL.SERVER_LIST, notifyUser).execute();
     }
 
@@ -72,21 +72,27 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
         this.serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.serverList.setAdapter(serverListAdapter);
 
+        hideLoadingOverlay();
+
         if (notifyUser) {
-            Snackbar.make(this.serverList, this.getResources().getString(R.string.server_list_refreshed), Snackbar.LENGTH_LONG)
+            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.server_list_refreshed), Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
     }
 
     @Override
     public void handleIOException(IOException e) {
-        Snackbar.make(this.serverList, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
+        hideLoadingOverlayOnMainLooper();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
 
     @Override
     public void handleJSONException(JSONException e) {
-        Snackbar.make(this.serverList, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
+        hideLoadingOverlayOnMainLooper();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show();
     }
 }
