@@ -42,12 +42,9 @@ public class ServerListWidget extends AppWidgetProvider {
     static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
 
     private static Map<Integer, RemoteViews> remoteViews = new HashMap<>();
-    private static AppWidgetManager appWidgetManager = null;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIDs) {
-        ServerListWidget.appWidgetManager = appWidgetManager;
-
         for (int widgetID : widgetIDs) {
             Intent intent = new Intent(context, WidgetService.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -77,7 +74,7 @@ public class ServerListWidget extends AppWidgetProvider {
         if (intent.getAction().equals(ACTION_REFRESH)) {
             int widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
 
-            appWidgetManager.notifyAppWidgetViewDataChanged(widgetID, R.id.widget_listview);
+            AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(widgetID, R.id.widget_listview);
         }
     }
 
@@ -127,7 +124,7 @@ public class ServerListWidget extends AppWidgetProvider {
                 Collections.sort(serverList, Collections.reverseOrder());
                 RemoteViews rv = remoteViews.get(widgetID);
                 rv.setTextViewText(R.id.last_updated, String.format(context.getString(R.string.as_of), new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date())));
-                appWidgetManager.updateAppWidget(widgetID, rv);
+                AppWidgetManager.getInstance(context).updateAppWidget(widgetID, rv);
 
                 if (!firstRun) {
                     displayToast(context.getString(R.string.server_list_refreshed_widget));
