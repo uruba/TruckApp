@@ -60,22 +60,9 @@ public class ServerListAdapter extends DataReceiverListAdapter {
         super.onBindViewHolder(holder, position);
     }
 
-    // TODO: Find a way how to defer this method to the abstract parent
     @Override
-    public int getItemViewType (int position) {
-        if (position == 0) {
-            return TYPE_LAST_UPDATED;
-        } else if (position == serverList.size() + 1) {
-            return TYPE_FOOTER;
-        }
-
-        return TYPE_DATA_ENTRY;
-    }
-
-    // TODO: Find a way how to defer this method to the abstract parent
-    @Override
-    public int getItemCount() {
-        return serverList.size() + 2;
+    protected int getDataCollectionSize() {
+        return serverList.size();
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {

@@ -65,4 +65,22 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
                 break;
         }
     }
+
+    abstract protected int getDataCollectionSize();
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0) {
+            return TYPE_LAST_UPDATED;
+        } else if (position == getDataCollectionSize() + 1) {
+            return TYPE_FOOTER;
+        }
+
+        return TYPE_DATA_ENTRY;
+    }
+
+    @Override
+    public int getItemCount() {
+        return getDataCollectionSize() + 2;
+    }
 }

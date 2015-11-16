@@ -96,22 +96,9 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
         notifyItemInserted(position + 1);
     }
 
-    // TODO: Find a way how to defer this method to the abstract parent
     @Override
-    public int getItemViewType (int position) {
-        if (position == 0) {
-            return TYPE_LAST_UPDATED;
-        } else if (position == meetupList.size() + 1) {
-            return TYPE_FOOTER;
-        }
-
-        return TYPE_DATA_ENTRY;
-    }
-
-    // TODO: Find a way how to defer this method to the abstract parent
-    @Override
-    public int getItemCount() {
-        return meetupList.size() + 2;
+    protected int getDataCollectionSize() {
+        return meetupList.size();
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {
