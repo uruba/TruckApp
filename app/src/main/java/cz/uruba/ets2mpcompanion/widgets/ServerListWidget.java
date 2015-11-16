@@ -56,6 +56,7 @@ public class ServerListWidget extends AppWidgetProvider {
         }
     }
 
+    // TODO – Find out if there is a way not to recreate the whole RemoteViews object in the ServerListWidgetRemoteViewsFactory.onDataSetChanged() method
     public static RemoteViews newRemoteViews(Context context, int widgetID) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_serverlist);
