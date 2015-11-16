@@ -18,4 +18,5 @@
     <string name="widget_title">ETS2MP Status</string>
     <string name="server_list_refreshed_widget">ETS2MP server list has been refreshed</string>
     <string name="as_of">As of %1$s</string>
+    <string name="not_available_now">Not available right now</string>
 </resources>

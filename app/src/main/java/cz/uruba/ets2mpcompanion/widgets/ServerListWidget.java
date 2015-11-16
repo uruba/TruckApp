@@ -189,7 +189,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void handleIOException(IOException e) {
-            refreshRemoteViews("Not available right now");
+            refreshRemoteViews(context.getString(R.string.not_available_now));
             displayToast(context.getString(R.string.download_error));
         }
 
