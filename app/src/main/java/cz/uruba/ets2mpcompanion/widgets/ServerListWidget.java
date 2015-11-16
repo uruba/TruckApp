@@ -37,28 +37,10 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 public class ServerListWidget extends AppWidgetProvider {
     static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
 
-    private static Map<Integer, RemoteViews> remoteViews = new HashMap<>();
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIDs) {
         for (int widgetID : widgetIDs) {
-            Intent intent = new Intent(context, WidgetService.class);
-            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                    widgetID);
-            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-
-            RemoteViews rv = new RemoteViews(context.getPackageName(),
-                    R.layout.widget_serverlist);
-
-            Intent updateIntent = new Intent(context, getClass());
-            updateIntent.setAction(ACTION_REFRESH);
-            updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID);
-            rv.setOnClickPendingIntent(R.id.refresh, PendingIntent.getBroadcast(context, widgetID, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-
-            rv.setRemoteAdapter(R.id.widget_listview, intent);
-
-            appWidgetManager.updateAppWidget(widgetID, rv);
-            remoteViews.put(widgetID, rv);
+            appWidgetManager.updateAppWidget(widgetID, newRemoteViews(context, widgetID));
         }
         super.onUpdate(context, appWidgetManager, widgetIDs);
     }
@@ -72,6 +54,25 @@ public class ServerListWidget extends AppWidgetProvider {
 
             AppWidgetManager.getInstance(context).notifyAppWidgetViewDataChanged(widgetID, R.id.widget_listview);
         }
+    }
+
+    public static RemoteViews newRemoteViews(Context context, int widgetID) {
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.widget_serverlist);
+
+        Intent intent = new Intent(context, WidgetService.class);
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                widgetID);
+        intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+
+        Intent updateIntent = new Intent(context, ServerListWidget.class);
+        updateIntent.setAction(ACTION_REFRESH);
+        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID);
+        remoteViews.setOnClickPendingIntent(R.id.refresh, PendingIntent.getBroadcast(context, widgetID, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+
+        remoteViews.setRemoteAdapter(R.id.widget_listview, intent);
+
+        return remoteViews;
     }
 
     public static class WidgetService extends RemoteViewsService {
@@ -95,8 +96,6 @@ public class ServerListWidget extends AppWidgetProvider {
 
         List<ServerInfo> serverList = new ArrayList<>();
 
-        boolean firstRun = true;
-
         public ServerListWidgetRemoteViewsFactory(Context context, Intent intent) {
             this.context = context;
             widgetID = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -118,15 +117,10 @@ public class ServerListWidget extends AppWidgetProvider {
                 }
 
                 Collections.sort(serverList, Collections.reverseOrder());
-                RemoteViews rv = remoteViews.get(widgetID);
-                rv.setTextViewText(R.id.last_updated, String.format(context.getString(R.string.as_of), new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date())));
-                AppWidgetManager.getInstance(context).updateAppWidget(widgetID, rv);
 
-                if (!firstRun) {
-                    displayToast(context.getString(R.string.server_list_refreshed_widget));
-                } else {
-                    firstRun = false;
-                }
+                refreshRemoteViews(String.format(context.getString(R.string.as_of), new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date())));
+
+                displayToast(context.getString(R.string.server_list_refreshed_widget));
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
@@ -194,12 +188,19 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void handleIOException(IOException e) {
+            refreshRemoteViews("Not available right now");
             displayToast(context.getString(R.string.download_error));
         }
 
         @Override
         public Date getLastUpdated() {
             return null;
+        }
+
+        private void refreshRemoteViews(String lastUpdatedText) {
+            RemoteViews remoteViews = ServerListWidget.newRemoteViews(context, widgetID);
+            remoteViews.setTextViewText(R.id.last_updated, lastUpdatedText);
+            AppWidgetManager.getInstance(context).updateAppWidget(widgetID, remoteViews);
         }
 
         private void displayToast(final String text) {
