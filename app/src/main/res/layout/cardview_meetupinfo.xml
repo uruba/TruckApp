@@ -9,7 +9,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/meetup_card"
         android:layout_gravity="center"
+        android:layout_marginBottom="2dp"
         card_view:cardUseCompatPadding="true"
+        card_view:cardPreventCornerOverlap="false"
         card_view:cardElevation="2dp"
         card_view:cardCornerRadius="2dp">
 

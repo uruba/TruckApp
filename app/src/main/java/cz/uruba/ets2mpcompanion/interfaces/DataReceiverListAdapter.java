@@ -46,7 +46,7 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
                 emptyView.setLayoutParams(
                         new ViewGroup.LayoutParams(
                                 ViewGroup.LayoutParams.MATCH_PARENT,
-                                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 90, context.getResources().getDisplayMetrics())
+                                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, context.getResources().getDisplayMetrics())
                         )
                 );
 
