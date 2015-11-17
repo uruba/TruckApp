@@ -26,6 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
+import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
@@ -90,7 +91,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
     private void fetchMeetupList(boolean notifyUser) {
         showLoadingOverlay();
 
-        new FetchJsoupDataTask(this, "http://ets2c.com/", notifyUser).execute();
+        new FetchJsoupDataTask(this, URL.MEETUP_LIST, notifyUser).execute();
     }
 
     public void resetMeetupList() {
