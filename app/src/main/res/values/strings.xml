@@ -19,4 +19,10 @@
     <string name="server_list_refreshed_widget">ETS2MP server list has been refreshed</string>
     <string name="as_of">As of %1$s</string>
     <string name="not_available_now">Not available right now</string>
+    <string name="LastUpdatedTextView_LAST_UPDATED">Last updated %1$s</string>
+    <string name="LastUpdatedTextView_AGO">%1$d %2$s ago</string>
+    <string name="LastUpdatedTextView_DAY">day</string>
+    <string name="LastUpdatedTextView_HOUR">hour</string>
+    <string name="LastUpdatedTextView_MINUTE">minute</string>
+    <string name="LastUpdatedTextView_JUST_NOW">just now</string>
 </resources>

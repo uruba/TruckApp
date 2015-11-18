@@ -1,6 +1,7 @@
 package cz.uruba.ets2mpcompanion.views;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -9,13 +10,15 @@ import android.widget.TextView;
 import java.lang.reflect.Array;
 import java.util.Date;
 
+import cz.uruba.ets2mpcompanion.R;
+
 public class LastUpdatedTextView extends TextView {
-    static final String LAST_UPDATED = "Last updated %1$s";
-    static final String AGO = "%1$d %2$s ago";
-    static final String DAY = "day";
-    static final String HOUR = "hour";
-    static final String MINUTE = "minute";
-    static final String JUST_NOW = "just now";
+    String LAST_UPDATED;
+    String AGO;
+    String DAY;
+    String HOUR;
+    String MINUTE;
+    String JUST_NOW;
 
     Date time;
 
@@ -25,15 +28,25 @@ public class LastUpdatedTextView extends TextView {
 
 
     public LastUpdatedTextView(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public LastUpdatedTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, Resources.getSystem().getIdentifier("textViewStyle", "attr", "android"));
     }
 
     public LastUpdatedTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        initStrings(context);
+    }
+
+    private void initStrings(Context context) {
+        LAST_UPDATED = context.getString(R.string.LastUpdatedTextView_LAST_UPDATED);
+        AGO = context.getString(R.string.LastUpdatedTextView_AGO);
+        DAY = context.getString(R.string.LastUpdatedTextView_DAY);
+        HOUR = context.getString(R.string.LastUpdatedTextView_HOUR);
+        MINUTE = context.getString(R.string.LastUpdatedTextView_MINUTE);
+        JUST_NOW = context.getString(R.string.LastUpdatedTextView_JUST_NOW);
     }
 
     @Override
