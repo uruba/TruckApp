@@ -12,7 +12,7 @@
     <string name="search_meetups_title">Filter meetups</string>
     <string name="participant_count_singular">%1$s participant</string>
     <string name="participant_count_plural">%1$s participants</string>
-    <string name="server_list_refreshed">The server list was refreshed.</string>
+    <string name="server_list_refreshed">The server list has been refreshed.</string>
     <string name="meetup_list_refreshed">The meetup list was refreshed.</string>
     <string name="last_updated">Last updated %1$s</string>
     <string name="widget_title">ETS2MP Status</string>
