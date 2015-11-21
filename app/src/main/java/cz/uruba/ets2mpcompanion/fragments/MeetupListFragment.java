@@ -78,7 +78,9 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                meetupListAdapter.refreshAdapter(meetups);
+                if (meetups.size() > 0) {
+                    meetupListAdapter.refreshAdapter(meetups);
+                }
                 return false;
             }
         });
@@ -174,6 +176,10 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
 
     @Override
     public boolean onQueryTextChange(String newText) {
+        if (meetups.size() < 1) {
+            return true;
+        }
+
         newText = newText.toLowerCase();
 
         List<MeetupInfo> filteredMeetups = new ArrayList<>();
