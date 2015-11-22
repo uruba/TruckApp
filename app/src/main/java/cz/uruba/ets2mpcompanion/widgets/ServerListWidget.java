@@ -111,7 +111,7 @@ public class ServerListWidget extends AppWidgetProvider {
         @Override
         public void onDataSetChanged() {
             try {
-                serverList = new FetchServerListTask(this, URL.SERVER_LIST, false).execute().get();
+                serverList = new FetchServerListTask(this, URL.SERVER_LIST, false).execute().get().getResult();
 
                 if (serverList == null) {
                     return;

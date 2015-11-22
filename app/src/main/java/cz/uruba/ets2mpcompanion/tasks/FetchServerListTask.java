@@ -16,18 +16,14 @@ import java.util.ArrayList;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
+import cz.uruba.ets2mpcompanion.interfaces.FetchTask;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public class FetchServerListTask extends AsyncTask<Void, Void, ArrayList<ServerInfo>> {
-    private DataReceiverJSON<ArrayList<ServerInfo>> callbackObject;
-    private String requestURL;
-    private boolean notifyUser;
+public class FetchServerListTask extends FetchTask<Void, Void, ArrayList<ServerInfo>, DataReceiverJSON<ArrayList<ServerInfo>>> {
 
     public FetchServerListTask(DataReceiverJSON<ArrayList<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
-        super();
-        this.callbackObject = callbackObject;
-        this.requestURL = requestURL;
-        this.notifyUser = notifyUser;
+        super(callbackObject, requestURL, notifyUser);
     }
 
     // Reads an InputStream and converts it to a String.
@@ -39,7 +35,7 @@ public class FetchServerListTask extends AsyncTask<Void, Void, ArrayList<ServerI
     }
 
     @Override
-    protected ArrayList<ServerInfo> doInBackground(Void... params) {
+    protected AsyncTaskResult<ArrayList<ServerInfo>> doInBackground(Void... params) {
         InputStream is;
 
         ArrayList<ServerInfo> serverList = new ArrayList<>();
@@ -74,19 +70,21 @@ public class FetchServerListTask extends AsyncTask<Void, Void, ArrayList<ServerI
                 serverList.add(serverInfo);
             }
         } catch (IOException e) {
-            callbackObject.handleIOException(e);
-            return null;
+            return new AsyncTaskResult<>(e);
         } catch (JSONException e) {
-            callbackObject.handleJSONException(e);
-            return null;
+            return new AsyncTaskResult<>(e);
         }
 
-        return serverList;
+        return new AsyncTaskResult<>(serverList);
     }
 
     @Override
-    protected void onPostExecute(ArrayList<ServerInfo> result) {
-        callbackObject.processData(result, notifyUser);
+    protected void handleExceptionPostExecute(Exception e) {
+        if (e instanceof  IOException) {
+            callbackObject.handleIOException((IOException) e);
+        }
+        if (e instanceof JSONException) {
+            callbackObject.handleJSONException((JSONException) e);
+        }
     }
-
 }

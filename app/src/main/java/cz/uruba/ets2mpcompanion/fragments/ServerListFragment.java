@@ -82,7 +82,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
     @Override
     public void handleIOException(IOException e) {
-        hideLoadingOverlayOnMainLooper();
+        hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
@@ -90,7 +90,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
     @Override
     public void handleJSONException(JSONException e) {
-        hideLoadingOverlayOnMainLooper();
+        hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT)
                 .setAction("Action", null).show();

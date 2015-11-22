@@ -8,31 +8,30 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.FetchTask;
+import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public class FetchJsoupDataTask extends AsyncTask<Void, Void, Document> {
-    private DataReceiver<Document> callbackObject;
-    private String requestURL;
-    private boolean notifyUser;
+public class FetchJsoupDataTask extends FetchTask<Void, Void, Document, DataReceiver<Document>> {
+
 
     public FetchJsoupDataTask(DataReceiver<Document> callbackObject, String requestURL, boolean notifyUser) {
-        super();
-        this.callbackObject = callbackObject;
-        this.requestURL = requestURL;
-        this.notifyUser = notifyUser;
+        super(callbackObject, requestURL, notifyUser);
     }
 
     @Override
-    protected Document doInBackground(Void... params) {
+    protected AsyncTaskResult<Document> doInBackground(Void... params) {
         try {
-            return Jsoup.connect(requestURL).get();
+            Document document = Jsoup.connect(requestURL).get();
+            return new AsyncTaskResult<>(document);
         } catch (IOException e) {
-            callbackObject.handleIOException(e);
-            return null;
+            return new AsyncTaskResult<>(e);
         }
     }
 
     @Override
-    protected  void onPostExecute(Document result) {
-        callbackObject.processData(result, notifyUser);
+    protected void handleExceptionPostExecute(Exception e) {
+        if (e instanceof  IOException) {
+            callbackObject.handleIOException((IOException) e);
+        }
     }
 }

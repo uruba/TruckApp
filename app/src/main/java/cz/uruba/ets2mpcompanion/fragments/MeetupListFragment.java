@@ -163,7 +163,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
 
     @Override
     public void handleIOException(IOException e) {
-        hideLoadingOverlayOnMainLooper();
+        hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();

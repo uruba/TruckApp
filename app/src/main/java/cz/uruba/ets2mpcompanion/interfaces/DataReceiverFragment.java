@@ -45,16 +45,6 @@ public abstract class DataReceiverFragment<T> extends Fragment implements DataRe
         fab.show(fabStateChangeListener.loadingOverlayHidden());
     }
 
-    protected void hideLoadingOverlayOnMainLooper() {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                hideLoadingOverlay();
-            }
-        });
-    }
-
     protected static class FABStateChangeListener extends FloatingActionButton.OnVisibilityChangedListener {
         private boolean isLoadingOverlayShown = false;
 
