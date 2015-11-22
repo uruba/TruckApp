@@ -42,6 +42,8 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
             }
         });
 
+        serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+
         fetchServerList();
 
         return view;
@@ -69,7 +71,6 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
         Collections.sort(serverList, Collections.reverseOrder());
 
         ServerListAdapter serverListAdapter = new ServerListAdapter(serverList, this);
-        this.serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.serverList.setAdapter(serverListAdapter);
 
         hideLoadingOverlay();

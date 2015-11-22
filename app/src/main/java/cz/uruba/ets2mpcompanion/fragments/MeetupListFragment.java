@@ -53,6 +53,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
             }
         });
 
+        meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+
         fetchMeetupList();
 
         return view;
@@ -150,7 +152,6 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
         lastUpdated = new Date();
 
         meetupListAdapter = new MeetupListAdapter(meetups, this);
-        this.meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
         this.meetupList.setAdapter(meetupListAdapter);
 
         hideLoadingOverlay();
