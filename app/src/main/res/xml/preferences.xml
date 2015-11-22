@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <cz.uruba.ets2mpcompanion.preferences.ColorPickerPreference
+        android:key="checkbox_theme_colour"
+        android:title="@string/settings_title_theme_colour" />
+
+</PreferenceScreen>
