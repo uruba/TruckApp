@@ -16,6 +16,8 @@
             android:layout_height="match_parent"
             android:id="@+id/recyclerview_meetuplist" />
 
+        <include layout="@layout/placeholder_empty_list" />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"

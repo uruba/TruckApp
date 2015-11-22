@@ -7,7 +7,6 @@ import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
 import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.R;

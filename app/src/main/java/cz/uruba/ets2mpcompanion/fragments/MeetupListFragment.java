@@ -31,12 +31,10 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
-public class MeetupListFragment extends DataReceiverFragment<Document> implements SearchView.OnQueryTextListener {
+public class MeetupListFragment extends DataReceiverFragment<Document, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
-
     List<MeetupInfo> meetups = new ArrayList<>();
-    MeetupListAdapter meetupListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,8 +53,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
 
         meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
 
-        meetupListAdapter = new MeetupListAdapter(meetups, this);
-        this.meetupList.setAdapter(meetupListAdapter);
+        listAdapter = new MeetupListAdapter(meetups, this);
+        meetupList.setAdapter(listAdapter);
 
         fetchMeetupList();
 
@@ -84,7 +82,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
             @Override
             public boolean onClose() {
                 if (meetups.size() > 0) {
-                    meetupListAdapter.refreshAdapter(meetups);
+                    listAdapter.refreshAdapter(meetups);
                 }
                 return false;
             }
@@ -102,8 +100,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
     }
 
     public void resetMeetupList() {
-        if (meetupListAdapter != null) {
-            meetupListAdapter.refreshAdapter(meetups);
+        if(listAdapter != null) {
+            listAdapter.refreshAdapter(meetups);
         }
     }
 
@@ -154,7 +152,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
 
         lastUpdated = new Date();
 
-        meetupListAdapter.setDataCollection(meetups);
+        listAdapter.setDataCollection(meetups);
 
         hideLoadingOverlay();
 
@@ -177,6 +175,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
         return false;
     }
 
+    // TODO – Seems that the refactoring broke the filtering part a little – FIX IT
     @Override
     public boolean onQueryTextChange(String newText) {
         if (meetups.size() < 1) {
@@ -201,7 +200,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document> implement
             }
         }
 
-        meetupListAdapter.refreshAdapter(filteredMeetups);
+        listAdapter.refreshAdapter(filteredMeetups);
         meetupList.scrollToPosition(0);
 
         return true;

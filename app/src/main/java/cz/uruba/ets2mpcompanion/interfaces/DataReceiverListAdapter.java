@@ -14,7 +14,7 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.EmptyViewHolder;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
 
-public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class DataReceiverListAdapter<T extends List> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
     protected static final int TYPE_LAST_UPDATED = 1;
     protected static final int TYPE_FOOTER = 2;
@@ -23,7 +23,10 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
 
     protected DataReceiver<?> callbackDataReceiver;
 
-    public DataReceiverListAdapter(DataReceiver<?> callbackDataReceiver) {
+    protected T dataCollection;
+
+    public DataReceiverListAdapter(T dataCollection, DataReceiver<?> callbackDataReceiver) {
+        this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;
     }
 
@@ -66,7 +69,18 @@ public abstract class DataReceiverListAdapter extends RecyclerView.Adapter<Recyc
         }
     }
 
-    abstract protected int getDataCollectionSize();
+    public T getDataCollection() {
+        return dataCollection;
+    }
+
+    public void setDataCollection(T newCollection) {
+        dataCollection = newCollection;
+        notifyDataSetChanged();
+    }
+
+    public int getDataCollectionSize() {
+        return dataCollection.size();
+    }
 
     @Override
     public int getItemViewType(int position) {

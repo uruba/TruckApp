@@ -1,7 +1,5 @@
 package cz.uruba.ets2mpcompanion.tasks;
 
-import android.os.AsyncTask;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 

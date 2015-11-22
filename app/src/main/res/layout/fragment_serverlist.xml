@@ -17,6 +17,8 @@
             android:layout_height="match_parent"
             android:id="@+id/recyclerview_serverlist" />
 
+        <include layout="@layout/placeholder_empty_list" />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
@@ -24,6 +26,6 @@
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_refresh" />
 
-    <include layout="@layout/overlay_loading"/>
+    <include layout="@layout/overlay_loading" />
 
 </FrameLayout>

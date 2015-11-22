@@ -23,4 +23,5 @@
     <string name="LastUpdatedTextView_MINUTE">minute</string>
     <string name="LastUpdatedTextView_JUST_NOW">just now</string>
     <string name="settings_title_theme_colour">Theme color</string>
+    <string name="data_not_loaded">Data not loaded</string>
 </resources>

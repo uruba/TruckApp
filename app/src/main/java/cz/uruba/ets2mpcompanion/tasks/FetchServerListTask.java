@@ -1,7 +1,5 @@
 package cz.uruba.ets2mpcompanion.tasks;
 
-import android.os.AsyncTask;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.FetchTask;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;

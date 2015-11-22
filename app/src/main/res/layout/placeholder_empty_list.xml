@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="@string/data_not_loaded"
+    android:visibility="gone"
+    android:id="@+id/text_empty_list"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
