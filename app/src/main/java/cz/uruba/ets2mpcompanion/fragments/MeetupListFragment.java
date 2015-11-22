@@ -53,7 +53,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
         meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
 
-        listAdapter = new MeetupListAdapter(meetups, this);
+        listAdapter = new MeetupListAdapter(new ArrayList<MeetupInfo>(), this);
         meetupList.setAdapter(listAdapter);
 
         fetchMeetupList();
@@ -152,7 +152,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
         lastUpdated = new Date();
 
-        listAdapter.setDataCollection(meetups);
+        listAdapter.setDataCollection(new ArrayList<>(meetups));
 
         hideLoadingOverlay();
 
