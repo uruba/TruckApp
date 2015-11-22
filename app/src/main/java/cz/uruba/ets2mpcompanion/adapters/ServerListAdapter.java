@@ -18,12 +18,10 @@ import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
-public class ServerListAdapter extends DataReceiverListAdapter {
-    private List<ServerInfo> serverList;
+public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
 
-    public ServerListAdapter(List<ServerInfo> serverList, DataReceiver<?> callbackDataReceiver) {
-        super(callbackDataReceiver);
-        this.serverList = serverList;
+    public ServerListAdapter(List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+        super(dataCollection, callbackDataReceiver);
     }
 
     @Override
@@ -44,7 +42,7 @@ public class ServerListAdapter extends DataReceiverListAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_DATA_ENTRY:
-                ServerInfo serverInfo = serverList.get(position - 1);
+                ServerInfo serverInfo = dataCollection.get(position - 1);
 
                 ServerInfoViewHolder serverInfoViewHolder = (ServerInfoViewHolder) holder;
 
@@ -58,11 +56,6 @@ public class ServerListAdapter extends DataReceiverListAdapter {
         }
 
         super.onBindViewHolder(holder, position);
-    }
-
-    @Override
-    protected int getDataCollectionSize() {
-        return serverList.size();
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {

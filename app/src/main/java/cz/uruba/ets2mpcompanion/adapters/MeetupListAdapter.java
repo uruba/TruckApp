@@ -16,12 +16,10 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
-public class MeetupListAdapter extends DataReceiverListAdapter {
-    private List<MeetupInfo> meetupList;
+public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>> {
 
-    public MeetupListAdapter(List<MeetupInfo> meetupList, DataReceiver<?> callbackDataReceiver) {
-        super(callbackDataReceiver);
-        this.meetupList = new ArrayList<>(meetupList);
+    public MeetupListAdapter(List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+        super(dataCollection, callbackDataReceiver);
     }
 
     @Override
@@ -44,7 +42,7 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_DATA_ENTRY:
-                MeetupInfo meetupInfo = meetupList.get(position - 1);
+                MeetupInfo meetupInfo = dataCollection.get(position - 1);
 
                 MeetupInfoViewHolder meetupInfoViewHolder = (MeetupInfoViewHolder) holder;
 
@@ -70,8 +68,8 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
     }
 
     public void refreshAdapter(List<MeetupInfo> newMeetupList) {
-        for (int i = meetupList.size() - 1; i >= 0; i--) {
-            MeetupInfo meetup = meetupList.get(i);
+        for (int i = dataCollection.size() - 1; i >= 0; i--) {
+            MeetupInfo meetup = dataCollection.get(i);
             if (!newMeetupList.contains(meetup)) {
                 removeItem(i);
             }
@@ -79,26 +77,21 @@ public class MeetupListAdapter extends DataReceiverListAdapter {
 
         for (int i = 0, count = newMeetupList.size(); i < count; i++) {
             MeetupInfo meetup = newMeetupList.get(i);
-            if (!meetupList.contains(meetup)) {
+            if (!dataCollection.contains(meetup)) {
                 addItem(i, meetup);
             }
         }
     }
 
     public MeetupInfo removeItem(int position) {
-        MeetupInfo meetup = meetupList.remove(position);
+        MeetupInfo meetup = dataCollection.remove(position);
         notifyItemRemoved(position + 1);
         return meetup;
     }
 
     public void addItem(int position, MeetupInfo meetup) {
-        meetupList.add(position, meetup);
+        dataCollection.add(position, meetup);
         notifyItemInserted(position + 1);
-    }
-
-    @Override
-    protected int getDataCollectionSize() {
-        return meetupList.size();
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {

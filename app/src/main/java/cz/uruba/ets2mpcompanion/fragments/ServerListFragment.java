@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,11 +24,15 @@ import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
+import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 
 public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInfo>> implements DataReceiverJSON<ArrayList<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
+
+    List<ServerInfo> servers = new ArrayList<>();
+    ServerListAdapter serverListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +48,9 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
         });
 
         serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
+
+        serverListAdapter = new ServerListAdapter(servers, this);
+        this.serverList.setAdapter(serverListAdapter);
 
         fetchServerList();
 
@@ -66,12 +74,13 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
             return;
         }
 
+        servers = serverList;
+        serverListAdapter.notifyDataSetChanged();
+
         lastUpdated = new Date();
 
-        Collections.sort(serverList, Collections.reverseOrder());
-
-        ServerListAdapter serverListAdapter = new ServerListAdapter(serverList, this);
-        this.serverList.setAdapter(serverListAdapter);
+        Collections.sort(servers, Collections.reverseOrder());
+        serverListAdapter.setDataCollection(servers);
 
         hideLoadingOverlay();
 
