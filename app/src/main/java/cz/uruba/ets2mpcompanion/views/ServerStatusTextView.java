@@ -33,7 +33,7 @@ public class ServerStatusTextView extends TextView {
         if (online) {
             processAndSetText(TEXT_ONLINE, textColourOnline == -1 ? ContextCompat.getColor(getContext(), R.color.colorPrimaryDark) : textColourOnline);
         } else {
-            processAndSetText(TEXT_OFFLINE, android.R.color.darker_gray);
+            processAndSetText(TEXT_OFFLINE, ContextCompat.getColor(getContext(), android.R.color.darker_gray));
         }
     }
 
