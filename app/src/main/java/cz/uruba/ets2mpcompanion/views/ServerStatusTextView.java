@@ -11,6 +11,8 @@ public class ServerStatusTextView extends TextView {
     static final CharSequence TEXT_OFFLINE = "offline";
     static final CharSequence TEXT_ONLINE = "online";
 
+    int textColourOnline = -1;
+
     public ServerStatusTextView(Context context) {
         super(context);
     }
@@ -23,16 +25,20 @@ public class ServerStatusTextView extends TextView {
         super(context, attrs, defStyle);
     }
 
+    public void setTextColourOnline(int colour) {
+        textColourOnline = colour;
+    }
+
     public void setStatus(boolean online) {
         if (online) {
-            processAndSetText(TEXT_ONLINE, R.color.colorPrimaryDark);
+            processAndSetText(TEXT_ONLINE, textColourOnline == -1 ? ContextCompat.getColor(getContext(), R.color.colorPrimaryDark) : textColourOnline);
         } else {
             processAndSetText(TEXT_OFFLINE, android.R.color.darker_gray);
         }
     }
 
     private void processAndSetText(CharSequence text, int colour) {
-        setTextColor(ContextCompat.getColor(getContext(), colour));
+        setTextColor(colour);
 
         text = text.toString().toUpperCase();
         setText(text);

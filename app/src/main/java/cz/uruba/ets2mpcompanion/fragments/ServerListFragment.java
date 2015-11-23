@@ -44,7 +44,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
         serverList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
 
-        listAdapter = new ServerListAdapter(new ArrayList<ServerInfo>(), this);
+        listAdapter = new ServerListAdapter(getContext(), new ArrayList<ServerInfo>(), this);
         serverList.setAdapter(listAdapter);
 
         fetchServerList();

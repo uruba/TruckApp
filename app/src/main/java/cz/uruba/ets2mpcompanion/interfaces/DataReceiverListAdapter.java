@@ -25,16 +25,15 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
 
     protected T dataCollection;
 
-    public DataReceiverListAdapter(T dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public DataReceiverListAdapter(Context context, T dataCollection, DataReceiver<?> callbackDataReceiver) {
+        this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        context = parent.getContext();
-
-        View itemView;
+                View itemView;
 
         switch (viewType) {
             case TYPE_LAST_UPDATED:

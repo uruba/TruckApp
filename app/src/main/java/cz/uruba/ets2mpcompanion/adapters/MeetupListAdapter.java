@@ -1,5 +1,6 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +18,8 @@ import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
 public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>> {
 
-    public MeetupListAdapter(List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
-        super(dataCollection, callbackDataReceiver);
+    public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+        super(context, dataCollection, callbackDataReceiver);
     }
 
     @Override

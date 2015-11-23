@@ -53,7 +53,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
         meetupList.setLayoutManager(new LinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL, false));
 
-        listAdapter = new MeetupListAdapter(new ArrayList<MeetupInfo>(), this);
+        listAdapter = new MeetupListAdapter(getContext(), new ArrayList<MeetupInfo>(), this);
         meetupList.setAdapter(listAdapter);
 
         fetchMeetupList();

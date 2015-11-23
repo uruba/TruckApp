@@ -1,6 +1,11 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +24,14 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
 public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
+    int textColourOnline;
 
-    public ServerListAdapter(List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
-        super(dataCollection, callbackDataReceiver);
+    public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+        super(context, dataCollection, callbackDataReceiver);
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        textColourOnline = typedValue.data;
     }
 
     @Override
@@ -32,7 +42,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                         .from(context)
                         .inflate(R.layout.cardview_serverinfo, parent, false);
 
-                return new ServerInfoViewHolder(itemView);
+                return new ServerInfoViewHolder(itemView, textColourOnline);
         }
 
         return super.onCreateViewHolder(parent, viewType);
@@ -64,9 +74,10 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
         @Bind(R.id.number_of_players_progressbar) ProgressBar numberOfPlayersProgressBar;
         @Bind(R.id.server_status) ServerStatusTextView serverStatus;
 
-        public ServerInfoViewHolder(View itemView) {
+        public ServerInfoViewHolder(View itemView, int textColourOnline) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            serverStatus.setTextColourOnline(textColourOnline);
         }
     }
 }
