@@ -1,11 +1,7 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +24,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = context.getTheme();
-        theme.resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
-        textColourOnline = typedValue.data;
+        textColourOnline = UICompat.getThemeColour(context, R.attr.colorPrimaryDark);
     }
 
     @Override

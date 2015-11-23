@@ -37,7 +37,7 @@ public class MainActivity extends ThemedActivity {
         tabsArea.setupWithViewPager(viewPager);
 
 
-        UICompat.setOverscrollEffectColour(getApplicationContext());
+        UICompat.setOverscrollEffectColour(this);
     }
 
     @Override
