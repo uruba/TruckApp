@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <CheckBoxPreference
+        android:key="preference_custom_theme"
+        android:title="Use a custom theme" />
+
     <cz.uruba.ets2mpcompanion.preferences.ColorPickerPreference
-        android:key="checkbox_theme_colour"
-        android:title="@string/settings_title_theme_colour" />
+        android:key="preference_theme_colour"
+        android:title="@string/settings_title_theme_colour"
+        android:summary="Choose the theme color"
+        android:entries="@array/themes_labels"
+        android:entryValues="@array/themes_style_names"
+        android:dependency="preference_custom_theme"/>
 
 </PreferenceScreen>

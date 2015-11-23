@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="themes_labels">
+        <item>Red</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item>Deep purple</item>
+        <item>Indigo</item>
+        <item>Blue</item>
+        <item>Light blue</item>
+        <item>Cyan</item>
+        <item>Teal</item>
+        <item>Green</item>
+        <item>Light green</item>
+        <item>Lime</item>
+        <item>Yellow</item>
+        <item>Amber</item>
+        <item>Deep orange</item>
+    </string-array>
+    <string-array name="themes_style_names">
+        <item>RedTheme</item>
+        <item>PinkTheme</item>
+        <item>PurpleTheme</item>
+        <item>DeepPurpleTheme</item>
+        <item>IndigoTheme</item>
+        <item>BlueTheme</item>
+        <item>LightBlueTheme</item>
+        <item>CyanTheme</item>
+        <item>TealTheme</item>
+        <item>GreenTheme</item>
+        <item>LightGreenTheme</item>
+        <item>LimeTheme</item>
+        <item>YellowTheme</item>
+        <item>AmberTheme</item>
+        <item>DeepOrangeTheme</item>
+    </string-array>
+</resources>

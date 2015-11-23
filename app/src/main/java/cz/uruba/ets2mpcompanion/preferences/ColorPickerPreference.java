@@ -1,16 +1,30 @@
 package cz.uruba.ets2mpcompanion.preferences;
 
 import android.content.Context;
-import android.preference.DialogPreference;
+import android.preference.ListPreference;
 import android.util.AttributeSet;
+import android.view.View;
 
-import cz.uruba.ets2mpcompanion.R;
+import butterknife.ButterKnife;
 
-public class ColorPickerPreference extends DialogPreference {
+public class ColorPickerPreference extends ListPreference {
 
     public ColorPickerPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setDialogLayoutResource(R.layout.dialog_settings_themecolour);
+
+    }
+
+    @Override
+    protected void onBindDialogView(View view) {
+        ButterKnife.bind(this, view);
+
+        super.onBindDialogView(view);
+    }
+
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        super.onDialogClosed(positiveResult);
+
     }
 
 }
