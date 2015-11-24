@@ -92,4 +92,9 @@ public class MainActivity extends ThemedActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
