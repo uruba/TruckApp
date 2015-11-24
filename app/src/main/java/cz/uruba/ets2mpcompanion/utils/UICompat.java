@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 import cz.uruba.ets2mpcompanion.R;
 
 public class UICompat {
-    public static final int DEFAULT_COLOUR = R.color.colorPrimary;
+    public static final int DEFAULT_COLOUR = R.color.AppTheme_colorPrimary;
 
     public static int getThemeColour(Context context, int attr) {
         TypedValue typedValue = new TypedValue();

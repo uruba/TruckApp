@@ -10,7 +10,7 @@
         <clip>
             <shape>
                 <solid
-                    android:color="@color/colorPrimary" />
+                    android:color="@color/AppTheme_colorPrimary" />
             </shape>
         </clip>
     </item>

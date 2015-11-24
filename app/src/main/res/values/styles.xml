@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/AppTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/AppTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/AppTheme_colorAccent</item>
+        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -13,110 +14,207 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/AppTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/AppTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/AppTheme_colorAccent</item>
+    </style>
 
+    <!-- Other themes' definitions -->
     <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#f44336</item>
-        <item name="colorPrimaryDark">#d32f2f</item>
-        <item name="colorAccent">#ff5252</item>
+        <item name="colorPrimary">@color/RedTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/RedTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/RedTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/RedTheme.AlertDialog</item>
     </style>
 
     <style name="PinkTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#e91e63</item>
-        <item name="colorPrimaryDark">#c2185b</item>
-        <item name="colorAccent">#ff4081</item>
+        <item name="colorPrimary">@color/PinkTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/PinkTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/PinkTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/PinkTheme.AlertDialog</item>
     </style>
 
     <style name="PurpleTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#9c27b0</item>
-        <item name="colorPrimaryDark">#7b1fa2</item>
-        <item name="colorAccent">#e040fb</item>
+        <item name="colorPrimary">@color/PurpleTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/PurpleTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/PurpleTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/PurpleTheme.AlertDialog</item>
     </style>
 
     <style name="DeepPurpleTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#673ab7</item>
-        <item name="colorPrimaryDark">#512da8</item>
-        <item name="colorAccent">#7c4dff</item>
+        <item name="colorPrimary">@color/DeepPurpleTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/DeepPurpleTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/DeepPurpleTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/DeepPurpleTheme.AlertDialog</item>
     </style>
 
     <style name="IndigoTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#3f51b5</item>
-        <item name="colorPrimaryDark">#303f9f</item>
-        <item name="colorAccent">#536dfe</item>
+        <item name="colorPrimary">@color/IndigoTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/IndigoTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/IndigoTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/IndigoTheme.AlertDialog</item>
     </style>
 
     <style name="BlueTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#2196f3</item>
-        <item name="colorPrimaryDark">#1976d2</item>
-        <item name="colorAccent">#448aff</item>
+        <item name="colorPrimary">@color/BlueTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/BlueTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/BlueTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/BlueTheme.AlertDialog</item>
     </style>
 
     <style name="LightBlueTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#03a9f4</item>
-        <item name="colorPrimaryDark">#0288d1</item>
-        <item name="colorAccent">#40c4ff</item>
+        <item name="colorPrimary">@color/LightBlueTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LightBlueTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LightBlueTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/LightBlueTheme.AlertDialog</item>
     </style>
 
     <style name="CyanTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#00bcd4</item>
-        <item name="colorPrimaryDark">#0097a7</item>
-        <item name="colorAccent">#18ffff</item>
+        <item name="colorPrimary">@color/CyanTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/CyanTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/CyanTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/CyanTheme.AlertDialog</item>
     </style>
 
     <style name="TealTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#009688</item>
-        <item name="colorPrimaryDark">#00796b</item>
-        <item name="colorAccent">#64ffda</item>
+        <item name="colorPrimary">@color/TealTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/TealTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/TealTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/TealTheme.AlertDialog</item>
     </style>
 
     <style name="GreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#4caf50</item>
-        <item name="colorPrimaryDark">#388e3c</item>
-        <item name="colorAccent">#69f0ae</item>
+        <item name="colorPrimary">@color/GreenTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/GreenTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/GreenTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/GreenTheme.AlertDialog</item>
     </style>
 
     <style name="LightGreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#8bc34a</item>
-        <item name="colorPrimaryDark">#689f38</item>
-        <item name="colorAccent">#b2ff59</item>
+        <item name="colorPrimary">@color/LightGreenTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LightGreenTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LightGreenTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/LightGreenTheme.AlertDialog</item>
     </style>
 
     <style name="LimeTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#cddc39</item>
-        <item name="colorPrimaryDark">#afb42b</item>
-        <item name="colorAccent">#eeff41</item>
+        <item name="colorPrimary">@color/LimeTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LimeTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LimeTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/LimeTheme.AlertDialog</item>
     </style>
 
     <style name="YellowTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffeb3b</item>
-        <item name="colorPrimaryDark">#fbc02d</item>
-        <item name="colorAccent">#ffff00</item>
+        <item name="colorPrimary">@color/YellowTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/YellowTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/YellowTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/YellowTheme.AlertDialog</item>
     </style>
 
     <style name="AmberTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffc107</item>
-        <item name="colorPrimaryDark">#ffa000</item>
-        <item name="colorAccent">#ffd740</item>
+        <item name="colorPrimary">@color/AmberTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/AmberTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/AmberTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/AmberTheme.AlertDialog</item>
     </style>
 
     <style name="DeepOrangeTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ff5722</item>
-        <item name="colorPrimaryDark">#e64a19</item>
-        <item name="colorAccent">#ff6e40</item>
+        <item name="colorPrimary">@color/DeepOrangeTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/DeepOrangeTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/DeepOrangeTheme_colorAccent</item>
+        <item name="android:alertDialogTheme">@style/DeepOrangeTheme.AlertDialog</item>
+    </style>
+
+    <!-- AlertDialog styles for other themes -->
+    <style name="RedTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/RedTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/RedTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/RedTheme_colorAccent</item>
+    </style>
+
+    <style name="PinkTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/PinkTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/PinkTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/PinkTheme_colorAccent</item>
+    </style>
+
+    <style name="PurpleTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/PurpleTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/PurpleTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/PurpleTheme_colorAccent</item>
+    </style>
+
+    <style name="DeepPurpleTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/DeepPurpleTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/DeepPurpleTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/DeepPurpleTheme_colorAccent</item>
+    </style>
+
+    <style name="IndigoTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/IndigoTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/IndigoTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/IndigoTheme_colorAccent</item>
+    </style>
+
+    <style name="BlueTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/BlueTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/BlueTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/BlueTheme_colorAccent</item>
+    </style>
+
+    <style name="LightBlueTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/LightBlueTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LightBlueTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LightBlueTheme_colorAccent</item>
+    </style>
+
+    <style name="CyanTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/CyanTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/CyanTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/CyanTheme_colorAccent</item>
+    </style>
+
+    <style name="TealTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/TealTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/TealTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/TealTheme_colorAccent</item>
+    </style>
+
+    <style name="GreenTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/GreenTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/GreenTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/GreenTheme_colorAccent</item>
+    </style>
+
+    <style name="LightGreenTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/LightGreenTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LightGreenTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LightGreenTheme_colorAccent</item>
+    </style>
+
+    <style name="LimeTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/LimeTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/LimeTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/LimeTheme_colorAccent</item>
+    </style>
+
+    <style name="YellowTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/YellowTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/YellowTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/YellowTheme_colorAccent</item>
+    </style>
+
+    <style name="AmberTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/AmberTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/AmberTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/AmberTheme_colorAccent</item>
+    </style>
+
+    <style name="DeepOrangeTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/DeepOrangeTheme_colorPrimary</item>
+        <item name="colorPrimaryDark">@color/DeepOrangeTheme_colorPrimaryDark</item>
+        <item name="colorAccent">@color/DeepOrangeTheme_colorAccent</item>
     </style>
 
 

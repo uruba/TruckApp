@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="@color/AppTheme_colorPrimary"
         android:paddingLeft="@dimen/widget_padding_horizontal"
         android:paddingRight="@dimen/widget_padding_horizontal"
         android:paddingTop="@dimen/widget_padding_vertical"
