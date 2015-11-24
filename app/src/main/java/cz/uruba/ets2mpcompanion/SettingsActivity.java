@@ -31,6 +31,12 @@ public class SettingsActivity extends ThemedActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
