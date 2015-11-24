@@ -39,8 +39,8 @@ public abstract class ThemedActivity extends AppCompatActivity {
             isCustomThemeEnabled = sharedPref.getBoolean(SettingsFragment.PREF_CUSTOM_THEME_ENABLED, false);
             prefThemeColour = sharedPref.getString(SettingsFragment.PREF_THEME_COLOUR, "");
 
-            if (isCustomThemeEnabled != this.isCustomThemeEnabled || !prefThemeColour.equals(this.prefThemeColour)) {
-        //        reloadActivity();
+            if (isCustomThemeEnabled != this.isCustomThemeEnabled || (isCustomThemeEnabled && !prefThemeColour.equals(this.prefThemeColour))) {
+                reloadActivity();
             }
         }
     }
