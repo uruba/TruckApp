@@ -24,7 +24,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onResume() {
         super.onResume();
         getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
     }
 
     @Override

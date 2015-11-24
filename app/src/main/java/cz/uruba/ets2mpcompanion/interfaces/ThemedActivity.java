@@ -40,7 +40,7 @@ public abstract class ThemedActivity extends AppCompatActivity {
             prefThemeColour = sharedPref.getString(SettingsFragment.PREF_THEME_COLOUR, "");
 
             if (isCustomThemeEnabled != this.isCustomThemeEnabled || !prefThemeColour.equals(this.prefThemeColour)) {
-                reloadActivity();
+        //        reloadActivity();
             }
         }
     }
