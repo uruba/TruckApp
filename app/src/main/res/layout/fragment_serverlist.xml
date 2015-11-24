@@ -5,21 +5,14 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_wrapper">
 
-    <android.support.design.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_height="match_parent"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerview_serverlist"
         android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin">
+        android:paddingRight="@dimen/activity_horizontal_margin" />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recyclerview_serverlist" />
-
-        <include layout="@layout/placeholder_empty_list" />
-
-    </android.support.design.widget.CoordinatorLayout>
+    <include layout="@layout/placeholder_empty_list" />
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
