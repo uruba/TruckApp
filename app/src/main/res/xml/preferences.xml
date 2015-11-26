@@ -1,16 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <CheckBoxPreference
-        android:key="preference_custom_theme"
-        android:title="Use a custom theme" />
+    <PreferenceCategory
+        android:key="preference_category_general"
+        android:title="@string/settings_category_title_general">
 
-    <cz.uruba.ets2mpcompanion.preferences.ColorPickerPreference
-        android:key="preference_theme_colour"
-        android:title="@string/settings_title_theme_colour"
-        android:summary="Choose the theme color"
-        android:entries="@array/themes_labels"
-        android:entryValues="@array/themes_style_names"
-        android:dependency="preference_custom_theme"/>
+        <CheckBoxPreference
+            android:key="preference_custom_theme"
+            android:title="@string/settings_title_use_custom_theme" />
+
+        <cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference
+            android:key="preference_theme_colour"
+            android:title="@string/settings_title_theme_colour"
+            android:summary="@string/settings_summary_theme_colour"
+            android:entries="@array/themes_labels"
+            android:entryValues="@array/themes_style_names"
+            android:dependency="preference_custom_theme"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="preference_category_widget"
+        android:title="@string/settings_category_title_widget">
+
+        <CheckBoxPreference
+            android:key="preference_widget_toast"
+            android:title="@string/settings_title_widget_toast"
+            android:summary="@string/settings_summary_widget_toast" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -11,6 +11,7 @@ import cz.uruba.ets2mpcompanion.R;
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_CUSTOM_THEME_ENABLED = "preference_custom_theme";
     public static final String PREF_THEME_COLOUR = "preference_theme_colour";
+    public static final String PREF_WIDGET_TOAST_ENABLED = "preference_widget_toast";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

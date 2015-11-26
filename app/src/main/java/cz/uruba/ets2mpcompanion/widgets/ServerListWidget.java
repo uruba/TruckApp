@@ -5,10 +5,12 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -27,6 +29,7 @@ import java.util.concurrent.ExecutionException;
 
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.URL;
+import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
@@ -203,14 +206,17 @@ public class ServerListWidget extends AppWidgetProvider {
         }
 
         private void displayToast(final String text) {
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(context,
-                            text, Toast.LENGTH_LONG).show();
-                }
-            });
+            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+            if(sharedPref.getBoolean(SettingsFragment.PREF_WIDGET_TOAST_ENABLED, false)) {
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context,
+                                text, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
     }
 }
