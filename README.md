@@ -1,7 +1,9 @@
 # ETS2MP-Companion
 This will be a companion app for [ETS2MP](https://ets2mp.com/) players, compatible with Android devices.
 
-It is still very early in the development, so there's not much to see here just yet. However, you are more than welcome to join the effort – if you so will. In that case message me at [uruba@outlook.com](mailto:uruba@outlook.com) and we can talk further.
+It is still very early in the development, so there's not much to see here just yet. However, you are more than welcome to join the effort – if you so will. In that case message me at [uruba@outlook.com](mailto:uruba@outlook.com) and we can talk further. Or not. Pull requests are welcome either way.
+
+*If you have any suggestion or want to report an issue, you can post in [the application's thread on the ETS2MP discussion board](http://forum.ets2mp.com/index.php?/topic/22715-unofficial-ets2mp-companion-android-application-concept/) or you can use the issue tracker here on GitHub.*
 
 **At this stage of development, everything is up for a discussion – especially the feature set that the app is to contain. Every comment, suggestion or critique is therefore very welcome.**
 
