@@ -37,4 +37,8 @@ public class Themes {
 
         return -1;
     }
+
+    public static Map<String, Integer> getThemeList() {
+        return themeList;
+    }
 }

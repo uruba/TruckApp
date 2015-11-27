@@ -24,7 +24,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
-        textColourOnline = UICompat.getThemeColour(context, R.attr.colorPrimaryDark);
+        textColourOnline = UICompat.getThemeColour(R.attr.colorPrimaryDark, context);
     }
 
     @Override

@@ -13,15 +13,18 @@ import cz.uruba.ets2mpcompanion.R;
 public class UICompat {
     public static final int DEFAULT_COLOUR = R.color.AppTheme_colorPrimary;
 
-    public static int getThemeColour(Context context, int attr) {
+    public static int getThemeColour(int attr, Context context) {
+        return getThemeColour(attr, context.getTheme());
+    }
+
+    public static int getThemeColour(int attr, Resources.Theme theme) {
         TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = context.getTheme();
         theme.resolveAttribute(attr, typedValue, true);
         return typedValue.data;
     }
 
     public static void setOverscrollEffectColour(Context context) {
-        UICompat.setOverscrollEffectColour(context, UICompat.getThemeColour(context, R.attr.colorPrimary));
+        UICompat.setOverscrollEffectColour(context, UICompat.getThemeColour(R.attr.colorPrimary, context));
     }
 
     @SuppressWarnings("deprecation")
@@ -44,7 +47,7 @@ public class UICompat {
     }
 
     public static void setProgressBarColour(Context context, ProgressBar progressBar) {
-        UICompat.setProgressBarColour(progressBar, UICompat.getThemeColour(context, R.attr.colorPrimary));
+        UICompat.setProgressBarColour(progressBar, UICompat.getThemeColour(R.attr.colorPrimary, context));
     }
 
     @SuppressWarnings("deprecation")
