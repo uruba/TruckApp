@@ -39,24 +39,22 @@ public class ColourChooserAdapter extends BaseAdapter {
         return position;
     }
 
+    // TODO: The colours are off on initially-hidden items when we attempt to use the convertView. Find out why and come up with a code that works best!
+    // TODO-NOTE: Probably will have to look into the ColourChooser view which has this adapter bound to it in the ColourChooserPreference
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ColourRectangleView colourRectangleView;
 
-        if (convertView == null) {
-            int[] attr = {R.attr.colorPrimary};
-            TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
-            int colour = typedValue.getColor(0, Color.BLACK);
-            colourRectangleView = new ColourRectangleView(context, colour, ColourChooserAdapter.rectangleSideLength);
-            colourRectangleView.setLayoutParams(
-                    new GridView.LayoutParams(
-                            ColourChooserAdapter.rectangleSideLength,
-                            ColourChooserAdapter.rectangleSideLength)
-            );
-            typedValue.recycle();
-        } else {
-            colourRectangleView = (ColourRectangleView) convertView;
-        }
+        int[] attr = {R.attr.colorPrimary};
+        TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
+        int colour = typedValue.getColor(0, Color.BLACK);
+        colourRectangleView = new ColourRectangleView(context, colour, ColourChooserAdapter.rectangleSideLength);
+        colourRectangleView.setLayoutParams(
+                new GridView.LayoutParams(
+                        ColourChooserAdapter.rectangleSideLength,
+                        ColourChooserAdapter.rectangleSideLength)
+        );
+        typedValue.recycle();
 
         return colourRectangleView;
     }
