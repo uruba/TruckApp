@@ -1,7 +1,7 @@
 package cz.uruba.ets2mpcompanion.constants;
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.R;
@@ -10,7 +10,7 @@ public class Themes {
     private static final Map<String, Integer> themeList;
 
     static {
-        Map<String, Integer> themeMap = new HashMap<>();
+        Map<String, Integer> themeMap = new LinkedHashMap<>();
         themeMap.put("RedTheme", R.style.RedTheme);
         themeMap.put("PinkTheme", R.style.PinkTheme);
         themeMap.put("PurpleTheme", R.style.PurpleTheme);
