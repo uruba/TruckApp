@@ -1,5 +1,7 @@
 package cz.uruba.ets2mpcompanion.tasks;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,7 +50,7 @@ public class FetchServerListTask extends FetchTask<Void, Void, ArrayList<ServerI
             is = connection.getInputStream();
 
             // Convert the InputStream into a string
-            String contentAsString = readIt(is, 800);
+            String contentAsString = readIt(is, 3000);
 
             is.close();
 
