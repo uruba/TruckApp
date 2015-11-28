@@ -17,14 +17,12 @@ import java.util.Map;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ColourChooserAdapter;
 import cz.uruba.ets2mpcompanion.constants.Themes;
-import cz.uruba.ets2mpcompanion.views.ColourChooserView;
 
 public class ColourChooserPreference extends ListPreference implements AdapterView.OnItemClickListener {
     private List<String> themeListKeys;
 
     public ColourChooserPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-
     }
 
     @Override
@@ -37,7 +35,7 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
         }
         ((TextView) view.findViewById(R.id.dialog_title)).setText(dialogTitle);
 
-        ColourChooserView colourGrid = (ColourChooserView) view.findViewById(R.id.dialog_colours);
+        GridView colourGrid = (GridView) view.findViewById(R.id.dialog_colours);
 
         Map<String, Integer> themeMap = Themes.getThemeList();
         themeListKeys = new ArrayList<>();
@@ -48,7 +46,7 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
             themeListValues.add(themeStyle.getValue());
         }
 
-        ColourChooserAdapter adapter = new ColourChooserAdapter(getContext(), themeListValues);
+        ColourChooserAdapter adapter = new ColourChooserAdapter(getContext(), themeListValues, colourGrid);
 
         colourGrid.setAdapter(adapter);
         colourGrid.setChoiceMode(GridView.CHOICE_MODE_SINGLE);

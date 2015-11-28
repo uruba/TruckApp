@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "cz.uruba.ets2mpcompanion"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 8
         versionName "0.14d"

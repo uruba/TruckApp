@@ -11,10 +11,16 @@
         android:textColor="@android:color/black"
         android:textSize="22sp" />
 
-    <cz.uruba.ets2mpcompanion.views.ColourChooserView
+    <GridView
         android:id="@+id/dialog_colours"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:numColumns="3"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/colour_grid_spacing"
+        android:horizontalSpacing="@dimen/colour_grid_spacing"
+        android:paddingLeft="@dimen/colour_grid_spacing"
+        android:paddingRight="@dimen/colour_grid_spacing"
         android:gravity="center" />
 
 </LinearLayout>

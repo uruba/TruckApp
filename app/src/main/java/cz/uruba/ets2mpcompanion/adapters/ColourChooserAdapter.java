@@ -14,14 +14,15 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.views.ColourRectangleView;
 
 public class ColourChooserAdapter extends BaseAdapter {
-    private static final int rectangleSideLength = 120;
+    private GridView colourGrid;
 
     private Context context;
     private List<Integer> themeList;
 
-    public ColourChooserAdapter(Context context, List<Integer> themeList) {
+    public ColourChooserAdapter(Context context, List<Integer> themeList, GridView colourGrid) {
         this.context = context;
         this.themeList = themeList;
+        this.colourGrid = colourGrid;
     }
 
     @Override
@@ -48,11 +49,13 @@ public class ColourChooserAdapter extends BaseAdapter {
         int[] attr = {R.attr.colorPrimary};
         TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
         int colour = typedValue.getColor(0, Color.BLACK);
-        colourRectangleView = new ColourRectangleView(context, colour, ColourChooserAdapter.rectangleSideLength);
+
+        int rectangleWidth = colourGrid.getColumnWidth();
+        colourRectangleView = new ColourRectangleView(context, colour, rectangleWidth);
         colourRectangleView.setLayoutParams(
                 new GridView.LayoutParams(
-                        ColourChooserAdapter.rectangleSideLength,
-                        ColourChooserAdapter.rectangleSideLength)
+                        rectangleWidth,
+                        rectangleWidth)
         );
         typedValue.recycle();
 
