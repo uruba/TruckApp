@@ -111,6 +111,8 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void onDataSetChanged() {
+            refreshRemoteViews(context.getString(R.string.widget_loading));
+
             try {
                 serverList = new FetchServerListTask(this, URL.SERVER_LIST, false).execute().get().getResult();
 
