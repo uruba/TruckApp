@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.views.ColourRectangleView;
@@ -19,13 +17,11 @@ public class ColourChooserAdapter extends BaseAdapter {
     private static final int rectangleSideLength = 120;
 
     private Context context;
-    private List<Integer> themeList = new ArrayList<>();
+    private List<Integer> themeList;
 
-    public ColourChooserAdapter(Context context, Map<String, Integer> themeMap) {
+    public ColourChooserAdapter(Context context, List<Integer> themeList) {
         this.context = context;
-        for (Map.Entry<String, Integer> themeStyle : themeMap.entrySet()) {
-            themeList.add(themeStyle.getValue());
-        }
+        this.themeList = themeList;
     }
 
     @Override

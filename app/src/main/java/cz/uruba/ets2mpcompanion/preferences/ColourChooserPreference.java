@@ -10,12 +10,17 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ColourChooserAdapter;
 import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.views.ColourChooserView;
 
 public class ColourChooserPreference extends ListPreference implements AdapterView.OnItemClickListener {
+    private List<String> themeListKeys;
 
     public ColourChooserPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -34,7 +39,16 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
 
         ColourChooserView colourGrid = (ColourChooserView) view.findViewById(R.id.dialog_colours);
 
-        ColourChooserAdapter adapter = new ColourChooserAdapter(getContext(), Themes.getThemeList());
+        Map<String, Integer> themeMap = Themes.getThemeList();
+        themeListKeys = new ArrayList<>();
+        List<Integer> themeListValues = new ArrayList<>();
+
+        for (Map.Entry<String, Integer> themeStyle : themeMap.entrySet()) {
+            themeListKeys.add(themeStyle.getKey());
+            themeListValues.add(themeStyle.getValue());
+        }
+
+        ColourChooserAdapter adapter = new ColourChooserAdapter(getContext(), themeListValues);
 
         colourGrid.setAdapter(adapter);
         colourGrid.setChoiceMode(GridView.CHOICE_MODE_SINGLE);
@@ -54,6 +68,7 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
+        setValue(themeListKeys.get(position));
         getDialog().dismiss();
     }
 }

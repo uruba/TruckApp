@@ -13,8 +13,6 @@
             android:key="preference_theme_colour"
             android:title="@string/settings_title_theme_colour"
             android:summary="@string/settings_summary_theme_colour"
-            android:entries="@array/themes_labels"
-            android:entryValues="@array/themes_style_names"
             android:dependency="preference_custom_theme"/>
 
     </PreferenceCategory>
