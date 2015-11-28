@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.views.ColourRectangleView;
 
 public class ColourChooserAdapter extends BaseAdapter {
+    private static final int rectangleSideLength = 120;
+
     private Context context;
     private List<Integer> themeList = new ArrayList<>();
 
@@ -42,13 +45,23 @@ public class ColourChooserAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        int[] attr = {R.attr.colorPrimary};
-        TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
+        ColourRectangleView colourRectangleView;
 
-        int colour = typedValue.getColor(0, Color.BLACK);
+        if (convertView == null) {
+            int[] attr = {R.attr.colorPrimary};
+            TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
+            int colour = typedValue.getColor(0, Color.BLACK);
+            colourRectangleView = new ColourRectangleView(context, colour, ColourChooserAdapter.rectangleSideLength);
+            colourRectangleView.setLayoutParams(
+                    new GridView.LayoutParams(
+                            ColourChooserAdapter.rectangleSideLength,
+                            ColourChooserAdapter.rectangleSideLength)
+            );
+            typedValue.recycle();
+        } else {
+            colourRectangleView = (ColourRectangleView) convertView;
+        }
 
-        typedValue.recycle();
-
-        return new ColourRectangleView(context, colour, 25);
+        return colourRectangleView;
     }
 }
