@@ -29,5 +29,5 @@
     <string name="settings_category_title_widget">Widget</string>
     <string name="settings_title_widget_toast">Toast notifications</string>
     <string name="settings_summary_theme_colour">Choose the theme color</string>
-    <string name="settings_summary_widget_toast">Display a tost notification when an action is completed (e.g., data is loaded)</string>
+    <string name="settings_summary_widget_toast">Display a toast notification when an action is completed (e.g., data is loaded)</string>
 </resources>
