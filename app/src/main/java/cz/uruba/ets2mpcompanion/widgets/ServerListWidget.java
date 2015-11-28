@@ -182,7 +182,8 @@ public class ServerListWidget extends AppWidgetProvider {
 
         @Override
         public void handleJSONException(JSONException e) {
-
+            refreshRemoteViews(context.getString(R.string.not_available_now));
+            displayToast(context.getString(R.string.json_error));
         }
 
         @Override
