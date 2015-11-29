@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.SettingsActivity;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_CUSTOM_THEME_ENABLED = "preference_custom_theme";
@@ -39,9 +40,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         switch(key) {
             case PREF_CUSTOM_THEME_ENABLED:
             case PREF_THEME_COLOUR:
-                Activity parentActivity = getActivity();
+                SettingsActivity parentActivity = (SettingsActivity) getActivity();
                 Intent intent = parentActivity.getIntent();
-                parentActivity.finish();
+                parentActivity.finishWithoutExitAnimation();
                 startActivity(intent);
         }
     }

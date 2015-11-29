@@ -12,6 +12,7 @@ import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 
 public class SettingsActivity extends ThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
+    boolean animateExit = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,11 @@ public class SettingsActivity extends ThemedActivity {
     @Override
     public void onPause() {
         super.onPause();
-        overridePendingTransition(0, 0);
+
+        if (!animateExit) {
+            animateExit = true;
+            overridePendingTransition(0, 0);
+        }
     }
 
     @Override
@@ -51,5 +56,10 @@ public class SettingsActivity extends ThemedActivity {
     @Override
     public void onBackPressed() {
         NavUtils.navigateUpFromSameTask(this);
+    }
+
+    public void finishWithoutExitAnimation() {
+        animateExit = false;
+        finish();
     }
 }
