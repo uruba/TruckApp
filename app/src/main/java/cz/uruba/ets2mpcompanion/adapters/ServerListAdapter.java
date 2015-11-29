@@ -1,6 +1,10 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +24,20 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
 public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
-    int textColourOnline;
+    int colorPrimaryDark;
+    ColorStateList tint;
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
-        textColourOnline = UICompat.getThemeColour(R.attr.colorPrimaryDark, context);
+        colorPrimaryDark = UICompat.getThemeColour(R.attr.colorPrimaryDark, context);
+        tint = new ColorStateList(
+                new int[][]{
+                        new int[]{}
+                },
+                new int[] {
+                        colorPrimaryDark
+                }
+        );
     }
 
     @Override
@@ -35,7 +48,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                         .from(context)
                         .inflate(R.layout.cardview_serverinfo, parent, false);
 
-                return new ServerInfoViewHolder(itemView, textColourOnline);
+                return new ServerInfoViewHolder(itemView, colorPrimaryDark);
         }
 
         return super.onCreateViewHolder(parent, viewType);
@@ -54,7 +67,12 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                 serverInfoViewHolder.serverName.setText(serverInfo.getServerName());
                 serverInfoViewHolder.numberOfPlayers.setText(serverInfo.getFormattedPlayerCountString(context));
                 serverInfoViewHolder.numberOfPlayersProgressBar.setProgress((int) serverInfo.getPlayerCountRatio());
-                UICompat.setProgressBarColour(context, serverInfoViewHolder.numberOfPlayersProgressBar);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    serverInfoViewHolder.numberOfPlayersProgressBar.setProgressTintList(tint);
+                } else {
+                    UICompat.setProgressBarColour(context, serverInfoViewHolder.numberOfPlayersProgressBar);
+                }
+
                 break;
         }
 
