@@ -34,31 +34,31 @@
 
     <color name="CyanTheme_colorPrimary">#00bcd4</color>
     <color name="CyanTheme_colorPrimaryDark">#0097a7</color>
-    <color name="CyanTheme_colorAccent">#18ffff</color>
+    <color name="CyanTheme_colorAccent">#00e5ff</color>
 
     <color name="TealTheme_colorPrimary">#009688</color>
     <color name="TealTheme_colorPrimaryDark">#00796b</color>
-    <color name="TealTheme_colorAccent">#64ffda</color>
+    <color name="TealTheme_colorAccent">#1de9b6</color>
 
     <color name="GreenTheme_colorPrimary">#4caf50</color>
     <color name="GreenTheme_colorPrimaryDark">#388e3c</color>
-    <color name="GreenTheme_colorAccent">#69f0ae</color>
+    <color name="GreenTheme_colorAccent">#00e676</color>
 
     <color name="LightGreenTheme_colorPrimary">#8bc34a</color>
     <color name="LightGreenTheme_colorPrimaryDark">#689f38</color>
-    <color name="LightGreenTheme_colorAccent">#b2ff59</color>
+    <color name="LightGreenTheme_colorAccent">#76ff03</color>
 
     <color name="LimeTheme_colorPrimary">#cddc39</color>
     <color name="LimeTheme_colorPrimaryDark">#afb42b</color>
-    <color name="LimeTheme_colorAccent">#eeff41</color>
+    <color name="LimeTheme_colorAccent">#9e9d24</color>
 
     <color name="YellowTheme_colorPrimary">#ffeb3b</color>
     <color name="YellowTheme_colorPrimaryDark">#fbc02d</color>
-    <color name="YellowTheme_colorAccent">#ffff00</color>
+    <color name="YellowTheme_colorAccent">#ffd600</color>
 
     <color name="AmberTheme_colorPrimary">#ffc107</color>
     <color name="AmberTheme_colorPrimaryDark">#ffa000</color>
-    <color name="AmberTheme_colorAccent">#ffd740</color>
+    <color name="AmberTheme_colorAccent">#ffa000</color>
 
     <color name="DeepOrangeTheme_colorPrimary">#ff5722</color>
     <color name="DeepOrangeTheme_colorPrimaryDark">#e64a19</color>
