@@ -76,6 +76,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
         Intent launchAppIntent = new Intent(context, MainActivity.class);
         remoteViews.setOnClickPendingIntent(R.id.title, PendingIntent.getActivity(context, 0, launchAppIntent, 0));
+        remoteViews.setOnClickPendingIntent(R.id.last_updated, PendingIntent.getActivity(context, 0, launchAppIntent, 0));
 
         return remoteViews;
     }
