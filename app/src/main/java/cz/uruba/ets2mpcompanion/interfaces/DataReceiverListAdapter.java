@@ -13,6 +13,7 @@ import java.util.List;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.EmptyViewHolder;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
+import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public abstract class DataReceiverListAdapter<T extends List> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
@@ -24,6 +25,8 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
     protected DataReceiver<?> callbackDataReceiver;
 
     protected T dataCollection;
+
+    protected LastUpdatedTextView lastUpdatedTextView;
 
     public DataReceiverListAdapter(Context context, T dataCollection, DataReceiver<?> callbackDataReceiver) {
         this.context = context;
@@ -40,6 +43,8 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
                 itemView = LayoutInflater
                         .from(context)
                         .inflate(R.layout.block_lastupdated, parent, false);
+
+                lastUpdatedTextView = (LastUpdatedTextView) itemView.findViewById(R.id.last_updated);
 
                 return new LastUpdatedViewHolder(itemView);
 
@@ -65,6 +70,12 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
                 LastUpdatedViewHolder lastUpdatedViewHolder = (LastUpdatedViewHolder) holder;
                 lastUpdatedViewHolder.lastUpdated.setTime(callbackDataReceiver.getLastUpdated());
                 break;
+        }
+    }
+
+    public void restartLastUpdatedTextView() {
+        if (lastUpdatedTextView != null) {
+            lastUpdatedTextView.restartAutoRefresh();
         }
     }
 

@@ -27,6 +27,15 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        if (listAdapter != null) {
+            listAdapter.restartLastUpdatedTextView();
+        }
+    }
+
+    @Override
     public Date getLastUpdated() {
         return lastUpdated;
     }
@@ -46,7 +55,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
         loadingOverlay.setAnimation(fadeOutAnimation);
         loadingOverlay.setVisibility(View.GONE);
         fab.show(fabStateChangeListener.loadingOverlayHidden());
-        if (listAdapter.getDataCollectionSize() == 0) {
+        if (listAdapter != null && listAdapter.getDataCollectionSize() == 0) {
             showEmptyView();
         }
     }
