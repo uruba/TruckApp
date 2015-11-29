@@ -3,7 +3,7 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.AppTheme">
         <!-- Customize your theme here. -->
-        <item name="alertDialogTheme">@style/AppTheme.AlertDialog</item>
+        <item name="android:alertDialogTheme">@style/AppTheme.AlertDialog</item>
     </style>
     <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorPrimary">@color/AppTheme_colorPrimary</item>
