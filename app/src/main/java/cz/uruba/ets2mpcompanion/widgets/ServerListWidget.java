@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import cz.uruba.ets2mpcompanion.MainActivity;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
@@ -66,13 +67,15 @@ public class ServerListWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 widgetID);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+        remoteViews.setRemoteAdapter(R.id.widget_listview, intent);
 
         Intent updateIntent = new Intent(context, ServerListWidget.class);
         updateIntent.setAction(ACTION_REFRESH);
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID);
         remoteViews.setOnClickPendingIntent(R.id.refresh, PendingIntent.getBroadcast(context, widgetID, updateIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        remoteViews.setRemoteAdapter(R.id.widget_listview, intent);
+        Intent launchAppIntent = new Intent(context, MainActivity.class);
+        remoteViews.setOnClickPendingIntent(R.id.title, PendingIntent.getActivity(context, 0, launchAppIntent, 0));
 
         return remoteViews;
     }
