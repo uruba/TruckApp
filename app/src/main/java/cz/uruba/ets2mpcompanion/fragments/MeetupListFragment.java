@@ -99,9 +99,6 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     }
 
     private void fetchMeetupList(boolean notifyUser) {
-        if (menuSearchItem != null) {
-            menuSearchItem.setVisible(false);
-        }
         showLoadingOverlay();
 
         new FetchJsoupDataTask(this, URL.MEETUP_LIST, notifyUser).execute();
@@ -162,9 +159,6 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
         listAdapter.setDataCollection(new ArrayList<>(meetups));
 
-        if (menuSearchItem != null) {
-            menuSearchItem.setVisible(true);
-        }
         hideLoadingOverlay();
 
         if (notifyUser) {
@@ -175,13 +169,26 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
     @Override
     public void handleIOException(IOException e) {
-        if (menuSearchItem != null && meetups.size() > 0) {
-            menuSearchItem.setVisible(true);
-        }
         hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    @Override
+    protected void showLoadingOverlay() {
+        if (menuSearchItem != null) {
+            menuSearchItem.setVisible(false);
+        }
+        super.showLoadingOverlay();
+    }
+
+    @Override
+    protected void hideLoadingOverlay() {
+        if (menuSearchItem != null && meetups.size() > 0) {
+            menuSearchItem.setVisible(true);
+        }
+        super.hideLoadingOverlay();
     }
 
     @Override
