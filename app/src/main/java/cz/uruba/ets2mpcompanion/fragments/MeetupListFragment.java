@@ -36,6 +36,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
     List<MeetupInfo> meetups = new ArrayList<>();
 
+    MenuItem menuSearchItem;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_meetuplist, container, false);
@@ -65,8 +67,11 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_meetup_search, menu);
 
-        MenuItem item = menu.findItem(R.id.action_meetup_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        menuSearchItem = menu.findItem(R.id.action_meetup_search);
+        if (meetups.size() > 0) {
+            menuSearchItem.setVisible(true);
+        }
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
         searchView.setOnQueryTextListener(this);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -94,6 +99,9 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     }
 
     private void fetchMeetupList(boolean notifyUser) {
+        if (menuSearchItem != null) {
+            menuSearchItem.setVisible(false);
+        }
         showLoadingOverlay();
 
         new FetchJsoupDataTask(this, URL.MEETUP_LIST, notifyUser).execute();
@@ -154,6 +162,9 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
         listAdapter.setDataCollection(new ArrayList<>(meetups));
 
+        if (menuSearchItem != null) {
+            menuSearchItem.setVisible(true);
+        }
         hideLoadingOverlay();
 
         if (notifyUser) {
@@ -164,6 +175,9 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
 
     @Override
     public void handleIOException(IOException e) {
+        if (menuSearchItem != null && meetups.size() > 0) {
+            menuSearchItem.setVisible(true);
+        }
         hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
