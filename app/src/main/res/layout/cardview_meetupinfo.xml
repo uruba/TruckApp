@@ -78,6 +78,15 @@
                 android:layout_below="@+id/organiser"
                 />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_more_vert_24dp"
+                android:layout_marginRight="-10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/more" />
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>
