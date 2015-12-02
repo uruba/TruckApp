@@ -34,6 +34,19 @@
 
         </activity>
 
+        <activity
+            android:name=".MeetupDetailActivity"
+            android:label="@string/activity_meetup_detail"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity">
+            <!-- Parent activity meta-data to support 4.0 -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+
+        </activity>
+
         <receiver android:name=".widgets.ServerListWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
