@@ -1,16 +1,19 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.uruba.ets2mpcompanion.MeetupDetailActivity;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
@@ -42,7 +45,7 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_DATA_ENTRY:
-                MeetupInfo meetupInfo = dataCollection.get(position - 1);
+                final MeetupInfo meetupInfo = dataCollection.get(position - 1);
 
                 MeetupInfoViewHolder meetupInfoViewHolder = (MeetupInfoViewHolder) holder;
 
@@ -61,6 +64,14 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
                                 meetupInfo.getParticipants()
                         )
                 );
+                meetupInfoViewHolder.more.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent meetupDetailIntent = new Intent(context, MeetupDetailActivity.class);
+                        meetupDetailIntent.putExtra(MeetupDetailActivity.INTENT_EXTRA_URL, meetupInfo.getAbsoluteURL());
+                        context.startActivity(meetupDetailIntent);
+                    }
+                });
                 break;
         }
 
@@ -100,6 +111,7 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
         @Bind(R.id.organiser) TextView organiser;
         @Bind(R.id.language) TextView language;
         @Bind(R.id.participants) TextView participants;
+        @Bind(R.id.more) ImageView more;
 
         public MeetupInfoViewHolder(View itemView) {
             super(itemView);

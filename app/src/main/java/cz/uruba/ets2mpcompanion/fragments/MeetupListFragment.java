@@ -124,9 +124,9 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
         for (Element elem : elem_table_list) {
             Elements elem_data = elem.children();
             int iterCount = 0;
-            String time, location, organiser, language, participants;
+            String time, location, organiser, language, participants, relativeURL;
 
-            time = location = organiser = language = participants = "";
+            time = location = organiser = language = participants = relativeURL = "";
 
             for (Element data_field : elem_data) {
                 iterCount++;
@@ -148,10 +148,13 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
                     case 5:
                         participants = elemContent;
                         break;
+                    case 6:
+                        relativeURL = data_field.select("a").first().attr("href");
+                        break;
                 }
             }
 
-            MeetupInfo meetupInfo = new MeetupInfo(time, location, organiser, language, participants);
+            MeetupInfo meetupInfo = new MeetupInfo(time, location, organiser, language, participants, relativeURL);
             meetups.add(meetupInfo);
         }
 
