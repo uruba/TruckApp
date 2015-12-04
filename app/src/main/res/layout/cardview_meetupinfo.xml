@@ -85,7 +85,9 @@
                 android:layout_marginRight="-10dp"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/more" />
+                android:id="@+id/more"
+                android:alpha="0.3"
+                />
 
         </RelativeLayout>
 
