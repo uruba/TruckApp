@@ -13,15 +13,13 @@
             android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary" app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <ImageView
+            <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_more_vert_24dp"
+                android:id="@+id/loading_progress"
                 android:layout_gravity="right"
-                android:id="@+id/more"
-                android:alpha="0.3"
-                android:padding="@dimen/activity_vertical_margin"
-                android:layout_marginRight="-8dp"
+                style="?android:progressBarStyleLarge"
+                android:visibility="gone"
                 />
 
             </android.support.v7.widget.Toolbar>

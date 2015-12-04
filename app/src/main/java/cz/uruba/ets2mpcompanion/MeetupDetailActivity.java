@@ -1,12 +1,13 @@
 package cz.uruba.ets2mpcompanion;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -15,6 +16,7 @@ import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 
 public class MeetupDetailActivity extends ThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.loading_progress) ProgressBar loadingProgressIndicator;
     @Bind(R.id.webview) WebView webView;
 
     public static final String INTENT_EXTRA_URL = "intentURL";
@@ -47,10 +49,17 @@ public class MeetupDetailActivity extends ThemedActivity {
                 }
 
                 @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    loadingProgressIndicator.setVisibility(ProgressBar.VISIBLE);
+                }
+
+                @Override
                 public void onPageFinished(WebView view, String url) {
+                    loadingProgressIndicator.setVisibility(ProgressBar.GONE);
+
                     if (url.contains(URL.MEETUP_LIST)) {
                         if (url.equals(meetupPageURL)) {
-                            Toast.makeText(getApplicationContext(), "The page is there", Toast.LENGTH_LONG).show();
+                            // TODO – We're on the meetup's detail page, so we need to extract the details' values
                         } else if (url.equals(URL.MEETUP_LIST)) {
                             view.loadUrl(meetupPageURL);
                         }
@@ -59,12 +68,23 @@ public class MeetupDetailActivity extends ThemedActivity {
                     }
                 }
             });
+
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
+
 
             webView.loadUrl(meetupPageURL);
         } else {
             finish();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView.canGoBack()){
+            webView.goBack();
+        } else {
+            super.onBackPressed();
         }
     }
 }
