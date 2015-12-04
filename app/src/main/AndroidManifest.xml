@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -20,6 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/action_settings"
@@ -39,7 +41,8 @@
             android:label="@string/activity_meetup_detail"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:noHistory="true">
             <!-- Parent activity meta-data to support 4.0 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
