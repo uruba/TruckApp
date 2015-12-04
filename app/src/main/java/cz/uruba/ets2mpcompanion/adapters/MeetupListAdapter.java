@@ -2,8 +2,11 @@ package cz.uruba.ets2mpcompanion.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -67,9 +70,24 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
                 meetupInfoViewHolder.more.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent meetupDetailIntent = new Intent(context, MeetupDetailActivity.class);
-                        meetupDetailIntent.putExtra(MeetupDetailActivity.INTENT_EXTRA_URL, meetupInfo.getAbsoluteURL());
-                        context.startActivity(meetupDetailIntent);
+                        PopupMenu popup = new PopupMenu(context, v);
+                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.show_meetup_detail:
+                                        Intent meetupDetailIntent = new Intent(context, MeetupDetailActivity.class);
+                                        meetupDetailIntent.putExtra(MeetupDetailActivity.INTENT_EXTRA_URL, meetupInfo.getAbsoluteURL());
+                                        context.startActivity(meetupDetailIntent);
+                                        return true;
+                                    default:
+                                        return false;
+                                }
+                            }
+                        });
+                        MenuInflater inflater = popup.getMenuInflater();
+                        inflater.inflate(R.menu.menu_meetup_entry, popup.getMenu());
+                        popup.show();
                     }
                 });
                 break;
