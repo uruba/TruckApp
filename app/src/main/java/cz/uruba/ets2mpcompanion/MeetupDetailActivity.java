@@ -135,41 +135,43 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         try {
             Elements elem_data = elem_form.children();
             int iterCount = 0;
-            String organiser, server, location, destination;
+            String organiser, server, location, destination, language;
             boolean trailerRequired;
             Date meetupDate;
 
-            organiser = server = location = destination = "";
+            organiser = server = location = destination = language = "";
             trailerRequired = false;
             meetupDate = null;
 
             for (Element elem : elem_data) {
                 iterCount++;
 
-                Element elemContent = elem.select(".desc").first();
+                String elemContent = elem.select(".desc").first().text().trim();
                 switch (iterCount) {
                     case 1:
-                        organiser = elemContent.text();
+                        organiser = elemContent;
                         break;
                     case 2:
-                        server = elemContent.text();
+                        server = elemContent;
                         break;
                     case 3:
-                        location = elemContent.text();
+                        location = elemContent;
                         break;
                     case 4:
-                        destination = elemContent.text();
+                        destination = elemContent;
                         break;
                     case 5:
-                        trailerRequired = elemContent.text().toLowerCase().equals("yes");
+                        trailerRequired = elemContent.toLowerCase().equals("yes");
                         break;
                     case 6:
-                        meetupDate = new Date();
+                        meetupDate = new Date(Long.parseLong(elem.select(".desc").first().attr("data-stamp")));
                         break;
+                    case 7:
+                        language = elemContent;
                 }
             }
 
-            meetupDetail = new MeetupDetail(organiser, server, location, destination, trailerRequired, meetupDate);
+            meetupDetail = new MeetupDetail(organiser, server, location, destination, trailerRequired, meetupDate, language);
         } catch (Exception e) {
             return;
         }
