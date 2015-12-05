@@ -165,8 +165,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
         hideLoadingOverlay();
 
         if (notifyUser) {
-            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT)
-                    .setAction("Action", null).show();
+            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -174,8 +173,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     public void handleIOException(IOException e) {
         hideLoadingOverlay();
 
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
