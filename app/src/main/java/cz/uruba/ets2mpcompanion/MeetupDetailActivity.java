@@ -149,7 +149,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
             for (Element elem : elem_data) {
                 iterCount++;
 
-                String elemContent = elem.select(".desc").first().text().trim();
+                String elemContent = elem.select(".desc").first().text().replaceAll("\u00A0", "").trim();
                 switch (iterCount) {
                     case 1:
                         organiser = elemContent;
