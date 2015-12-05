@@ -1,9 +1,11 @@
 package cz.uruba.ets2mpcompanion;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -125,7 +128,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-
+        showMeetupReminderDialog();
     }
 
     @Override
@@ -135,11 +138,11 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         try {
             Elements elem_data = elem_form.children();
             int iterCount = 0;
-            String organiser, server, location, destination, language;
+            String organiser, server, location, destination;
             boolean trailerRequired;
             Date meetupDate;
 
-            organiser = server = location = destination = language = "";
+            organiser = server = location = destination = "";
             trailerRequired = false;
             meetupDate = null;
 
@@ -166,12 +169,10 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                     case 6:
                         meetupDate = new Date(Long.parseLong(elem.select(".desc").first().attr("data-stamp")));
                         break;
-                    case 7:
-                        language = elemContent;
                 }
             }
 
-            meetupDetail = new MeetupDetail(organiser, server, location, destination, trailerRequired, meetupDate, language);
+            meetupDetail = new MeetupDetail(organiser, server, location, destination, trailerRequired, meetupDate);
         } catch (Exception e) {
             return;
         }
@@ -193,5 +194,43 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
     @Override
     public Date getLastUpdated() {
         return null;
+    }
+
+
+    private void showMeetupReminderDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_meetup_reminder, null);
+        dialogBuilder.setView(dialogView);
+
+        try {
+            ((TextView) dialogView.findViewById(R.id.organiser))
+                    .setText(meetupDetail.getOrganiser());
+            ((TextView) dialogView.findViewById(R.id.server))
+                    .setText(meetupDetail.getServer());
+            ((TextView) dialogView.findViewById(R.id.location))
+                    .setText(meetupDetail.getLocation());
+            ((TextView) dialogView.findViewById(R.id.destination))
+                    .setText(meetupDetail.getDestination());
+            ((TextView) dialogView.findViewById(R.id.trailer_required))
+                    .setText(meetupDetail.isTrailerRequired()
+                            ? getString(R.string.yes) : getString(R.string.no));
+            ((TextView) dialogView.findViewById(R.id.meetup_date))
+                    .setText(meetupDetail.getMeetupDate().toString());
+        } catch (Exception ignored) {
+        }
+
+        dialogBuilder.setCancelable(true);
+
+        dialogBuilder
+                .setPositiveButton(R.string.meetup_datail_set_reminder,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+
+                            }
+                        }
+                );
+
+        (dialogBuilder.create()).show();
     }
 }

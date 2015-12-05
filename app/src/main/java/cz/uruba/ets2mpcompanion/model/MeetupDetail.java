@@ -9,16 +9,14 @@ public class MeetupDetail {
     private String destination;
     private boolean trailerRequired;
     private Date meetupDate;
-    private String language;
 
-    public MeetupDetail(String organiser, String server, String location, String destination, boolean trailerRequired, Date meetupDate, String language) {
+    public MeetupDetail(String organiser, String server, String location, String destination, boolean trailerRequired, Date meetupDate) {
         this.organiser = organiser;
         this.server = server;
         this.location = location;
         this.destination = destination;
         this.trailerRequired = trailerRequired;
         this.meetupDate = meetupDate;
-        this.language = language;
     }
 
     public String getOrganiser() {
@@ -43,9 +41,5 @@ public class MeetupDetail {
 
     public Date getMeetupDate() {
         return meetupDate;
-    }
-
-    public String getLanguage() {
-        return language;
     }
 }
