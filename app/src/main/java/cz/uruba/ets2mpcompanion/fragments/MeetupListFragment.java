@@ -34,9 +34,9 @@ import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 public class MeetupListFragment extends DataReceiverFragment<Document, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
-    List<MeetupInfo> meetups = new ArrayList<>();
+    private List<MeetupInfo> meetups = new ArrayList<>();
 
-    MenuItem menuSearchItem;
+    private MenuItem menuSearchItem;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
