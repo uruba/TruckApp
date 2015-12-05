@@ -167,7 +167,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                         trailerRequired = elemContent.toLowerCase().equals("yes");
                         break;
                     case 6:
-                        meetupDate = new Date(Long.parseLong(elem.select(".desc").first().attr("data-stamp")));
+                        meetupDate = new Date(Long.parseLong(elem.select(".desc").first().attr("data-stamp"))*1000);
                         break;
                 }
             }
