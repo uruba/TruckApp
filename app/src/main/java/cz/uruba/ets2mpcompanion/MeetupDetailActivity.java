@@ -118,6 +118,17 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.create_reminder:
+                showMeetupReminderDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (webView.canGoBack()){
             webView.goBack();
