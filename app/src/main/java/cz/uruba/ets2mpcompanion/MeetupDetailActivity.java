@@ -242,7 +242,6 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                                 intent.setType("vnd.android.cursor.item/event");
                                 intent.putExtra(CalendarContract.Events.TITLE, "ETS2MP Meetup");
                                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, meetupDetail.getLocation());
-                                intent.putExtra(CalendarContract.Events.DESCRIPTION, "Download Examples");
 
                                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
                                         meetupDetail.getMeetupDate().getTime());
