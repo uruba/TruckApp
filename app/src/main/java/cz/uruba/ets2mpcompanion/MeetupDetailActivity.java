@@ -32,7 +32,6 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
@@ -214,7 +213,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
 
 
     private void showMeetupReminderDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, Themes.getThemeStyle(prefThemeColour + ".AlertDialog"));
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_meetup_reminder, null);
         dialogBuilder.setView(dialogView).setTitle("The meetup's details");
