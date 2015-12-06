@@ -15,4 +15,6 @@
     <dimen name="progress_bar_height_material">4dp</dimen>
 
     <dimen name="colour_grid_spacing">12dp</dimen>
+
+    <dimen name="alertdialog_content_horizontal_padding">24dp</dimen>
 </resources>

@@ -41,9 +41,9 @@
     <string name="meetup_detail_location">Location</string>
     <string name="meetup_detail_destination">Destination</string>
     <string name="meetup_detail_trailer_required">Is trailer required?</string>
-    <string name="meetup_detail_meetup_date"><![CDATA[Meetup date & time]]></string>
+    <string name="meetup_detail_meetup_date"><![CDATA[Date & time]]></string>
     <string name="meetup_detail_language">Language</string>
-    <string name="meetup_datail_set_reminder">Set a reminder</string>
+    <string name="meetup_detail_set_calendar_reminder">Add to calendar</string>
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>

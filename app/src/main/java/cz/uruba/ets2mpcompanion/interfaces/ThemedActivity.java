@@ -10,9 +10,9 @@ import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 
 public abstract class ThemedActivity extends AppCompatActivity {
-    SharedPreferences sharedPref;
-    boolean isCustomThemeEnabled = false;
-    String prefThemeColour = "";
+    protected SharedPreferences sharedPref;
+    protected boolean isCustomThemeEnabled = false;
+    protected String prefThemeColour = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

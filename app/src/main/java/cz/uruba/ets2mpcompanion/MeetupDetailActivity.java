@@ -24,12 +24,15 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
@@ -211,10 +214,10 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
 
 
     private void showMeetupReminderDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this, Themes.getThemeStyle(prefThemeColour + ".AlertDialog"));
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_meetup_reminder, null);
-        dialogBuilder.setView(dialogView);
+        dialogBuilder.setView(dialogView).setTitle("The meetup's details");
 
         try {
             ((TextView) dialogView.findViewById(R.id.organiser))
@@ -229,13 +232,15 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                     .setText(meetupDetail.isTrailerRequired()
                             ? getString(R.string.yes) : getString(R.string.no));
             ((TextView) dialogView.findViewById(R.id.meetup_date))
-                    .setText(meetupDetail.getMeetupDate().toString());
+                    .setText(DateFormat
+                            .getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT, Locale.getDefault())
+                            .format(meetupDetail.getMeetupDate()));
         } catch (Exception ignored) {
         }
 
 
         dialogBuilder
-                .setPositiveButton(R.string.meetup_datail_set_reminder,
+                .setPositiveButton(R.string.meetup_detail_set_calendar_reminder,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Intent intent = new Intent(Intent.ACTION_INSERT);
@@ -246,12 +251,12 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
                                         meetupDetail.getMeetupDate().getTime());
 
-
                                 intent.putExtra(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
                                 startActivity(intent);
                             }
                         }
-                );
+                )
+                .setNegativeButton(android.R.string.cancel, null);
 
         (dialogBuilder.create()).show();
     }
