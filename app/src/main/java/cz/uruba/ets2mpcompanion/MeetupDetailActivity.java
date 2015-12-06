@@ -64,6 +64,21 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         } catch (NullPointerException ignored) {
         }
 
+        initWebView();
+    }
+
+    @Override
+    protected void onNewIntent (Intent intent) {
+        setIntent(intent);
+
+        initWebView();
+    }
+
+    private void initWebView() {
+        if (menuCreateReminderItem != null) {
+            menuCreateReminderItem.setVisible(false);
+        }
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             meetupPageURL = extras.getString(INTENT_EXTRA_URL);
