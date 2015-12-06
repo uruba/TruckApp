@@ -2,8 +2,10 @@ package cz.uruba.ets2mpcompanion;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -231,13 +233,23 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         } catch (Exception ignored) {
         }
 
-        dialogBuilder.setCancelable(true);
 
         dialogBuilder
                 .setPositiveButton(R.string.meetup_datail_set_reminder,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                Intent intent = new Intent(Intent.ACTION_INSERT);
+                                intent.setType("vnd.android.cursor.item/event");
+                                intent.putExtra(CalendarContract.Events.TITLE, "ETS2MP Meetup");
+                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, meetupDetail.getLocation());
+                                intent.putExtra(CalendarContract.Events.DESCRIPTION, "Download Examples");
 
+                                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                                        meetupDetail.getMeetupDate().getTime());
+
+
+                                intent.putExtra(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
+                                startActivity(intent);
                             }
                         }
                 );

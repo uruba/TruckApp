@@ -42,7 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"
-            android:noHistory="true">
+            android:launchMode="singleTop">
             <!-- Parent activity meta-data to support 4.0 -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
