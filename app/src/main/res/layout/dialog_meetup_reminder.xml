@@ -21,7 +21,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/organiser" />
+            android:id="@+id/organiser"
+            android:textStyle="italic"/>
 
     </TableRow>
 
@@ -39,7 +40,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/server" />
+            android:id="@+id/server"
+            android:textStyle="italic"/>
 
     </TableRow>
 
@@ -57,7 +59,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/location" />
+            android:id="@+id/location"
+            android:textStyle="bold|italic"/>
 
     </TableRow>
 
@@ -75,7 +78,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/destination" />
+            android:id="@+id/destination"
+            android:textStyle="italic"/>
 
     </TableRow>
 
@@ -93,7 +97,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/trailer_required" />
+            android:id="@+id/trailer_required"
+            android:textStyle="italic" />
 
     </TableRow>
 
@@ -111,7 +116,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:id="@+id/meetup_date" />
+            android:id="@+id/meetup_date"
+            android:textStyle="bold|italic" />
 
     </TableRow>
 
