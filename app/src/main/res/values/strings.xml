@@ -24,7 +24,7 @@
     <string name="LastUpdatedTextView_JUST_NOW">just now</string>
     <string name="settings_title_theme_colour">Theme color</string>
     <string name="data_not_loaded">Data not loaded</string>
-    <string name="settings_category_title_general">General</string>
+    <string name="settings_category_title_appearance">Appearance</string>
     <string name="settings_title_use_custom_theme">Use a custom theme</string>
     <string name="settings_category_title_widget">Widget</string>
     <string name="settings_title_widget_toast">Toast notifications</string>
@@ -47,4 +47,8 @@
     <string name="cancel">Cancel</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="settings_category_title_meetup_reminders">Meetup reminders</string>
+    <string name="settings_title_meetup_reminders_default">Default title</string>
+    <string name="title_meetup_reminders_default">ETS2MP Meetup</string>
+    <string name="dialog_title_meetup_details">The meetup\'s details</string>
 </resources>

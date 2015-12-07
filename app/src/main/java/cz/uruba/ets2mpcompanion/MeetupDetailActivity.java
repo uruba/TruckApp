@@ -3,8 +3,11 @@ package cz.uruba.ets2mpcompanion;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +36,7 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.constants.URL;
+import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
@@ -231,7 +235,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_meetup_reminder, null);
-        dialogBuilder.setView(dialogView).setTitle("The meetup's details");
+        dialogBuilder.setView(dialogView).setTitle(getString(R.string.dialog_title_meetup_details));
 
         try {
             ((TextView) dialogView.findViewById(R.id.organiser))
@@ -259,7 +263,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Intent intent = new Intent(Intent.ACTION_INSERT);
                                 intent.setType("vnd.android.cursor.item/event");
-                                intent.putExtra(CalendarContract.Events.TITLE, "ETS2MP Meetup");
+                                intent.putExtra(CalendarContract.Events.TITLE, sharedPref.getString(SettingsFragment.PREF_MEETUP_REMINDERS_DEFAULT_TITLE, getString(R.string.title_meetup_reminders_default)));
                                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, meetupDetail.getLocation());
 
                                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,

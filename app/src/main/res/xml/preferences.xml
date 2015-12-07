@@ -3,7 +3,7 @@
 
     <PreferenceCategory
         android:key="preference_category_general"
-        android:title="@string/settings_category_title_general">
+        android:title="@string/settings_category_title_appearance">
 
         <CheckBoxPreference
             android:key="preference_custom_theme"
@@ -14,6 +14,18 @@
             android:title="@string/settings_title_theme_colour"
             android:summary="@string/settings_summary_theme_colour"
             android:dependency="preference_custom_theme"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="preference_category_general"
+        android:title="@string/settings_category_title_meetup_reminders">
+
+        <EditTextPreference
+            android:key="preference_meetup_reminders_default_title"
+            android:title="@string/settings_title_meetup_reminders_default"
+            android:defaultValue="@string/title_meetup_reminders_default"
+            />
 
     </PreferenceCategory>
 
