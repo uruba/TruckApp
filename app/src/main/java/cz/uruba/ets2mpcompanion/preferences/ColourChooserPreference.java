@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.preference.ListPreference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -68,5 +70,25 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
         onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
         setValue(themeListKeys.get(position));
         getDialog().dismiss();
+    }
+
+    // NOTE – This is dependent on the syntax of theme keys in the theme map!
+    public String getValueThemeColour() {
+        if (TextUtils.isEmpty(getValue())) {
+            return null;
+        }
+
+        String[] words = getValue().split("(?<=\\S)(?=\\p{Upper})");
+
+        for (int i = 0; i < words.length; i++) {
+            if (i > 0) {
+                words[i] = words[i].toLowerCase();
+            }
+        }
+
+        // Do away with the "theme" word and the first blank string (left by the split function)
+        words = Arrays.copyOf(words, words.length - 1);
+
+        return TextUtils.join(" ", words);
     }
 }

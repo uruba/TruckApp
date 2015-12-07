@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.text.TextUtils;
 
 import java.util.Arrays;
 
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.SettingsActivity;
+import cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_CUSTOM_THEME_ENABLED = "preference_custom_theme";
@@ -18,7 +20,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String PREF_WIDGET_TOAST_ENABLED = "preference_widget_toast";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_TITLE = "preference_meetup_reminders_default_title";
 
-    public static final String[] preferencesSummaryUpdatedFor = { PREF_MEETUP_REMINDERS_DEFAULT_TITLE };
+    public static final String[] preferencesSummaryUpdatedFor =
+            {
+                PREF_THEME_COLOUR,
+                PREF_MEETUP_REMINDERS_DEFAULT_TITLE
+            };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +72,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
         if (preference instanceof EditTextPreference) {
             currentValue = ((EditTextPreference) preference).getText();
+        } else if (preference instanceof ColourChooserPreference) {
+            if(TextUtils.isEmpty(((ColourChooserPreference) preference).getValue())) {
+                return;
+            }
+
+            currentValue = ((ColourChooserPreference) preference).getValueThemeColour();
         } else {
             return;
         }
