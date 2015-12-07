@@ -48,7 +48,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="settings_category_title_meetup_reminders">Meetup reminders</string>
-    <string name="settings_title_meetup_reminders_default">Default title</string>
+    <string name="settings_title_meetup_reminders_default">Calendar event title</string>
     <string name="title_meetup_reminders_default">ETS2MP Meetup</string>
     <string name="dialog_title_meetup_details">The meetup\'s details</string>
 </resources>
