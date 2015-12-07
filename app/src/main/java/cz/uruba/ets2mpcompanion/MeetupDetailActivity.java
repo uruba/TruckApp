@@ -54,6 +54,24 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
 
     private MenuItem menuCreateReminderItem;
 
+    private static final String[] jQueryModifiers = {
+            "$('#chat').toggleClass('hidden')",
+            "$('body').css('padding-top', '8px')",
+            "$('.content, .form').width('100%')",
+            "$('.content').css({'box-sizing': 'border-box', 'padding': '0 20px'})",
+            "$('.form textarea, #chat').width('95%')",
+            "$('.row').css({'margin-bottom': '48px', 'text-align': 'center'})",
+            "$('.row label').css('float', 'none')",
+            "$('.row img').css({'margin-top': '0px', 'float': 'none', 'vertical-align': 'middle'})",
+            "$('.row small').css('margin-left', '0px')",
+            "$('.left, .right').css({'text-align': 'center', 'float': 'none', 'margin-bottom': '8px'})",
+            "$('#lang_chose').css({'margin-top': '8px', 'margin-left': '0px', 'padding-left': '0px', 'border-left': 'none'})",
+            "$('#footer').css('padding-bottom', '48px')",
+            "$('#footer .third').css('margin-top', '16px')",
+            "$('textarea').autogrow()",
+            "$('#logo span').replaceWith(function() { return $('<div/>', { class: 'myClass', html: this.innerHTML}); })"
+    };
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +134,9 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
                             view.loadUrl(meetupPageURL);
                         }
 
-                        view.loadUrl("javascript:$('#chat').toggleClass('hidden');$('.content, .form').width('100%');$('.content').css({'box-sizing': 'border-box', 'padding': '0 20px'});$('.form textarea, #chat').width('95%');$('.row').css('margin-bottom', '48px');$('.row label').css('float', 'none');$('.row small').css('margin-left', '0px');");
+                        for (String command : jQueryModifiers) {
+                            view.loadUrl(String.format("javascript:%s", command));
+                        }
                     }
                 }
             });
