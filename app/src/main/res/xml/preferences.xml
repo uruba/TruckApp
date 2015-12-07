@@ -21,7 +21,7 @@
         android:key="preference_category_general"
         android:title="@string/settings_category_title_meetup_reminders">
 
-        <EditTextPreference
+        <cz.uruba.ets2mpcompanion.views.NonEmptyEditTextPreference
             android:key="preference_meetup_reminders_default_title"
             android:title="@string/settings_title_meetup_reminders_default"
             android:defaultValue="@string/title_meetup_reminders_default"
