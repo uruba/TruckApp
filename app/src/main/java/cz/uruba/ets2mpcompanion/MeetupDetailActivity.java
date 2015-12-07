@@ -153,7 +153,7 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
 
     @Override
     public void onBackPressed() {
-        if (webView.canGoBack()){
+        if (webView.canGoBack() && !webView.getUrl().equals(meetupPageURL)){
             webView.goBack();
         } else {
             super.onBackPressed();
