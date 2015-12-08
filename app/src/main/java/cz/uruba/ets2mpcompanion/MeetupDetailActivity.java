@@ -39,7 +39,7 @@ import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
-public class MeetupDetailActivity extends ThemedActivity implements View.OnClickListener, DataReceiver<Document> {
+public class MeetupDetailActivity extends ThemedActivity implements DataReceiver<Document> {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.loading_progress) ProgressBar loadingProgressIndicator;
     @Bind(R.id.webview) WebView webView;
@@ -178,11 +178,6 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
     }
 
     @Override
-    public void onClick(View v) {
-        showMeetupReminderDialog();
-    }
-
-    @Override
     public void processData(Document data, boolean notifyUser) {
         Element elem_form = data.select(".form").first();
 
@@ -233,13 +228,25 @@ public class MeetupDetailActivity extends ThemedActivity implements View.OnClick
         }
 
         Snackbar.make((View) webView.getParent(), getString(R.string.meetup_detail_webpage_notification), Snackbar.LENGTH_LONG)
-                .setAction(getString(R.string.meetup_detail_webpage_notification_action), this)
+                .setAction(getString(R.string.meetup_detail_webpage_notification_action), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showMeetupReminderDialog();
+                    }
+                })
                 .show();
     }
 
     @Override
     public void handleIOException(IOException e) {
-
+        Snackbar.make((View) webView.getParent(), getString(R.string.meetup_detail_webpage_error), Snackbar.LENGTH_LONG)
+                .setAction(getString(R.string.meetup_detail_webpage_error_action), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        initWebView();
+                    }
+                })
+                .show();
     }
 
     @Override

@@ -33,6 +33,8 @@
     <string name="widget_loading">Loading...</string>
     <string name="activity_meetup_detail">Meetup detail</string>
     <string name="show_meetup_detail">Show the meetup\'s detail</string>
+    <string name="meetup_detail_webpage_error">The meetup\'s data could not be loaded.</string>
+    <string name="meetup_detail_webpage_error_action">Try again</string>
     <string name="meetup_detail_webpage_notification">The meetup\'s data were successfully read in.</string>
     <string name="meetup_detail_webpage_notification_action">Create a reminder</string>
     <string name="meetup_create_reminder">Create a reminder for the meetup</string>
