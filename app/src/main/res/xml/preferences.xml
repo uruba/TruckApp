@@ -26,6 +26,7 @@
             android:title="@string/settings_title_meetup_reminders_default"
             android:defaultValue="@string/title_meetup_reminders_default"
             android:minEms="16"
+            android:singleLine="true"
             />
 
     </PreferenceCategory>
