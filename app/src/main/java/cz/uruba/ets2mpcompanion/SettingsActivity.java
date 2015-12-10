@@ -12,6 +12,7 @@ import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 
 public class SettingsActivity extends ThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
+    // implicitly, we want to show an exit animation
     boolean animateExit = true;
 
     @Override
@@ -44,7 +45,6 @@ public class SettingsActivity extends ThemedActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;

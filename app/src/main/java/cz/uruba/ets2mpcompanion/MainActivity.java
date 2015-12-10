@@ -31,12 +31,10 @@ public class MainActivity extends ThemedActivity {
 
         setSupportActionBar(toolbar);
 
-
-
         setupViewPager(viewPager);
         tabsArea.setupWithViewPager(viewPager);
 
-
+        // Lollipop-esque coloured "overscroll" effect for pre-Lollipop versions of Android
         UICompat.setOverscrollEffectColour(this);
     }
 
@@ -60,12 +58,13 @@ public class MainActivity extends ThemedActivity {
 
     }
 
-        private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         final int SERVER_LIST_FRAG_POS = 0;
         final int MEETUP_LIST_FRAG_POS = 1;
 
+        // we add two pages – a ServerListFragment one and a MeetupListFragment one
         final ServerListFragment serverListFragment = new ServerListFragment();
         final MeetupListFragment meetupListFragment = new MeetupListFragment();
 

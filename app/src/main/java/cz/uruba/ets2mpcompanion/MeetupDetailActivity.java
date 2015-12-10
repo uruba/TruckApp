@@ -51,6 +51,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
 
     private MenuItem menuCreateReminderItem;
 
+    // the jQuery modifiers are applied to the loaded page
     private static final String[] jQueryModifiers = {
             "$('#chat').toggleClass('hidden')",
             "$('body').css('padding-top', '8px')",
@@ -94,12 +95,14 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
     }
 
     private void initWebView() {
+        // hide the "create a reminder" button until after the meetup data has been loaded
         if (menuCreateReminderItem != null) {
             menuCreateReminderItem.setVisible(false);
         }
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            // the target URL has been handed over in the intent that was used to start this activity
             meetupPageURL = extras.getString(INTENT_EXTRA_URL);
 
             webView.setWebViewClient(new WebViewClient() {
@@ -110,15 +113,20 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
 
                 @Override
                 public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    // show the "loading" spinner
                     loadingProgressIndicator.setVisibility(ProgressBar.VISIBLE);
                 }
 
                 @Override
                 public void onPageFinished(WebView view, String url) {
+                    // hide the "loading" spinner
                     loadingProgressIndicator.setVisibility(ProgressBar.GONE);
 
+                    // we have to check that we are on the ets2c.com site to define special behaviour there
                     if (url.contains(URL.MEETUP_LIST)) {
                         if (url.equals(meetupPageURL)) {
+                            // if we are on a meetup's detail webpage, we fetch it once more as a JSOUP object
+                            // to accomplish this, we need proper session cookies to be handed over to let the site know that we're logged in
                             String cookies = CookieManager.getInstance().getCookie(url);
                             Map<String, String> cookieMap = new HashMap<>();
                             for (String cookie : cookies.split("; ")) {
@@ -127,10 +135,12 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
                             }
 
                             new FetchJsoupDataTask(MeetupDetailActivity.this, url, cookieMap, false).execute();
+                            // the result is handled in the respective callback method
                         } else if (url.equals(URL.MEETUP_LIST)) {
                             view.loadUrl(meetupPageURL);
                         }
 
+                        // we also load and apply all the jQuery modifiers
                         for (String command : jQueryModifiers) {
                             view.loadUrl(String.format("javascript:%s", command));
                         }
@@ -138,6 +148,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
                 }
             });
 
+            // we need to enable JavaScript in our WebView
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
 
@@ -179,6 +190,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
 
     @Override
     public void processData(Document data, boolean notifyUser) {
+        // by the virtue of proper selectors, we get to the data that we want
         Element elem_form = data.select(".form").first();
 
         try {
@@ -223,6 +235,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
             return;
         }
 
+        // if we get here without an exception, the data has been loaded and we can show the "create a reminder" button
         if (menuCreateReminderItem != null) {
             menuCreateReminderItem.setVisible(true);
         }
@@ -256,6 +269,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
 
 
     private void showMeetupReminderDialog() {
+        // we create an AlertDialog for the purpose of providing the user a possibility to save the meetup as an event
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_meetup_reminder, null);
