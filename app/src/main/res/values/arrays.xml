@@ -34,4 +34,10 @@
         <item>AmberTheme</item>
         <item>DeepOrangeTheme</item>
     </string-array>
+    <string-array name="meetup_description_format_strings">
+        <item>%organiser%</item>
+        <item>%server%</item>
+        <item>%location%</item>
+        <item>%destination%</item>
+    </string-array>
 </resources>

@@ -29,6 +29,13 @@
             android:singleLine="true"
             />
 
+        <cz.uruba.ets2mpcompanion.preferences.FormattedEditTextPreference
+            android:key="preference_meetup_reminders_default_description"
+            android:title="@string/settings_description_meetup_reminders_default"
+            android:defaultValue="@string/description_meetup_reminders_default"
+            android:entries="@array/meetup_description_format_strings"
+            />
+
     </PreferenceCategory>
 
     <PreferenceCategory

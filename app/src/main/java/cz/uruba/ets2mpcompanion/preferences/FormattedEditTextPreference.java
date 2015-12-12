@@ -2,33 +2,50 @@ package cz.uruba.ets2mpcompanion.preferences;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout;
 
 /** This class was adapted from the Android's internal EditTextPreference class
  *  You can browse it here: https://github.com/android/platform_frameworks_base/blob/master/core/java/android/preference/EditTextPreference.java
  */
 public class FormattedEditTextPreference extends DialogPreference {
+    private ArrayList<CharSequence> formatStrings;
 
-    private EditText editText;
+    @Bind(R.id.edit_text) EditText editText;
+    @Bind(R.id.container_insert_format_string_buttons) RowedLayout containerButtons;
     private String text;
 
     public FormattedEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        editText = new EditText(context, attrs);
-        editText.setId(com.android.internal.R.id.edit);
-        editText.setEnabled(true);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.formated_edit_text_preference);
+        try {
+            CharSequence[] entries = typedArray.getTextArray(R.styleable.formated_edit_text_preference_android_entries);
+            if (entries != null && entries.length > 0) {
+                formatStrings = new ArrayList<>(Arrays.asList(entries));
+            }
+        } finally {
+            typedArray.recycle();
+        }
     }
 
     public FormattedEditTextPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, com.android.internal.R.attr.editTextPreferenceStyle);
+        this(context, attrs, 0);
     }
 
     public FormattedEditTextPreference(Context context) {
@@ -45,27 +62,31 @@ public class FormattedEditTextPreference extends DialogPreference {
     }
 
     @Override
+    protected View onCreateDialogView() {
+        View view = View.inflate(getContext(), R.layout.dialog_formatted_edit_text_preference, null);
+
+        ButterKnife.bind(this, view);
+
+        for (CharSequence formatString : formatStrings) {
+            TextView textView = new TextView(getContext());
+            textView.setText(formatString);
+
+            textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+            textView.setBackground(getContext().getResources().getDrawable(R.drawable.bckg_rounded_corners));
+
+
+            containerButtons.addView(textView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+
+        return view;
+    }
+
+    @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
         editText.setText(getText());
-
-        ViewParent oldParent = editText.getParent();
-        if (oldParent != view) {
-            if (oldParent != null) {
-                ((ViewGroup) oldParent).removeView(editText);
-            }
-            onAddEditTextToDialogView(view, editText);
-        }
-    }
-
-    protected void onAddEditTextToDialogView(View dialogView, EditText editText) {
-        ViewGroup container = (ViewGroup) dialogView
-                .findViewById(com.android.internal.R.id.edittext_container);
-        if (container != null) {
-            container.addView(editText, ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
     }
 
     @Override
