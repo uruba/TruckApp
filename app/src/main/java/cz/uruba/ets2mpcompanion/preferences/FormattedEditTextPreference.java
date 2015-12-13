@@ -2,7 +2,7 @@ package cz.uruba.ets2mpcompanion.preferences;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -18,6 +18,7 @@ import java.util.Arrays;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout;
 
 /** This class was adapted from the Android's internal EditTextPreference class
@@ -67,13 +68,19 @@ public class FormattedEditTextPreference extends DialogPreference {
 
         ButterKnife.bind(this, view);
 
+        int themeColor = UICompat.getThemeColour(R.attr.colorPrimary, getContext());
+
         for (CharSequence formatString : formatStrings) {
             TextView textView = new TextView(getContext());
             textView.setText(formatString);
 
-            textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
-            textView.setBackground(getContext().getResources().getDrawable(R.drawable.bckg_rounded_corners));
+            GradientDrawable backgroundDrawable = (GradientDrawable) getContext().getResources().getDrawable(R.drawable.bckg_rounded_corners);
+            if (backgroundDrawable != null) {
+                backgroundDrawable.setColor(themeColor);
+            }
 
+            textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+            textView.setBackground(backgroundDrawable);
 
             containerButtons.addView(textView, ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
