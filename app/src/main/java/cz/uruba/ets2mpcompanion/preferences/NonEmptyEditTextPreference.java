@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.views;
+package cz.uruba.ets2mpcompanion.preferences;
 
 import android.content.Context;
 import android.preference.EditTextPreference;
