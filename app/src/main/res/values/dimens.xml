@@ -17,4 +17,5 @@
     <dimen name="colour_grid_spacing">12dp</dimen>
 
     <dimen name="alertdialog_content_horizontal_padding">24dp</dimen>
+    <dimen name="dialog_formatted_edit_text_preference_horizontal_padding">20dp</dimen>
 </resources>

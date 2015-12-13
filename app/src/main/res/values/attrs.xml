@@ -3,4 +3,8 @@
     <declare-styleable name="formated_edit_text_preference">
         <attr name="android:entries" />
     </declare-styleable>
+    <declare-styleable name="rowed_layout">
+        <attr name="android:verticalSpacing" />
+        <attr name="android:horizontalSpacing" />
+    </declare-styleable>
 </resources>

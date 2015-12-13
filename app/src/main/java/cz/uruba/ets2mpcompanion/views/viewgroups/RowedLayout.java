@@ -1,6 +1,7 @@
 package cz.uruba.ets2mpcompanion.views.viewgroups;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,11 +9,14 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import cz.uruba.ets2mpcompanion.R;
+
 public class RowedLayout extends ViewGroup {
     private List<Row> rows;
+    private int horizontalSpacing, verticalSpacing;
 
     public RowedLayout(Context context) {
-        super(context);
+        this(context, null);
     }
 
     public RowedLayout(Context context, AttributeSet attrs) {
@@ -22,7 +26,13 @@ public class RowedLayout extends ViewGroup {
     public RowedLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.rowed_layout);
+        try {
+            horizontalSpacing = typedArray.getDimensionPixelSize(R.styleable.rowed_layout_android_horizontalSpacing, 0);
+            verticalSpacing = typedArray.getDimensionPixelSize(R.styleable.rowed_layout_android_verticalSpacing, 0);
+        } finally {
+            typedArray.recycle();
+        }
     }
 
     @Override
@@ -55,6 +65,9 @@ public class RowedLayout extends ViewGroup {
             if (currentLeft > maxWidth) {
                 currentRow = new Row();
                 rows.add(currentRow);
+                currentLeft = 0;
+            } else {
+                currentLeft += horizontalSpacing;
             }
 
             currentRow.addElement(child, childWidth, childHeight);
@@ -62,14 +75,15 @@ public class RowedLayout extends ViewGroup {
 
         int longestRowWidth = 0;
         int totalRowHeight = 0;
-        for (int index = 0; index < rows.size(); index++) {
-            Row row = rows.get(index);
+        for (int i = 0; i < rows.size(); i++) {
+            Row row = rows.get(i);
             totalRowHeight += row.getHeight();
-            /**
-            if (index < rows.size() - 1) {
+
+            if (i < rows.size() - 1) {
                 totalRowHeight += verticalSpacing;
-            } */
-            longestRowWidth = Math.max(longestRowWidth, row.getWidth());
+            }
+
+            longestRowWidth = Math.max(longestRowWidth, row.getWidth() + (row.getElements().size() - 1) * horizontalSpacing);
         }
 
         setMeasuredDimension(
@@ -113,11 +127,11 @@ public class RowedLayout extends ViewGroup {
                         currentLeft + element.getPremeasuredWidth(),
                         currentTop + element.getPremeasuredHeight());
 
-                currentLeft += element.getPremeasuredWidth();
+                currentLeft += element.getPremeasuredWidth() + horizontalSpacing;
             }
 
-            currentLeft = 0;
-            currentTop += currentRow.getHeight();
+            currentLeft = parentLeft;
+            currentTop += currentRow.getHeight() + verticalSpacing;
         }
     }
 

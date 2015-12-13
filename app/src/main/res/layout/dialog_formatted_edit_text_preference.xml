@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin">
+    android:paddingLeft="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingRight="@dimen/dialog_formatted_edit_text_preference_horizontal_padding">
 
     <cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:horizontalSpacing="6dp"
+        android:verticalSpacing="6dp"
         android:id="@+id/container_insert_format_string_buttons" />
 
     <EditText
