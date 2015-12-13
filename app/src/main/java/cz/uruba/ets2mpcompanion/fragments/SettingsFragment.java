@@ -13,17 +13,20 @@ import java.util.Arrays;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.SettingsActivity;
 import cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference;
+import cz.uruba.ets2mpcompanion.preferences.FormattedEditTextPreference;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_CUSTOM_THEME_ENABLED = "preference_custom_theme";
     public static final String PREF_THEME_COLOUR = "preference_theme_colour";
     public static final String PREF_WIDGET_TOAST_ENABLED = "preference_widget_toast";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_TITLE = "preference_meetup_reminders_default_title";
+    public static final String PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION = "preference_meetup_reminders_default_description";
 
     public static final String[] preferencesSummaryUpdatedFor =
             {
                 PREF_THEME_COLOUR,
-                PREF_MEETUP_REMINDERS_DEFAULT_TITLE
+                PREF_MEETUP_REMINDERS_DEFAULT_TITLE,
+                PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION
             };
 
     @Override
@@ -78,6 +81,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             }
 
             currentValue = ((ColourChooserPreference) preference).getValueThemeColour();
+        } else if (preference instanceof FormattedEditTextPreference) {
+            currentValue = ((FormattedEditTextPreference) preference).getText();
         } else {
             return;
         }
