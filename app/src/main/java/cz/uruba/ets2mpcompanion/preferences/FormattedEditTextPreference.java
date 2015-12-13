@@ -1,5 +1,6 @@
 package cz.uruba.ets2mpcompanion.preferences;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
@@ -87,6 +88,13 @@ public class FormattedEditTextPreference extends DialogPreference {
         }
 
         return view;
+    }
+
+    @Override
+    protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
+        builder
+            .setPositiveButton(android.R.string.ok, this)
+            .setNegativeButton(android.R.string.cancel, this);
     }
 
     @Override

@@ -3,14 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
-    android:paddingRight="@dimen/dialog_formatted_edit_text_preference_horizontal_padding">
+    android:paddingRight="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingTop="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingBottom="@dimen/dialog_formatted_edit_text_preference_horizontal_padding">
 
     <cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:horizontalSpacing="6dp"
         android:verticalSpacing="6dp"
-        android:id="@+id/container_insert_format_string_buttons" />
+        android:id="@+id/container_insert_format_string_buttons"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
     <EditText
         android:layout_width="match_parent"
