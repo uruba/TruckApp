@@ -31,12 +31,6 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
     protected View onCreateDialogView() {
         View view = View.inflate(getContext(), R.layout.dialog_colour_chooser, null);
 
-        CharSequence dialogTitle = getDialogTitle();
-        if (dialogTitle == null) {
-            dialogTitle = getTitle();
-        }
-        ((TextView) view.findViewById(R.id.dialog_title)).setText(dialogTitle);
-
         GridView colourGrid = (GridView) view.findViewById(R.id.dialog_colours);
 
         Map<String, Integer> themeMap = Themes.getThemeList();
@@ -60,7 +54,6 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
 
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-        builder.setTitle(null);
         builder.setPositiveButton(null, null);
     }
 
