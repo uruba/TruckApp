@@ -54,5 +54,5 @@
     <string name="title_meetup_reminders_default">ETS2MP Meetup</string>
     <string name="dialog_title_meetup_details">The meetup\'s details</string>
     <string name="settings_description_meetup_reminders_default">Calendar event description</string>
-    <string name="description_meetup_reminders_default">This is a meetup description</string>
+    <string name="description_meetup_reminders_default" formatted="false">Organiser: %organiser%\nServer: %server%\nLocation: %location%\nDestination: %destination%</string>
 </resources>

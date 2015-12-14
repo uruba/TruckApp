@@ -301,13 +301,29 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 Intent intent = new Intent(Intent.ACTION_INSERT);
                                 intent.setType("vnd.android.cursor.item/event");
-                                intent.putExtra(CalendarContract.Events.TITLE, sharedPref.getString(SettingsFragment.PREF_MEETUP_REMINDERS_DEFAULT_TITLE, getString(R.string.title_meetup_reminders_default)));
-                                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, meetupDetail.getLocation());
+                                intent.putExtra(
+                                        CalendarContract.Events.TITLE,
+                                        sharedPref.getString(SettingsFragment.PREF_MEETUP_REMINDERS_DEFAULT_TITLE, getString(R.string.title_meetup_reminders_default))
+                                );
+                                intent.putExtra(
+                                        CalendarContract.Events.EVENT_LOCATION,
+                                        meetupDetail.getLocation()
+                                );
+                                intent.putExtra(
+                                        CalendarContract.Events.DESCRIPTION,
+                                        meetupDetail.processMarkup(
+                                                sharedPref.getString(SettingsFragment.PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION, "")
+                                        )
+                                );
+                                intent.putExtra(
+                                        CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                                        meetupDetail.getMeetupDate().getTime()
+                                );
+                                intent.putExtra(
+                                        CalendarContract.Events.ACCESS_LEVEL,
+                                        CalendarContract.Events.ACCESS_PRIVATE
+                                );
 
-                                intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                                        meetupDetail.getMeetupDate().getTime());
-
-                                intent.putExtra(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
                                 startActivity(intent);
                             }
                         }

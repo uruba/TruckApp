@@ -71,17 +71,22 @@ public class FormattedEditTextPreference extends DialogPreference {
 
         int themeColor = UICompat.getThemeColour(R.attr.colorPrimary, getContext());
 
-        for (CharSequence formatString : formatStrings) {
+        for (final CharSequence formatString : formatStrings) {
             TextView textView = new TextView(getContext());
-            textView.setText(formatString);
-
             GradientDrawable backgroundDrawable = (GradientDrawable) getContext().getResources().getDrawable(R.drawable.bckg_rounded_corners);
             if (backgroundDrawable != null) {
                 backgroundDrawable.setColor(themeColor);
             }
 
+            textView.setText(formatString);
             textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
             textView.setBackground(backgroundDrawable);
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    editText.getText().insert(editText.getSelectionStart(), formatString);
+                }
+            });
 
             containerButtons.addView(textView, ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);

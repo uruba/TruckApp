@@ -1,8 +1,11 @@
 package cz.uruba.ets2mpcompanion.model;
 
 import java.util.Date;
+import java.util.HashMap;
 
-public class MeetupDetail {
+import cz.uruba.ets2mpcompanion.interfaces.MarkupProcessor;
+
+public class MeetupDetail extends MarkupProcessor {
     private String organiser;
     private String server;
     private String location;
@@ -41,5 +44,16 @@ public class MeetupDetail {
 
     public Date getMeetupDate() {
         return meetupDate;
+    }
+
+    @Override
+    public String processMarkup(String inputString) {
+        HashMap<String, String> matchMap = new HashMap<>();
+        matchMap.put("organiser", getOrganiser());
+        matchMap.put("server", getServer());
+        matchMap.put("location", getLocation());
+        matchMap.put("destination", getDestination());
+
+        return getStringFromMarkup(inputString, matchMap);
     }
 }
