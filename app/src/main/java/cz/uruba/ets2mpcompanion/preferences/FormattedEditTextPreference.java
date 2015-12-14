@@ -2,11 +2,13 @@ package cz.uruba.ets2mpcompanion.preferences;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +29,7 @@ import cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout;
  */
 public class FormattedEditTextPreference extends DialogPreference {
     private ArrayList<CharSequence> formatStrings;
+    private String defaultText;
 
     @Bind(R.id.edit_text) EditText editText;
     @Bind(R.id.container_insert_format_string_buttons) RowedLayout containerButtons;
@@ -35,12 +38,14 @@ public class FormattedEditTextPreference extends DialogPreference {
     public FormattedEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.formated_edit_text_preference);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.formatted_edit_text_preference);
         try {
-            CharSequence[] entries = typedArray.getTextArray(R.styleable.formated_edit_text_preference_android_entries);
+            CharSequence[] entries = typedArray.getTextArray(R.styleable.formatted_edit_text_preference_android_entries);
             if (entries != null && entries.length > 0) {
                 formatStrings = new ArrayList<>(Arrays.asList(entries));
             }
+
+            defaultText = typedArray.getString(R.styleable.formatted_edit_text_preference_android_defaultValue);
         } finally {
             typedArray.recycle();
         }
@@ -100,6 +105,15 @@ public class FormattedEditTextPreference extends DialogPreference {
         builder
             .setPositiveButton(android.R.string.ok, this)
             .setNegativeButton(android.R.string.cancel, this);
+
+        if (!TextUtils.isEmpty(defaultText)) {
+            builder.setNeutralButton(R.string.default_value, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    setText(defaultText);
+                }
+            });
+        }
     }
 
     @Override

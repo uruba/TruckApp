@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="formated_edit_text_preference">
+    <declare-styleable name="formatted_edit_text_preference">
         <attr name="android:entries" />
+        <attr name="android:defaultValue" />
     </declare-styleable>
     <declare-styleable name="rowed_layout">
         <attr name="android:verticalSpacing" />
