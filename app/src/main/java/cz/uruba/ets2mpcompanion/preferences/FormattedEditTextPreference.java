@@ -52,7 +52,7 @@ public class FormattedEditTextPreference extends DialogPreference {
     }
 
     public FormattedEditTextPreference(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
     public FormattedEditTextPreference(Context context) {

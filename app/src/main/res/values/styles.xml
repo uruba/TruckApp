@@ -7,11 +7,6 @@
         <item name="colorPrimary">@color/AppTheme_colorPrimary</item>
         <item name="colorPrimaryDark">@color/AppTheme_colorPrimaryDark</item>
         <item name="colorAccent">@color/AppTheme_colorAccent</item>
-        <item name="android:textAppearanceLarge">@style/LargeTextAppearance</item>
-    </style>
-
-    <style name="LargeTextAppearance" parent="@android:style/TextAppearance.Large">
-        <item name="android:textSize">16sp</item>
     </style>
 
     <!-- Other themes' definitions -->
