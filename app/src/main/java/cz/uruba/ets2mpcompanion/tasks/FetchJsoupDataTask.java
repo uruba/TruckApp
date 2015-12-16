@@ -4,7 +4,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
