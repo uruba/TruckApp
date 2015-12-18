@@ -36,6 +36,7 @@ public class SettingsActivity extends ThemedActivity {
     public void onPause() {
         super.onPause();
 
+        // check if the flag indicates that we should not animate the activity exit
         if (!animateExit) {
             animateExit = true;
             overridePendingTransition(0, 0);
