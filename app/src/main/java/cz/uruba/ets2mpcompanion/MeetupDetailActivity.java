@@ -204,6 +204,7 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
             trailerRequired = false;
             meetupDate = null;
 
+            // we iterate on the "data" elements
             for (Element elem : elem_data) {
                 iterCount++;
 
@@ -294,11 +295,11 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
         } catch (Exception ignored) {
         }
 
-
         dialogBuilder
                 .setPositiveButton(R.string.meetup_detail_set_calendar_reminder,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
+                                // we create a calendar event intent
                                 Intent intent = new Intent(Intent.ACTION_INSERT);
                                 intent.setType("vnd.android.cursor.item/event");
                                 intent.putExtra(
