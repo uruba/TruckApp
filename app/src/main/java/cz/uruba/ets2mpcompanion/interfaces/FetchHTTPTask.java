@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class FetchHTTPTask<T, U, V, W extends DataReceiverJSON<V>> extends FetchTask<T, U, V, W> {
+public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends FetchTask<Void, Void, V, W> {
 
     public FetchHTTPTask(W callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
@@ -40,7 +40,7 @@ public abstract class FetchHTTPTask<T, U, V, W extends DataReceiverJSON<V>> exte
     }
 
     @Override
-    protected AsyncTaskResult<V> doInBackground(T... params) {
+    protected AsyncTaskResult<V> doInBackground(Void... params) {
         InputStream is;
 
         ArrayList<ServerInfo> serverList = new ArrayList<>();
