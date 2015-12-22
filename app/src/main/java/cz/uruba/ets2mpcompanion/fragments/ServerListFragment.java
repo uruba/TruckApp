@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -25,6 +26,7 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
+import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
 public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInfo>, ServerListAdapter> implements DataReceiverJSON<ArrayList<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
@@ -39,6 +41,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
             @Override
             public void onClick(View view) {
                 fetchServerList(true);
+                fetchServerTime();
             }
         });
 
@@ -48,6 +51,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
         serverList.setAdapter(listAdapter);
 
         fetchServerList();
+        fetchServerTime();
 
         return view;
     }
@@ -60,6 +64,30 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
         showLoadingOverlay();
 
         new FetchServerListTask(this, URL.SERVER_LIST, notifyUser).execute();
+    }
+
+    private void fetchServerTime() {
+        new FetchServerTimeTask(new DataReceiverJSON<Date>() {
+            @Override
+            public void processData(Date data, boolean notifyUser) {
+                Toast.makeText(getContext(), data.toString(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void handleIOException(IOException e) {
+
+            }
+
+            @Override
+            public void handleJSONException(JSONException e) {
+
+            }
+
+            @Override
+            public Date getLastUpdated() {
+                return null;
+            }
+        }, URL.GAME_TIME, false).execute();
     }
 
     @Override

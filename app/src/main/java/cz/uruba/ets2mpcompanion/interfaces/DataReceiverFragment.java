@@ -7,6 +7,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.Date;
 
 import butterknife.Bind;
@@ -94,5 +95,15 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
             isLoadingOverlayShown = false;
             return this;
         }
+    }
+
+    @Override
+    public void processData(T data, boolean notifyUser) {
+
+    }
+
+    @Override
+    public void handleIOException(IOException e) {
+
     }
 }
