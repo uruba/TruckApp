@@ -19,8 +19,8 @@ public class FetchServerTimeTask extends FetchHTTPTask<Date, DataReceiverJSON<Da
     protected Date processHTTPStream(String stream) throws JSONException {
         JSONObject jsonObject = new JSONObject(stream);
 
-        int numMinutes = jsonObject.getInt("game_time");
+        long numMinutes = jsonObject.getLong("game_time");
 
-        return new Date((long)numMinutes * 60 * 1000 + (long)Numeric.gameTimeStartingPointEpoch * 1000);
+        return new Date(numMinutes * 60 * 1000 + Numeric.gameTimeStartingPointEpoch * 1000);
     }
 }
