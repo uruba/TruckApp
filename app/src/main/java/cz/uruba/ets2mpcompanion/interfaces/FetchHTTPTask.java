@@ -43,8 +43,6 @@ public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends Fe
     protected AsyncTaskResult<V> doInBackground(Void... params) {
         InputStream is;
 
-        ArrayList<ServerInfo> serverList = new ArrayList<>();
-
         try {
             URL url = new URL(requestURL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
