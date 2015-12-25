@@ -8,9 +8,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
-import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends FetchTask<Void, Void, V, W> {
