@@ -10,15 +10,19 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithServerTimeViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
+import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
 public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
@@ -40,9 +44,20 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View itemView;
+
         switch (viewType) {
+            case TYPE_LAST_UPDATED:
+                itemView = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.block_lastupdatedwithservertime, parent, false);
+
+                lastUpdatedTextView = (LastUpdatedTextView) itemView.findViewById(R.id.last_updated);
+
+                return new LastUpdatedWithServerTimeViewHolder(itemView);
+
             case TYPE_DATA_ENTRY:
-                View itemView = LayoutInflater
+                itemView = LayoutInflater
                         .from(context)
                         .inflate(R.layout.cardview_serverinfo, parent, false);
 

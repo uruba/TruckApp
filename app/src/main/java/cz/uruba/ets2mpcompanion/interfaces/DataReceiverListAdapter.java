@@ -36,11 +36,9 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View itemView;
-
         switch (viewType) {
             case TYPE_LAST_UPDATED:
-                itemView = LayoutInflater
+                View itemView = LayoutInflater
                         .from(context)
                         .inflate(R.layout.block_lastupdated, parent, false);
 
