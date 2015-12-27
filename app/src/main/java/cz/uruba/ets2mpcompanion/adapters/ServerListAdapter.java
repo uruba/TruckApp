@@ -70,6 +70,11 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
+            case TYPE_LAST_UPDATED:
+                LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
+                lastUpdatedWithServerTimeViewHolder.serverTime.setText("");
+                break;
+
             case TYPE_DATA_ENTRY:
                 ServerInfo serverInfo = dataCollection.get(position - 1);
 
