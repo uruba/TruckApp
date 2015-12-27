@@ -68,9 +68,12 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
     private void fetchServerTime() {
         new FetchServerTimeTask(new DataReceiverJSON<Date>() {
+            private Date lastUpdated = new Date();
+
             @Override
             public void processData(Date data, boolean notifyUser) {
-                Toast.makeText(getContext(), data.toString(), Toast.LENGTH_LONG).show();
+                listAdapter.setServerTime(data);
+                listAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -85,7 +88,7 @@ public class ServerListFragment extends DataReceiverFragment<ArrayList<ServerInf
 
             @Override
             public Date getLastUpdated() {
-                return null;
+                return lastUpdated;
             }
         }, URL.GAME_TIME, false).execute();
     }

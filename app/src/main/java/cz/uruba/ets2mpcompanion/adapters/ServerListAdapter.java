@@ -3,6 +3,7 @@ package cz.uruba.ets2mpcompanion.adapters;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -28,6 +30,8 @@ import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
     int colorPrimaryDark;
     ColorStateList tint;
+
+    protected ServerTime serverTime;
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
@@ -71,8 +75,11 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_LAST_UPDATED:
-                LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
-                lastUpdatedWithServerTimeViewHolder.serverTime.setText("");
+                if (serverTime != null) {
+                    LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
+                    lastUpdatedWithServerTimeViewHolder.serverTime.setText(serverTime.getServerTime().first.toString());
+                }
+
                 break;
 
             case TYPE_DATA_ENTRY:
@@ -95,6 +102,27 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
         }
 
         super.onBindViewHolder(holder, position);
+    }
+
+    public void setServerTime(Date serverTime) {
+        this.serverTime = new ServerTime(serverTime);
+    }
+
+    protected class ServerTime {
+        private Date serverTime, serverTimeFreshToDate;
+
+        public ServerTime(Date serverTime) {
+            setServerTime(serverTime);
+        }
+
+        public void setServerTime(Date serverTime) {
+            this.serverTime = serverTime;
+            this.serverTimeFreshToDate = new Date();
+        }
+
+        public Pair<Date, Date> getServerTime() {
+            return new Pair<>(serverTime, serverTimeFreshToDate);
+        }
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {
