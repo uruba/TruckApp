@@ -25,7 +25,7 @@ android {
 }
 
 coveralls {
-    jacocoReportPath = "${buildDir}/reports/coverage/report.xml"
+    jacocoReportPath = "${buildDir}/reports/coverage/debug/report.xml"
 }
 
 
