@@ -24,6 +24,11 @@ android {
     }
 }
 
+coveralls {
+    jacocoReportPath = "${buildDir}/reports/coverage/report.xml"
+}
+
+
 buildscript {
     repositories {
         maven {

@@ -39,4 +39,4 @@ before_script:
   - android-wait-for-emulator
 
 script:
-  - ./gradlew connectedAndroidTest
+  - ./gradlew connectedAndroidTest coveralls
