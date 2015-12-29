@@ -40,5 +40,4 @@ android:
 
   script:
     - android list target
-    - chmod +x ./gradlew
-    - ./gradlew connectedAndroidTest
+    - bash ./gradlew connectedAndroidTest
