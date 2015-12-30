@@ -13,8 +13,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -77,7 +79,13 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
             case TYPE_LAST_UPDATED:
                 if (serverTime != null) {
                     LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
-                    lastUpdatedWithServerTimeViewHolder.serverTime.setText(serverTime.getServerTime().first.toString());
+                    lastUpdatedWithServerTimeViewHolder.serverTime.setText(
+                            String.format(
+                                    context.getString(R.string.server_time),
+                                    DateFormat
+                                    .getTimeInstance(DateFormat.SHORT, Locale.getDefault())
+                                    .format(serverTime.getServerTime().first))
+                    );
                 }
 
                 break;

@@ -56,4 +56,5 @@
     <string name="settings_description_meetup_reminders_default">Calendar event description</string>
     <string name="description_meetup_reminders_default" formatted="false">Organiser: %organiser%\nServer: %server%\nLocation: %location%\nDestination: %destination%</string>
     <string name="default_value">Default value</string>
+    <string name="server_time">Current server time: %1$s</string>
 </resources>
