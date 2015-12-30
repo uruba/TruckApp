@@ -51,6 +51,7 @@ public class LastUpdatedTextView extends AutoUpdatedTextView {
         return time;
     }
 
+    @Override
     public boolean startAutoRefresh() {
         return time != null && super.startAutoRefresh();
     }
