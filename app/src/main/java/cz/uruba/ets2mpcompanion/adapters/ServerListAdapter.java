@@ -77,8 +77,10 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
             case TYPE_LAST_UPDATED:
+                LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
+
                 if (serverTime != null) {
-                    LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
+                    lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
                     lastUpdatedWithServerTimeViewHolder.serverTime.setText(
                             String.format(
                                     context.getString(R.string.server_time),
@@ -86,6 +88,8 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                                     .getTimeInstance(DateFormat.SHORT, Locale.getDefault())
                                     .format(serverTime.getServerTime().first))
                     );
+                } else {
+                    lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.GONE);
                 }
 
                 break;
