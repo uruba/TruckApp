@@ -11,12 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -80,13 +79,15 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                 LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
 
                 if (serverTime != null) {
-                    lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
+                    DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
+
+                    dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+                            lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
                     lastUpdatedWithServerTimeViewHolder.serverTime.setText(
                             String.format(
                                     context.getString(R.string.server_time),
-                                    DateFormat
-                                    .getTimeInstance(DateFormat.SHORT, Locale.getDefault())
-                                    .format(serverTime.getServerTime().first))
+                                    dateFormat.format(serverTime.getServerTime().first))
                     );
                 } else {
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.GONE);
