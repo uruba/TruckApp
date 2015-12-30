@@ -2,16 +2,15 @@ package cz.uruba.ets2mpcompanion.views;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Handler;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.interfaces.AutoUpdatedTextView;
 
-public class LastUpdatedTextView extends TextView {
+public class LastUpdatedTextView extends AutoUpdatedTextView {
     String LAST_UPDATED;
     String AGO;
     String DAY;
@@ -20,11 +19,6 @@ public class LastUpdatedTextView extends TextView {
     String JUST_NOW;
 
     Date time;
-
-    Handler handler = new Handler();
-    UpdateText updateTextTask = new UpdateText();
-    boolean isUpdateTextTaskRunning = false;
-
 
     public LastUpdatedTextView(Context context) {
         this(context, null);
@@ -48,18 +42,6 @@ public class LastUpdatedTextView extends TextView {
         JUST_NOW = context.getString(R.string.LastUpdatedTextView_JUST_NOW);
     }
 
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        startAutoRefresh();
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        stopAutoRefresh();
-    }
-
     public void setTime(Date time) {
         this.time = time;
         restartAutoRefresh();
@@ -70,31 +52,11 @@ public class LastUpdatedTextView extends TextView {
     }
 
     public boolean startAutoRefresh() {
-        if (!isUpdateTextTaskRunning && time != null) {
-            handler.post(updateTextTask);
-            isUpdateTextTaskRunning = true;
-            return true;
-        }
-
-        return false;
+        return time != null && super.startAutoRefresh();
     }
 
-    public boolean stopAutoRefresh() {
-        if (isUpdateTextTaskRunning) {
-            handler.removeCallbacks(updateTextTask);
-            isUpdateTextTaskRunning = false;
-            return true;
-        }
-
-        return false;
-    }
-
-    public boolean restartAutoRefresh() {
-        stopAutoRefresh();
-        return startAutoRefresh();
-    }
-
-    private long processAndDisplayTime() {
+    @Override
+    protected long processAndDisplay() {
         String builtString;
 
         long timeDifference = getTimeDifferenceFromNow();
@@ -145,13 +107,5 @@ public class LastUpdatedTextView extends TextView {
 
     private long getTimeDifferenceFromNow() {
         return Math.abs(System.currentTimeMillis() - time.getTime());
-    }
-
-    private class UpdateText implements Runnable {
-        @Override
-        public void run() {
-            long newUpdateInterval = processAndDisplayTime();
-            handler.postDelayed(this, newUpdateInterval);
-        }
     }
 }
