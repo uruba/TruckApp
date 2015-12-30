@@ -14,8 +14,8 @@ import cz.uruba.ets2mpcompanion.interfaces.AutoUpdatedTextView;
 import cz.uruba.ets2mpcompanion.model.ServerTime;
 
 public class ServerTimeTextView extends AutoUpdatedTextView {
-    // hard-coded interval of 10 seconds = 10000 ms
-    private static final long UPDATE_INTERVAL = 10000;
+    // hard-coded interval of 1 second = 1000 ms
+    private static final long UPDATE_INTERVAL = 1000;
 
     private ServerTime serverTime;
     private Context context;
@@ -46,7 +46,7 @@ public class ServerTimeTextView extends AutoUpdatedTextView {
         Date serverTimeAtRefresh = serverTime.getServerTime().first;
         Date realTimeAtRefresh = serverTime.getServerTime().second;
 
-        long computedServerTime = serverTimeAtRefresh.getTime() + ((System.currentTimeMillis() - realTimeAtRefresh.getTime()) / (10 * 1000)) * 60 * 1000;
+        long computedServerTime = serverTimeAtRefresh.getTime() + Math.round((System.currentTimeMillis() - realTimeAtRefresh.getTime()) / (10 * 1000d)) * 60 * 1000;
 
         setText(String.format(
                 context.getString(R.string.server_time),
