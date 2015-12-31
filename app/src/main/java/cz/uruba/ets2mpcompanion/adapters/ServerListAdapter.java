@@ -1,8 +1,10 @@
 package cz.uruba.ets2mpcompanion.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -28,11 +27,15 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
-public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> {
+public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>> implements SharedPreferences.OnSharedPreferenceChangeListener {
+    public static final String PREF_DISPLAY_SERVER_TIME = "preference_display_server_time";
+
     int colorPrimaryDark;
     ColorStateList tint;
 
-    protected ServerTime serverTime;
+    private ServerTime serverTime;
+
+    private SharedPreferences sharedPref;
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
@@ -45,6 +48,9 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
                         colorPrimaryDark
                 }
         );
+
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
             case TYPE_LAST_UPDATED:
                 LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
 
-                if (serverTime != null) {
+                if (serverTime != null && sharedPref.getBoolean(PREF_DISPLAY_SERVER_TIME, true)) {
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
                     lastUpdatedWithServerTimeViewHolder.serverTime.setServerTime(serverTime);
                 } else {
@@ -111,6 +117,13 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
 
     public void setServerTime(Date serverTime) {
         this.serverTime = new ServerTime(serverTime);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(PREF_DISPLAY_SERVER_TIME)) {
+            notifyDataSetChanged();
+        }
     }
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {

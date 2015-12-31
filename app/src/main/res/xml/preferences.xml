@@ -3,22 +3,37 @@
 
     <PreferenceCategory
         android:key="preference_category_general"
+        android:title="@string/settings_category_general">
+
+        <CheckBoxPreference
+            android:key="preference_display_server_time"
+            android:title="@string/settings_title_display_server_time"
+            android:summary="@string/settings_summary_display_server_time"
+            android:defaultValue="true"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="preference_category_title_appearance"
         android:title="@string/settings_category_title_appearance">
 
         <CheckBoxPreference
             android:key="preference_custom_theme"
-            android:title="@string/settings_title_use_custom_theme" />
+            android:title="@string/settings_title_use_custom_theme"
+            />
 
         <cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference
             android:key="preference_theme_colour"
             android:title="@string/settings_title_theme_colour"
             android:summary="@string/settings_summary_theme_colour"
-            android:dependency="preference_custom_theme"/>
+            android:dependency="preference_custom_theme"
+            />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="preference_category_general"
+        android:key="preference_category_title_meetup_reminders"
         android:title="@string/settings_category_title_meetup_reminders">
 
         <cz.uruba.ets2mpcompanion.preferences.NonEmptyEditTextPreference
@@ -45,7 +60,8 @@
         <CheckBoxPreference
             android:key="preference_widget_toast"
             android:title="@string/settings_title_widget_toast"
-            android:summary="@string/settings_summary_widget_toast" />
+            android:summary="@string/settings_summary_widget_toast"
+            />
 
     </PreferenceCategory>
 
