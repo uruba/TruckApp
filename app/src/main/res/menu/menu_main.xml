@@ -4,6 +4,20 @@
 
     <item android:id="@+id/settings"
         android:title="@string/action_settings"
+        android:icon="@drawable/ic_settings_24dp"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/link_ets2mp_home"
+        android:title="@string/action_ets2mp_home"
+        android:icon="@drawable/ic_globe_24dp"
+        app:showAsAction="never" />
+    <item android:id="@+id/link_ets2mp_forum"
+        android:title="@string/action_ets2mp_forum"
+        android:icon="@drawable/ic_globe_24dp"
+        app:showAsAction="never" />
+    <item android:id="@+id/link_ets2mp_convoys"
+        android:title="@string/action_ets2mp_convoys"
+        android:icon="@drawable/ic_globe_24dp"
         app:showAsAction="never" />
 
 </menu>

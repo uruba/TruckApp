@@ -7,10 +7,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import java.lang.reflect.Method;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
+import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
 import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
@@ -39,6 +43,22 @@ public class MainActivity extends ThemedActivity {
     }
 
     @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        if (menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method m = menu.getClass().getDeclaredMethod(
+                            "setOptionalIconsVisible", Boolean.TYPE);
+                    m.setAccessible(true);
+                    m.invoke(menu, true);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+        return super.onPrepareOptionsPanel(view, menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
@@ -47,9 +67,29 @@ public class MainActivity extends ThemedActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
+                intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.link_ets2mp_home:
+                intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_HOMEPAGE);
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_home));
+                startActivity(intent);
+                return true;
+            case R.id.link_ets2mp_forum:
+                intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_FORUM);
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_forum));
+                startActivity(intent);
+                return true;
+            case R.id.link_ets2mp_convoys:
+                intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_CONVOYS);
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_convoys));
                 startActivity(intent);
                 return true;
             default:

@@ -1,22 +1,15 @@
 package cz.uruba.ets2mpcompanion;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.CookieManager;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.jsoup.nodes.Document;
@@ -30,23 +23,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractWebViewActivity;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
 import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
 
-public class MeetupDetailActivity extends ThemedActivity implements DataReceiver<Document> {
-    @Bind(R.id.toolbar) Toolbar toolbar;
-    @Bind(R.id.loading_progress) ProgressBar loadingProgressIndicator;
-    @Bind(R.id.webview) WebView webView;
-
-    public static final String INTENT_EXTRA_URL = "intentURL";
-
-    private String meetupPageURL;
+public class MeetupDetailActivity extends AbstractWebViewActivity implements DataReceiver<Document> {
     private MeetupDetail meetupDetail;
 
     private MenuItem menuCreateReminderItem;
@@ -70,23 +54,6 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
             "$('#logo span').replaceWith(function() { return $('<div/>', { class: 'myClass', html: this.innerHTML}); })"
     };
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_meetup_detail);
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
-        try {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        } catch (NullPointerException ignored) {
-        }
-
-        initWebView();
-    }
-
     @Override
     protected void onNewIntent (Intent intent) {
         setIntent(intent);
@@ -94,68 +61,45 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
         initWebView();
     }
 
-    private void initWebView() {
+    @Override
+    protected void initWebView() {
         // hide the "create a reminder" button until after the meetup data has been loaded
         if (menuCreateReminderItem != null) {
             menuCreateReminderItem.setVisible(false);
         }
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            // the target URL has been handed over in the intent that was used to start this activity
-            meetupPageURL = extras.getString(INTENT_EXTRA_URL);
+        super.initWebView();
+    }
 
-            webView.setWebViewClient(new WebViewClient() {
-                @Override
-                public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                    return false;
+    @Override
+    protected void onPageStarted(WebView view, String url) {
+
+    }
+
+    @Override
+    protected void onPageFinished(WebView view, String url) {
+        // we have to check that we are on the ets2c.com site to define special behaviour there
+        if (url.contains(URL.MEETUP_LIST)) {
+            if (url.equals(targetURL)) {
+                // if we are on a meetup's detail webpage, we fetch it once more as a JSOUP object
+                // to accomplish this, we need proper session cookies to be handed over to let the site know that we're logged in
+                String cookies = CookieManager.getInstance().getCookie(url);
+                Map<String, String> cookieMap = new HashMap<>();
+                for (String cookie : cookies.split("; ")) {
+                    String[] splitCookie = cookie.split("=", 2);
+                    cookieMap.put(splitCookie[0], splitCookie[1]);
                 }
 
-                @Override
-                public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                    // show the "loading" spinner
-                    loadingProgressIndicator.setVisibility(ProgressBar.VISIBLE);
-                }
+                new FetchJsoupDataTask(MeetupDetailActivity.this, url, cookieMap, false).execute();
+                // the result is handled in the respective callback method
+            } else if (url.equals(URL.MEETUP_LIST)) {
+                view.loadUrl(targetURL);
+            }
 
-                @Override
-                public void onPageFinished(WebView view, String url) {
-                    // hide the "loading" spinner
-                    loadingProgressIndicator.setVisibility(ProgressBar.GONE);
-
-                    // we have to check that we are on the ets2c.com site to define special behaviour there
-                    if (url.contains(URL.MEETUP_LIST)) {
-                        if (url.equals(meetupPageURL)) {
-                            // if we are on a meetup's detail webpage, we fetch it once more as a JSOUP object
-                            // to accomplish this, we need proper session cookies to be handed over to let the site know that we're logged in
-                            String cookies = CookieManager.getInstance().getCookie(url);
-                            Map<String, String> cookieMap = new HashMap<>();
-                            for (String cookie : cookies.split("; ")) {
-                                String[] splitCookie = cookie.split("=", 2);
-                                cookieMap.put(splitCookie[0], splitCookie[1]);
-                            }
-
-                            new FetchJsoupDataTask(MeetupDetailActivity.this, url, cookieMap, false).execute();
-                            // the result is handled in the respective callback method
-                        } else if (url.equals(URL.MEETUP_LIST)) {
-                            view.loadUrl(meetupPageURL);
-                        }
-
-                        // we also load and apply all the jQuery modifiers
-                        for (String command : jQueryModifiers) {
-                            view.loadUrl(String.format("javascript:%s", command));
-                        }
-                    }
-                }
-            });
-
-            // we need to enable JavaScript in our WebView
-            WebSettings webSettings = webView.getSettings();
-            webSettings.setJavaScriptEnabled(true);
-
-
-            webView.loadUrl(meetupPageURL);
-        } else {
-            finish();
+            // we also load and apply all the jQuery modifiers
+            for (String command : jQueryModifiers) {
+                view.loadUrl(String.format("javascript:%s", command));
+            }
         }
     }
 
@@ -176,15 +120,6 @@ public class MeetupDetailActivity extends ThemedActivity implements DataReceiver
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (webView.canGoBack() && !webView.getUrl().equals(meetupPageURL)){
-            webView.goBack();
-        } else {
-            super.onBackPressed();
         }
     }
 
