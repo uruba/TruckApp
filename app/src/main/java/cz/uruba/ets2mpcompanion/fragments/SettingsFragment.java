@@ -13,6 +13,7 @@ import java.util.Arrays;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.SettingsActivity;
 import cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference;
+import cz.uruba.ets2mpcompanion.preferences.CustomEditTextPreference;
 import cz.uruba.ets2mpcompanion.preferences.FormattedEditTextPreference;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -83,6 +84,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             currentValue = ((ColourChooserPreference) preference).getValueThemeColour();
         } else if (preference instanceof FormattedEditTextPreference) {
             currentValue = ((FormattedEditTextPreference) preference).getText();
+        } else if (preference instanceof CustomEditTextPreference) {
+            currentValue = ((CustomEditTextPreference) preference).getText();
         } else {
             return;
         }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingRight="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingTop="@dimen/dialog_formatted_edit_text_preference_horizontal_padding"
+    android:paddingBottom="@dimen/dialog_formatted_edit_text_preference_horizontal_padding">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text" />
+</LinearLayout>

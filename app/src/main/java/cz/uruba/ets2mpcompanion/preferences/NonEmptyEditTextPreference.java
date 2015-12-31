@@ -1,10 +1,9 @@
 package cz.uruba.ets2mpcompanion.preferences;
 
 import android.content.Context;
-import android.preference.EditTextPreference;
 import android.util.AttributeSet;
 
-public class NonEmptyEditTextPreference extends EditTextPreference {
+public class NonEmptyEditTextPreference extends CustomEditTextPreference {
 
     public NonEmptyEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
