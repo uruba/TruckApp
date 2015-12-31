@@ -12,6 +12,8 @@ public class WebViewActivity extends AbstractWebViewActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        webView.getSettings().setBuiltInZoomControls(true);
+
         String activityTitle = getIntent().getStringExtra(INTENT_ACTIVITY_TITLE);
 
         if (activityTitle != null) {
