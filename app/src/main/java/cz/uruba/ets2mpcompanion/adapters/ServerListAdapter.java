@@ -84,7 +84,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<List<ServerInfo>>
             case TYPE_LAST_UPDATED:
                 LastUpdatedWithServerTimeViewHolder lastUpdatedWithServerTimeViewHolder = (LastUpdatedWithServerTimeViewHolder) holder;
 
-                if (serverTime != null && sharedPref.getBoolean(PREF_DISPLAY_SERVER_TIME, true)) {
+                if (serverTime != null && sharedPref.getBoolean(PREF_DISPLAY_SERVER_TIME, true) && dataCollection.size() > 0) {
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
                     lastUpdatedWithServerTimeViewHolder.serverTime.setServerTime(serverTime);
                 } else {
