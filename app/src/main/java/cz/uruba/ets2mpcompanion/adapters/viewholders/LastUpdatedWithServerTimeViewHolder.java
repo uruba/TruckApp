@@ -1,7 +1,6 @@
 package cz.uruba.ets2mpcompanion.adapters.viewholders;
 
 import android.view.View;
-import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
