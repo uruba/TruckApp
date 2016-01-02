@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion;
+package cz.uruba.ets2mpcompanion.test;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
