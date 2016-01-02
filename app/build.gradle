@@ -11,6 +11,7 @@ android {
         versionCode 20
         versionName "0.21"
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        com.android.ddmlib.DdmPreferences.setTimeOut(60000)
     }
     buildTypes {
         release {
