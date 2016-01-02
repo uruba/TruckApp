@@ -39,6 +39,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super.setUp();
         injectInstrumentation(InstrumentationRegistry.getInstrumentation());
         activity = getActivity();
+
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
     @UiThreadTest
