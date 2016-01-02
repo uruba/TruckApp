@@ -1,6 +1,7 @@
 package cz.uruba.ets2mpcompanion.test;
 
 import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.v4.app.Fragment;
 import android.test.ActivityInstrumentationTestCase2;
@@ -43,6 +44,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
                 | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
     }
 
+    @UiThreadTest
     public void testFragmentCollection() {
         List<Fragment> fragments = activity.getSupportFragmentManager().getFragments();
 
@@ -59,6 +61,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         assertTrue(fragments.get(1) instanceof MeetupListFragment);
     }
 
+    @UiThreadTest
     public void testOpenSettings() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         onView(ViewMatchers.withText(cz.uruba.ets2mpcompanion.R.string.action_settings)).perform(click());
