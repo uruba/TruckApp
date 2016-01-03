@@ -17,6 +17,7 @@ import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static cz.uruba.ets2mpcompanion.test.matchers.WithToolbarTitle.withToolbarTitle;
 import static org.hamcrest.CoreMatchers.is;
@@ -61,7 +62,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testOpenSettings() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
         android.os.SystemClock.sleep(2000);
-        onView(ViewMatchers.withText(cz.uruba.ets2mpcompanion.R.string.action_settings)).perform(click());
+        onView(ViewMatchers.withText(cz.uruba.ets2mpcompanion.R.string.action_settings)).perform(scrollTo(), click());
         android.os.SystemClock.sleep(2000);
         // check if the Toolbar has the appropriate title
         onView(ViewMatchers.withId(cz.uruba.ets2mpcompanion.R.id.toolbar)).check(matches(withToolbarTitle(is(activity.getString(cz.uruba.ets2mpcompanion.R.string.action_settings)))));
