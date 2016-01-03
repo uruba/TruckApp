@@ -60,8 +60,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     @UiThreadTest
     public void testOpenSettings() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
+        android.os.SystemClock.sleep(2000);
         onView(ViewMatchers.withText(cz.uruba.ets2mpcompanion.R.string.action_settings)).perform(click());
-
+        android.os.SystemClock.sleep(2000);
         // check if the Toolbar has the appropriate title
         onView(ViewMatchers.withId(cz.uruba.ets2mpcompanion.R.id.toolbar)).check(matches(withToolbarTitle(is(activity.getString(cz.uruba.ets2mpcompanion.R.string.action_settings)))));
     }
