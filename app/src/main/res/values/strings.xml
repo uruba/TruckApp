@@ -58,8 +58,8 @@
     <string name="default_value">Default</string>
     <string name="server_time">Current game time: %1$s</string>
     <string name="settings_category_general">General</string>
-    <string name="settings_title_display_server_time">Game time label</string>
-    <string name="settings_summary_display_server_time">Display the game time on the SERVERS tab</string>
+    <string name="settings_title_display_server_time">Display game time</string>
+    <string name="settings_summary_display_server_time">Enable label displaying the server game time</string>
     <string name="action_ets2mp_home">ETS2MP Homepage</string>
     <string name="action_ets2mp_forum">ETS2MP Forum</string>
     <string name="action_ets2mp_convoys">ETS2MP Convoys</string>
