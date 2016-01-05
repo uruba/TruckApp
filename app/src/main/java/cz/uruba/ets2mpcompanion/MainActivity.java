@@ -46,6 +46,7 @@ public class MainActivity extends ThemedActivity {
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         if (menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                // make the overflow menu's icons visible
                 try {
                     Method m = menu.getClass().getDeclaredMethod(
                             "setOptionalIconsVisible", Boolean.TYPE);
