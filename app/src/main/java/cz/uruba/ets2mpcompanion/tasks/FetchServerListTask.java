@@ -10,7 +10,7 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.FetchHTTPTask;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 
-public class FetchServerListTask extends FetchHTTPTask<ArrayList<ServerInfo>, DataReceiverJSON<ArrayList<ServerInfo>>> {
+public class FetchServerListTask extends FetchHTTPTask<ArrayList<ServerInfo>> {
 
     public FetchServerListTask(DataReceiverJSON<ArrayList<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);

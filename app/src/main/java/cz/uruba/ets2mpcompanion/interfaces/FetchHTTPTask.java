@@ -11,9 +11,9 @@ import java.net.URL;
 
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends FetchTask<Void, Void, V, W> {
+public abstract class FetchHTTPTask<T> extends FetchTask<Void, Void, T, DataReceiverJSON<T>> {
 
-    public FetchHTTPTask(W callbackObject, String requestURL, boolean notifyUser) {
+    public FetchHTTPTask(DataReceiverJSON<T> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
@@ -25,7 +25,7 @@ public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends Fe
         return new String(buffer);
     }
 
-    protected abstract V processHTTPStream(String stream) throws JSONException;
+    protected abstract T processHTTPStream(String stream) throws JSONException;
 
     @Override
     protected void handleExceptionPostExecute(Exception e) {
@@ -38,7 +38,7 @@ public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends Fe
     }
 
     @Override
-    protected AsyncTaskResult<V> doInBackground(Void... params) {
+    protected AsyncTaskResult<T> doInBackground(Void... params) {
         InputStream is;
 
         try {
@@ -56,7 +56,7 @@ public abstract class FetchHTTPTask<V, W extends DataReceiverJSON<V>> extends Fe
 
             is.close();
 
-            V result = processHTTPStream(contentAsString);
+            T result = processHTTPStream(contentAsString);
             return new AsyncTaskResult<>(result);
         } catch (IOException e) {
             return new AsyncTaskResult<>(e);

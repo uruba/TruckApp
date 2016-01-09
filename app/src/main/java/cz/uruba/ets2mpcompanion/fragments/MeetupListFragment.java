@@ -13,10 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,9 +25,9 @@ import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
-import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
+import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends DataReceiverFragment<Document, MeetupListAdapter> implements SearchView.OnQueryTextListener {
+public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInfo>, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     private List<MeetupInfo> meetups = new ArrayList<>();
@@ -101,7 +97,7 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     private void fetchMeetupList(boolean notifyUser) {
         showLoadingOverlay();
 
-        new FetchJsoupDataTask(this, URL.MEETUP_LIST, notifyUser).execute();
+        new FetchMeetupListTask(this, URL.MEETUP_LIST, notifyUser).execute();
     }
 
     public void resetMeetupList() {
@@ -111,52 +107,8 @@ public class MeetupListFragment extends DataReceiverFragment<Document, MeetupLis
     }
 
     @Override
-    public void processData(Document data, boolean notifyUser) {
-        if (data == null) {
-            return;
-        }
-
-        meetups = new ArrayList<>();
-
-        Elements elem_table_list = data.select(".table_list .row");
-        elem_table_list.remove(0);
-
-        for (Element elem : elem_table_list) {
-            Elements elem_data = elem.children();
-            int iterCount = 0;
-            String time, location, organiser, language, participants, relativeURL;
-
-            time = location = organiser = language = participants = relativeURL = "";
-
-            for (Element data_field : elem_data) {
-                iterCount++;
-
-                String elemContent = data_field.text();
-                switch (iterCount) {
-                    case 1:
-                        time = elemContent;
-                        break;
-                    case 2:
-                        location = elemContent;
-                        break;
-                    case 3:
-                        organiser = elemContent;
-                        break;
-                    case 4:
-                        language = elemContent;
-                        break;
-                    case 5:
-                        participants = elemContent;
-                        break;
-                    case 6:
-                        relativeURL = data_field.select("a").first().attr("href");
-                        break;
-                }
-            }
-
-            MeetupInfo meetupInfo = new MeetupInfo(time, location, organiser, language, participants, relativeURL);
-            meetups.add(meetupInfo);
-        }
+    public void processData(ArrayList<MeetupInfo> data, boolean notifyUser) {
+        meetups = data;
 
         lastUpdated = new Date();
 

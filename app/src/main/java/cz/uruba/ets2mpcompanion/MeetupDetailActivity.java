@@ -12,10 +12,6 @@ import android.webkit.CookieManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
@@ -28,9 +24,9 @@ import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractWebViewActivity;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
-import cz.uruba.ets2mpcompanion.tasks.FetchJsoupDataTask;
+import cz.uruba.ets2mpcompanion.tasks.FetchMeetupDetailTask;
 
-public class MeetupDetailActivity extends AbstractWebViewActivity implements DataReceiver<Document> {
+public class MeetupDetailActivity extends AbstractWebViewActivity implements DataReceiver<MeetupDetail> {
     private MeetupDetail meetupDetail;
 
     private MenuItem menuCreateReminderItem;
@@ -90,7 +86,7 @@ public class MeetupDetailActivity extends AbstractWebViewActivity implements Dat
                     cookieMap.put(splitCookie[0], splitCookie[1]);
                 }
 
-                new FetchJsoupDataTask(MeetupDetailActivity.this, url, cookieMap, false).execute();
+                new FetchMeetupDetailTask(this, url, cookieMap, false).execute();
                 // the result is handled in the respective callback method
             } else if (url.equals(URL.MEETUP_LIST)) {
                 view.loadUrl(targetURL);
@@ -124,52 +120,8 @@ public class MeetupDetailActivity extends AbstractWebViewActivity implements Dat
     }
 
     @Override
-    public void processData(Document data, boolean notifyUser) {
-        // by the virtue of proper selectors, we get to the data that we want
-        Element elem_form = data.select(".form").first();
-
-        try {
-            Elements elem_data = elem_form.children();
-            int iterCount = 0;
-            String organiser, server, location, destination;
-            boolean trailerRequired;
-            Date meetupDate;
-
-            organiser = server = location = destination = "";
-            trailerRequired = false;
-            meetupDate = null;
-
-            // we iterate on the "data" elements
-            for (Element elem : elem_data) {
-                iterCount++;
-
-                String elemContent = elem.select(".desc").first().text().replaceAll("\u00A0", "").trim();
-                switch (iterCount) {
-                    case 1:
-                        organiser = elemContent;
-                        break;
-                    case 2:
-                        server = elemContent;
-                        break;
-                    case 3:
-                        location = elemContent;
-                        break;
-                    case 4:
-                        destination = elemContent;
-                        break;
-                    case 5:
-                        trailerRequired = elemContent.toLowerCase().equals("yes");
-                        break;
-                    case 6:
-                        meetupDate = new Date(Long.parseLong(elem.select(".desc").first().attr("data-stamp"))*1000);
-                        break;
-                }
-            }
-
-            meetupDetail = new MeetupDetail(organiser, server, location, destination, trailerRequired, meetupDate);
-        } catch (Exception e) {
-            return;
-        }
+    public void processData(MeetupDetail data, boolean notifyUser) {
+        meetupDetail = data;
 
         // if we get here without an exception, the data has been loaded and we can show the "create a reminder" button
         if (menuCreateReminderItem != null) {

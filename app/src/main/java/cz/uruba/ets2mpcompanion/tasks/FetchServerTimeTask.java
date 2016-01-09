@@ -9,7 +9,7 @@ import cz.uruba.ets2mpcompanion.constants.Numeric;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.FetchHTTPTask;
 
-public class FetchServerTimeTask extends FetchHTTPTask<Date, DataReceiverJSON<Date>> {
+public class FetchServerTimeTask extends FetchHTTPTask<Date> {
 
     public FetchServerTimeTask(DataReceiverJSON<Date> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
