@@ -98,12 +98,12 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
     }
 
     @Override
-    public void processData(T data, boolean notifyUser) {
-
-    }
+    public abstract void processData(T data, boolean notifyUser);
 
     @Override
-    public void handleIOException(IOException e) {
+    public abstract void handleIOException(IOException e);
 
+    public U getListAdapter() {
+        return listAdapter;
     }
 }
