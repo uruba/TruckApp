@@ -148,8 +148,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
-
-    // TODO – Seems that the refactoring broke the filtering part a little – FIX IT
+    
     @Override
     public boolean onQueryTextChange(String newText) {
         if (meetups.size() < 1) {
