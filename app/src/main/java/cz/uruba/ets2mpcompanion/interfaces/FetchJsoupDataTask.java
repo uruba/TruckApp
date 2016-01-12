@@ -8,7 +8,7 @@ import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class FetchJsoupDataTask<T> extends FetchTask<Void, Void, T, DataReceiver<T>> {
+public abstract class FetchJsoupDataTask<T> extends FetchTask<T> {
     private Map<String, String> cookies = null;
 
     public FetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
