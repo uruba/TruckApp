@@ -32,7 +32,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
     private List<MeetupInfo> meetups = new ArrayList<>();
 
-    private MenuItem menuSearchItem;
+    private List<MenuItem> menuItems = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,10 +63,11 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_meetup_search, menu);
 
-        menuSearchItem = menu.findItem(R.id.action_meetup_search);
-        if (meetups.size() > 0) {
-            menuSearchItem.setVisible(true);
-        }
+        MenuItem menuSearchItem = menu.findItem(R.id.action_meetup_search);
+        menuItems.add(menuSearchItem);
+        menuItems.add(menu.findItem(R.id.action_meetup_filter));
+        showMenuItems();
+
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
         searchView.setOnQueryTextListener(this);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
@@ -130,17 +131,13 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
     @Override
     protected void showLoadingOverlay() {
-        if (menuSearchItem != null) {
-            menuSearchItem.setVisible(false);
-        }
+        hideMenuItems();
         super.showLoadingOverlay();
     }
 
     @Override
     protected void hideLoadingOverlay() {
-        if (menuSearchItem != null && meetups.size() > 0) {
-            menuSearchItem.setVisible(true);
-        }
+        showMenuItems();
         super.hideLoadingOverlay();
     }
 
@@ -177,5 +174,19 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         meetupList.scrollToPosition(0);
 
         return true;
+    }
+
+    private void showMenuItems() {
+        if (meetups.size() > 0) {
+            for (MenuItem menuItem : menuItems) {
+                menuItem.setVisible(true);
+            }
+        }
+    }
+
+    private void hideMenuItems() {
+        for (MenuItem menuItem : menuItems) {
+            menuItem.setVisible(false);
+        }
     }
 }
