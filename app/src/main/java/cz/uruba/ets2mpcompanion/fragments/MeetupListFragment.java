@@ -91,6 +91,18 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_meetup_filter:
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
     private void fetchMeetupList() {
         fetchMeetupList(false);
     }
