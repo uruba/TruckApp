@@ -31,6 +31,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     private List<MeetupInfo> meetups = new ArrayList<>();
+    private List<MeetupInfo> filteredMeetups = new ArrayList<>();
 
     private List<MenuItem> menuItems = new ArrayList<>();
 
@@ -166,7 +167,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
         newText = newText.toLowerCase();
 
-        List<MeetupInfo> filteredMeetups = new ArrayList<>();
+        filteredMeetups = new ArrayList<>();
         for (MeetupInfo meetup : meetups) {
             String [] fields = new String[3];
 
