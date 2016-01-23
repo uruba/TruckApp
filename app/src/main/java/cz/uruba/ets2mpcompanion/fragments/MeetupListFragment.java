@@ -106,9 +106,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                if (meetups.size() > 0) {
-                    listAdapter.refreshAdapter(meetups);
-                }
+                filterByServer();
                 return false;
             }
         });
@@ -186,8 +184,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     
     @Override
     public boolean onQueryTextChange(String newText) {
-        filterByText(newText, MEETUP_FIELD_LOCATION | MEETUP_FIELD_ORGANISER | MEETUP_FIELD_LANGUAGE);
-
+        filterByText(newText, MEETUP_FIELD_LOCATION | MEETUP_FIELD_ORGANISER | MEETUP_FIELD_LANGUAGE, filterByServer());
         return true;
     }
 
@@ -211,6 +208,10 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     }
 
     private void filterByText(String newText, int fieldsFlag) {
+        filterByText(newText, fieldsFlag, meetups);
+    }
+
+    private void filterByText(String newText, int fieldsFlag, List<MeetupInfo> inputMeetups) {
         if (meetups.size() < 1) {
             return;
         }
@@ -218,7 +219,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         newText = newText.toLowerCase();
 
         filteredMeetups = new ArrayList<>();
-        for (MeetupInfo meetup : meetups) {
+        for (MeetupInfo meetup : inputMeetups) {
 
             List<String> fields = new ArrayList<>();
             if ((fieldsFlag & MEETUP_FIELD_LOCATION) == MEETUP_FIELD_LOCATION) {
@@ -243,9 +244,11 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         meetupList.scrollToPosition(0);
     }
 
-    private void filterByServer() {
+    private List<MeetupInfo> filterByServer() {
         int which = sharedPref.getInt(PREF_SERVER_FILTER_SETTING, 0);
         filterByText(which == 0 ? "" : serverLiterals[which].toString(), MEETUP_FIELD_LOCATION);
+
+        return listAdapter.getDataCollection();
     }
 
     private void showMenuItems() {
