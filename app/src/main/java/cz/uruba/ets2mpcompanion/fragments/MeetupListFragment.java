@@ -204,6 +204,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
                                 Toast.makeText(getContext(), serverLiterals[which], Toast.LENGTH_LONG).show();
                             }
                 })
+                .setNegativeButton(android.R.string.cancel, null)
                 .create()
                 .show();
     }
