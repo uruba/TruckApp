@@ -64,4 +64,10 @@
     <string name="action_ets2mp_forum">ETS2MP Forum</string>
     <string name="action_ets2mp_convoys">ETS2MP Convoys</string>
     <string name="filter_meetups_server">Filter by server</string>
+    <string name="filter_servers">Filter by server</string>
+    <string name="server_name_eu1">EU #1</string>
+    <string name="server_name_eu2">EU #2</string>
+    <string name="server_name_eu3">EU #3</string>
+    <string name="server_name_us1">US #1</string>
+    <string name="server_name_all">All servers</string>
 </resources>
