@@ -36,7 +36,6 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     private List<MeetupInfo> meetups = new ArrayList<>();
-    private List<MeetupInfo> filteredMeetups = new ArrayList<>();
     public static final int MEETUP_FIELD_LOCATION = 1;
     public static final int MEETUP_FIELD_ORGANISER = 1 << 1;
     public static final int MEETUP_FIELD_LANGUAGE = 1 << 2;
@@ -46,6 +45,8 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
     private SharedPreferences sharedPref;
     public static final String PREF_SERVER_FILTER_SETTING = "preference_server_filter_setting";
+
+    private SearchView searchView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,7 +92,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         menuItems.add(menu.findItem(R.id.action_meetup_filter));
         showMenuItems();
 
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(menuSearchItem);
         searchView.setOnQueryTextListener(this);
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -207,18 +208,22 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
                 .show();
     }
 
-    private void filterByText(String newText, int fieldsFlag) {
-        filterByText(newText, fieldsFlag, meetups);
+    private List<MeetupInfo> filterByText(String newText) {
+        return filterByText(newText, MEETUP_FIELD_LOCATION | MEETUP_FIELD_ORGANISER | MEETUP_FIELD_LANGUAGE);
     }
 
-    private void filterByText(String newText, int fieldsFlag, List<MeetupInfo> inputMeetups) {
+    private List<MeetupInfo> filterByText(String newText, int fieldsFlag) {
+        return filterByText(newText, fieldsFlag, meetups);
+    }
+
+    private List<MeetupInfo> filterByText(String newText, int fieldsFlag, List<MeetupInfo> inputMeetups) {
         if (meetups.size() < 1) {
-            return;
+            return null;
         }
 
         newText = newText.toLowerCase();
 
-        filteredMeetups = new ArrayList<>();
+        List<MeetupInfo> filteredMeetups = new ArrayList<>();
         for (MeetupInfo meetup : inputMeetups) {
 
             List<String> fields = new ArrayList<>();
@@ -242,11 +247,20 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
         listAdapter.refreshAdapter(filteredMeetups);
         meetupList.scrollToPosition(0);
+
+        return filteredMeetups;
     }
 
     private List<MeetupInfo> filterByServer() {
         int which = sharedPref.getInt(PREF_SERVER_FILTER_SETTING, 0);
-        filterByText(which == 0 ? "" : serverLiterals[which].toString(), MEETUP_FIELD_LOCATION);
+
+        String serverLiteral = which == 0 ? "" : serverLiterals[which].toString();
+
+        if (searchView != null && searchView.getQuery().length() > 0) {
+            filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
+        } else {
+            filterByText(serverLiteral, MEETUP_FIELD_LOCATION);
+        }
 
         return listAdapter.getDataCollection();
     }
