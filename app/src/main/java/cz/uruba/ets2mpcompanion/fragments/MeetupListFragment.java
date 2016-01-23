@@ -107,7 +107,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                filterByServer();
+                resetMeetupList();
                 return false;
             }
         });
@@ -138,7 +138,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     public void resetMeetupList() {
         if(listAdapter != null) {
             listAdapter.refreshAdapter(meetups);
-            filterByServer();
+            filterByServer(true);
         }
     }
 
@@ -253,11 +253,15 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     }
 
     private List<MeetupInfo> filterByServer() {
+        return filterByServer(false);
+    }
+
+    private List<MeetupInfo> filterByServer(boolean ignoreQuery) {
         int which = sharedPref.getInt(PREF_SERVER_FILTER_SETTING, 0);
 
         String serverLiteral = which == 0 ? "" : serverLiterals[which].toString();
 
-        if (searchView != null && searchView.getQuery().length() > 0) {
+        if (searchView != null && (!ignoreQuery && searchView.getQuery().length() > 0)) {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
         } else {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION);
