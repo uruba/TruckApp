@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,11 +19,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.MeetupDetailActivity;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithFilterInfoViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>> {
+    String filteringMessage = null;
 
     public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
@@ -33,6 +37,15 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
         View itemView;
 
         switch (viewType) {
+            case TYPE_LAST_UPDATED:
+                itemView = LayoutInflater
+                        .from(context)
+                        .inflate(R.layout.block_lastupdatedwithfilterinfo, parent, false);
+
+                lastUpdatedTextView = (LastUpdatedTextView) itemView.findViewById(R.id.last_updated);
+
+                return new LastUpdatedWithFilterInfoViewHolder(itemView);
+
             case TYPE_DATA_ENTRY:
                 itemView = LayoutInflater
                         .from(context)
@@ -47,6 +60,18 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (holder.getItemViewType()) {
+            case TYPE_LAST_UPDATED:
+                LastUpdatedWithFilterInfoViewHolder lastUpdatedWithFilterInfoViewHolder = (LastUpdatedWithFilterInfoViewHolder) holder;
+
+                if (!TextUtils.isEmpty(filteringMessage)) {
+                    lastUpdatedWithFilterInfoViewHolder.filteringStatus.setVisibility(View.VISIBLE);
+                    lastUpdatedWithFilterInfoViewHolder.filteringStatus.setText(filteringMessage);
+                } else {
+                    lastUpdatedWithFilterInfoViewHolder.filteringStatus.setVisibility(View.GONE);
+                }
+
+                break;
+
             case TYPE_DATA_ENTRY:
                 final MeetupInfo meetupInfo = dataCollection.get(position - 1);
 
@@ -121,6 +146,14 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
     public void addItem(int position, MeetupInfo meetup) {
         dataCollection.add(position, meetup);
         notifyItemInserted(position + 1);
+    }
+
+    public void setFilteringMessage() {
+        setFilteringMessage(null);
+    }
+
+    public void setFilteringMessage(String filteringMessage) {
+        this.filteringMessage = filteringMessage;
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {

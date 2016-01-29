@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -247,6 +248,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         }
 
         listAdapter.refreshAdapter(filteredMeetups);
+        listAdapter.notifyDataSetChanged();
         meetupList.scrollToPosition(0);
 
         return filteredMeetups;
@@ -260,6 +262,12 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         int which = sharedPref.getInt(PREF_SERVER_FILTER_SETTING, 0);
 
         String serverLiteral = which == 0 ? "" : serverLiterals[which].toString();
+
+        if (!TextUtils.isEmpty(serverLiteral)) {
+            listAdapter.setFilteringMessage(String.format(getString(R.string.filtering_status), serverLiteral));
+        } else {
+            listAdapter.setFilteringMessage();
+        }
 
         if (searchView != null && (!ignoreQuery && searchView.getQuery().length() > 0)) {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
