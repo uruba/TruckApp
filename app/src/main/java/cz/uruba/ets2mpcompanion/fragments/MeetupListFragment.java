@@ -246,7 +246,6 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         }
 
         listAdapter.refreshAdapter(filteredMeetups);
-        listAdapter.notifyDataSetChanged();
         meetupList.scrollToPosition(0);
 
         return filteredMeetups;
@@ -261,16 +260,16 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
         String serverLiteral = which == 0 ? "" : serverLiterals[which].toString();
 
-        if (!TextUtils.isEmpty(serverLiteral)) {
-            listAdapter.setFilteringMessage(String.format(getString(R.string.filtering_status), serverLiteral));
-        } else {
-            listAdapter.setFilteringMessage();
-        }
-
         if (searchView != null && (!ignoreQuery && searchView.getQuery().length() > 0)) {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
         } else {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION);
+        }
+
+        if (!TextUtils.isEmpty(serverLiteral)) {
+            listAdapter.setFilteringMessage(String.format(getString(R.string.filtering_status), serverLiteral));
+        } else {
+            listAdapter.setFilteringMessage();
         }
 
         return listAdapter.getDataCollection();

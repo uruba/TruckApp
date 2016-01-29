@@ -154,6 +154,7 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
 
     public void setFilteringMessage(String filteringMessage) {
         this.filteringMessage = filteringMessage;
+        notifyItemChanged(0);
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {
