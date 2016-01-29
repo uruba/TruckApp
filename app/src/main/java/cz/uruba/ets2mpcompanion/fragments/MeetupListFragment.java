@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -202,7 +201,6 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
                                 sharedPref.edit().putInt(PREF_SERVER_FILTER_SETTING, which).apply();
                                 filterByServer();
                                 dialog.dismiss();
-                                Toast.makeText(getContext(), serverLiterals[which], Toast.LENGTH_LONG).show();
                             }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
