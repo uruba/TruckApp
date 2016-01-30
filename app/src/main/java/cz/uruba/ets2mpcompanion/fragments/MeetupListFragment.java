@@ -39,7 +39,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     public static final int MEETUP_FIELD_LOCATION = 1;
     public static final int MEETUP_FIELD_ORGANISER = 1 << 1;
     public static final int MEETUP_FIELD_LANGUAGE = 1 << 2;
-    private CharSequence[] serverLiterals;
+    private String[] serverLiterals;
 
     private List<MenuItem> menuItems = new ArrayList<>();
 
@@ -70,13 +70,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         listAdapter = new MeetupListAdapter(getContext(), new ArrayList<MeetupInfo>(), this);
         meetupList.setAdapter(listAdapter);
 
-        serverLiterals = new CharSequence[] {
-            getString(R.string.server_name_all),
-            getString(R.string.server_name_eu1),
-            getString(R.string.server_name_eu2),
-            getString(R.string.server_name_eu3),
-            getString(R.string.server_name_us1)
-        };
+        serverLiterals = getResources().getStringArray(R.array.server_names);
 
         fetchMeetupList();
 
@@ -258,7 +252,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     private List<MeetupInfo> filterByServer(boolean ignoreQuery) {
         int which = sharedPref.getInt(PREF_SERVER_FILTER_SETTING, 0);
 
-        String serverLiteral = which == 0 ? "" : serverLiterals[which].toString();
+        String serverLiteral = which == 0 ? "" : serverLiterals[which];
 
         if (searchView != null && (!ignoreQuery && searchView.getQuery().length() > 0)) {
             filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
