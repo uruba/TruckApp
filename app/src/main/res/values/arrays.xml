@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="server_names">
+        <item>All servers</item>
+        <item>EU #1</item>
+        <item>EU #2</item>
+        <item>EU #3</item>
+        <item>US #1</item>
+    </string-array>
     <string-array name="themes_labels">
         <item>Red</item>
         <item>Pink</item>
