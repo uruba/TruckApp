@@ -20,6 +20,7 @@ import static android.support.test.espresso.Espresso.openActionBarOverflowOrOpti
 import static android.support.test.espresso.Espresso.pressBack;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.swipeLeft;
+import static android.support.test.espresso.action.ViewActions.swipeRight;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -64,14 +65,19 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
         // and the second one is a MeetupListFragment
         assertTrue(fragments.get(1) instanceof MeetupListFragment);
+    }
 
-        // lastly, we run also some Espresso tests
+    public void testViewPagerSwipe() {
+        // the ViewPager must have precisely the following descendants
         onView(withId(R.id.viewpager)).check(matches(hasDescendant(withId(R.id.recyclerview_serverlist))));
         onView(withId(R.id.viewpager)).check(matches(hasDescendant(withId(R.id.recyclerview_meetuplist))));
 
+        // now we test which of them is displayed before and after swiping
         onView(withId(R.id.recyclerview_serverlist)).check(matches(isDisplayed()));
         onView(withId(R.id.viewpager)).perform(swipeLeft());
         onView(withId(R.id.recyclerview_meetuplist)).check(matches(isDisplayed()));
+        onView(withId(R.id.viewpager)).perform(swipeRight());
+        onView(withId(R.id.recyclerview_serverlist)).check(matches(isDisplayed()));
     }
 
     public void testOptionsMenu() {
