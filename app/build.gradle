@@ -11,7 +11,7 @@ android {
         versionCode 22
         versionName "0.22"
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
         release {
