@@ -10,7 +10,6 @@ android {
         targetSdkVersion 23
         versionCode 22
         versionName "0.22"
-
         testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
@@ -22,6 +21,17 @@ android {
         debug {
             testCoverageEnabled true
         }
+    }
+    sourceSets {
+        release {
+            java.srcDirs = ['src/release/java']
+        }
+
+        debug {
+            java.srcDirs = ['src/debug/java']
+        }
+    }
+    productFlavors {
     }
 }
 
@@ -44,6 +54,7 @@ buildscript {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.squareup.okhttp3:mockwebserver:3.0.1'
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support:support-annotations:23.1.1'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
