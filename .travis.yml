@@ -40,4 +40,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - ./gradlew connectedAndroidTest coveralls --info --stacktrace
+  - ./gradlew connectedAndroidTest coveralls --info
