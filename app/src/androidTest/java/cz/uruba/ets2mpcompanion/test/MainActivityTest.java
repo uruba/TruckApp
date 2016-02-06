@@ -133,7 +133,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     public void testOptionsMenu() {
         // for every option menu entry we try to click it, check that the main Toolbar's title matches, and then go back
         for (int optionsMenuEntry : optionsMenuEntries) {
-            openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+            openActionBarOverflowOrOptionsMenu(activity);
 
             onView(ViewMatchers.withText(optionsMenuEntry)).perform(click());
             onView(withId(cz.uruba.ets2mpcompanion.R.id.toolbar)).check(matches(withToolbarTitle(is(activity.getString(optionsMenuEntry)))));
@@ -147,7 +147,7 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         mockServer.setDispatcher(dispatcherBad);
 
         // we need to wait for the ViewPager's animation to finish when we swipe to another tab
-        ViewPagerIdlingResource idlingRes = new ViewPagerIdlingResource((ViewPager) getActivity().findViewById(R.id.viewpager), "ViewPager");
+        ViewPagerIdlingResource idlingRes = new ViewPagerIdlingResource((ViewPager) activity.findViewById(R.id.viewpager), "ViewPager");
         Espresso.registerIdlingResources(idlingRes);
 
         // we tap the FAB on the ServerListFragment (~ the currently displayed one)
