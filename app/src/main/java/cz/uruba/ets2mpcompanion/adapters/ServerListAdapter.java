@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,6 +92,13 @@ public class ServerListAdapter extends DataReceiverListAdapter<ServerInfo, List<
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.GONE);
                 }
 
+                if (!TextUtils.isEmpty(filteringMessage)) {
+                    lastUpdatedWithServerTimeViewHolder.filteringStatus.setVisibility(View.VISIBLE);
+                    lastUpdatedWithServerTimeViewHolder.filteringStatus.setText(filteringMessage);
+                } else {
+                    lastUpdatedWithServerTimeViewHolder.filteringStatus.setVisibility(View.GONE);
+                }
+
                 break;
 
             case TYPE_DATA_ENTRY:
@@ -101,6 +109,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<ServerInfo, List<
                 serverInfoViewHolder.serverStatus.setStatus(serverInfo.isOnline());
 
                 serverInfoViewHolder.serverName.setText(serverInfo.getServerName());
+                serverInfoViewHolder.gameName.setText(String.format("(%1$s)", serverInfo.getGameName()));
                 serverInfoViewHolder.numberOfPlayers.setText(serverInfo.getFormattedPlayerCountString(context));
                 serverInfoViewHolder.numberOfPlayersProgressBar.setProgress((int) serverInfo.getPlayerCountRatio());
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -128,6 +137,7 @@ public class ServerListAdapter extends DataReceiverListAdapter<ServerInfo, List<
 
     public static class ServerInfoViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.server_name) TextView serverName;
+        @Bind(R.id.game_name) TextView gameName;
         @Bind(R.id.number_of_players) TextView numberOfPlayers;
         @Bind(R.id.number_of_players_progressbar) ProgressBar numberOfPlayersProgressBar;
         @Bind(R.id.server_status) ServerStatusTextView serverStatus;

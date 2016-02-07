@@ -9,9 +9,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,6 +23,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -78,6 +81,17 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
         showMenuItems();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_game_filter:
+                showFilterDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void fetchServerList() {
         fetchServerList(false);
     }
@@ -122,7 +136,7 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
         lastUpdated = new Date();
 
         Collections.sort(dataSet, Collections.reverseOrder());
-        listAdapter.setDataCollection(new ArrayList<>(dataSet));
+        listAdapter.resetDataCollection(new ArrayList<>(dataSet));
 
         filterByGame();
 
@@ -159,7 +173,7 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
         }
 
         new AlertDialog.Builder(getContext())
-                .setTitle(getString(R.string.filter_servers))
+                .setTitle(getString(R.string.filter_games))
                 .setSingleChoiceItems(
                         choices,
                         sharedPref.getInt(PREF_GAME_FILTER_SETTING, 0),
@@ -177,6 +191,34 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
     }
 
     private void filterByGame() {
+        filterByGame(dataSet);
+    }
 
+    private void filterByGame(List<ServerInfo> inputServers) {
+        int which = sharedPref.getInt(PREF_GAME_FILTER_SETTING, 0) - 1;
+
+        String gameLiteral = which < 0 ? "" : gameLiterals[which];
+
+        List<ServerInfo> filteredServers = new ArrayList<>();
+        for (ServerInfo server : inputServers) {
+            if (server.getGameName().contains(gameLiteral)) {
+                filteredServers.add(server);
+            }
+        }
+
+        listAdapter.setDataCollection(filteredServers);
+
+        if (!TextUtils.isEmpty(gameLiteral)) {
+            listAdapter.setFilteringMessage(
+                    String.format(
+                            getString(R.string.filtering_status),
+                            gameLiteral
+                    )
+            );
+        } else {
+            listAdapter.setFilteringMessage();
+        }
+
+        serverList.scrollToPosition(0);
     }
 }

@@ -26,8 +26,6 @@ import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public class MeetupListAdapter extends DataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
-    String filteringMessage = null;
-
     public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
     }
@@ -119,15 +117,6 @@ public class MeetupListAdapter extends DataReceiverListAdapter<MeetupInfo, List<
         }
 
         super.onBindViewHolder(holder, position);
-    }
-
-    public void setFilteringMessage() {
-        setFilteringMessage(null);
-    }
-
-    public void setFilteringMessage(String filteringMessage) {
-        this.filteringMessage = filteringMessage;
-        notifyItemChanged(0);
     }
 
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {

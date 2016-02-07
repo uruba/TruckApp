@@ -56,7 +56,7 @@
     <string name="settings_description_meetup_reminders_default">Calendar event description</string>
     <string name="description_meetup_reminders_default" formatted="false">Organiser: %organiser%\nServer: %server%\nLocation: %location%\nDestination: %destination%</string>
     <string name="default_value">Default</string>
-    <string name="server_time">Current game time: %1$s</string>
+    <string name="server_time">Game time: %1$s</string>
     <string name="settings_category_general">General</string>
     <string name="settings_title_display_server_time">Display game time</string>
     <string name="settings_summary_display_server_time">Enable label displaying the server game time</string>
@@ -65,7 +65,7 @@
     <string name="action_ets2mp_convoys">ETS2MP Convoys</string>
     <string name="filter_meetups_server">Filter by server</string>
     <string name="filter_servers">Filter by server</string>
-    <string name="filtering_status">Filtering active: %1$s server</string>
+    <string name="filtering_status">Filtering active: %1$s servers</string>
     <string name="games_filtering_all">All games</string>
     <string name="games_filtering_entry">Only %1$s servers</string>
     <string name="filter_games">Filter by game</string>

@@ -1,26 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/lastupdated_top_padding"
     android:paddingBottom="@dimen/lastupdated_bottom_padding">
 
     <cz.uruba.ets2mpcompanion.views.LastUpdatedTextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:textColor="@android:color/darker_gray"
         android:id="@+id/last_updated"
+        android:layout_alignParentTop="true"
         />
 
     <cz.uruba.ets2mpcompanion.views.ServerTimeTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:textColor="@android:color/secondary_text_dark"
+        android:id="@+id/server_time"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
         android:gravity="center"
         android:textColor="@android:color/secondary_text_dark"
-        android:id="@+id/server_time"
+        android:id="@+id/filtering_status"
         android:layout_marginTop="5dp"
+        android:layout_below="@+id/last_updated"
         />
 
-</LinearLayout>
+</RelativeLayout>

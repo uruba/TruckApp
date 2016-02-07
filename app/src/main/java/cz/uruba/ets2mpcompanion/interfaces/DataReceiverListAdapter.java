@@ -28,6 +28,8 @@ public abstract class DataReceiverListAdapter<T, U extends List<T>> extends Recy
 
     protected LastUpdatedTextView lastUpdatedTextView;
 
+    protected String filteringMessage = null;
+
     public DataReceiverListAdapter(Context context, U dataCollection, DataReceiver<?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
@@ -81,6 +83,11 @@ public abstract class DataReceiverListAdapter<T, U extends List<T>> extends Recy
         return dataCollection;
     }
 
+    public void resetDataCollection(U newCollection) {
+        dataCollection = newCollection;
+        notifyDataSetChanged();
+    }
+
     public void setDataCollection(U newCollection) {
         for (int i = dataCollection.size() - 1; i >= 0; i--) {
             T originalItem = dataCollection.get(i);
@@ -125,5 +132,14 @@ public abstract class DataReceiverListAdapter<T, U extends List<T>> extends Recy
     @Override
     public int getItemCount() {
         return getDataCollectionSize() + 2;
+    }
+
+    public void setFilteringMessage() {
+        setFilteringMessage(null);
+    }
+
+    public void setFilteringMessage(String filteringMessage) {
+        this.filteringMessage = filteringMessage;
+        notifyItemChanged(0);
     }
 }

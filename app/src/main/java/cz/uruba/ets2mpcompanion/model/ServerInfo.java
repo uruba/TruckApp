@@ -7,12 +7,14 @@ import cz.uruba.ets2mpcompanion.R;
 
 public class ServerInfo implements Comparable<ServerInfo> {
     private boolean online;
+    private String gameName;
     private String serverName;
     private int playerCountCurrent;
     private int playerCountCapacity;
 
-    public ServerInfo(boolean online, String serverName, int playerCountCurrent, int playerCountCapacity) {
+    public ServerInfo(boolean online, String gameName, String serverName, int playerCountCurrent, int playerCountCapacity) {
         this.online = online;
+        this.gameName = gameName;
         this.serverName = serverName;
         this.playerCountCurrent = playerCountCurrent;
         this.playerCountCapacity = playerCountCapacity;
@@ -20,6 +22,10 @@ public class ServerInfo implements Comparable<ServerInfo> {
 
     public boolean isOnline() {
         return online;
+    }
+
+    public String getGameName() {
+        return gameName;
     }
 
     public String getServerName() {

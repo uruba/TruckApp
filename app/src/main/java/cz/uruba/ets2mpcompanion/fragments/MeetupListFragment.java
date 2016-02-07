@@ -106,7 +106,6 @@ public class MeetupListFragment extends DataReceiverFragment<MeetupInfo, MeetupL
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
     private void fetchMeetupList() {

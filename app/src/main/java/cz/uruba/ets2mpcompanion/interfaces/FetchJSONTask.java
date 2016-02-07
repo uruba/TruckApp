@@ -52,7 +52,7 @@ public abstract class FetchJSONTask<T> extends FetchTask<T> {
             is = connection.getInputStream();
 
             // Convert the InputStream into a string
-            String contentAsString = readIt(is, 5000);
+            String contentAsString = readIt(is, 6000);
 
             is.close();
 

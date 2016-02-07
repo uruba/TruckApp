@@ -28,11 +28,12 @@ public class FetchServerListTask extends FetchJSONTask<ArrayList<ServerInfo>> {
             JSONObject item = responseArray.getJSONObject(i);
 
             boolean online = item.getBoolean("online");
-            String name = item.getString("name");
+            String gameName = item.getString("game");
+            String serverName = item.getString("name");
             int playerCountCurrent = item.getInt("players");
             int playerCountCapacity = item.getInt("maxplayers");
 
-            ServerInfo serverInfo = new ServerInfo(online, name, playerCountCurrent, playerCountCapacity);
+            ServerInfo serverInfo = new ServerInfo(online, gameName, serverName, playerCountCurrent, playerCountCapacity);
             serverList.add(serverInfo);
         }
 

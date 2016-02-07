@@ -14,7 +14,7 @@
         <item>%destination%</item>
     </string-array>
     <string-array name="game_names">
-        <item>ETS 2</item>
+        <item>ETS2</item>
         <item>ATS</item>
     </string-array>
 </resources>
