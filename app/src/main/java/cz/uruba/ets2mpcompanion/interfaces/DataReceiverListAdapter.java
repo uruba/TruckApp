@@ -15,7 +15,7 @@ import cz.uruba.ets2mpcompanion.adapters.viewholders.EmptyViewHolder;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public abstract class DataReceiverListAdapter<T extends List> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class DataReceiverListAdapter<T, U extends List<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
     protected static final int TYPE_LAST_UPDATED = 1;
     protected static final int TYPE_FOOTER = 2;
@@ -24,11 +24,11 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
 
     protected DataReceiver<?> callbackDataReceiver;
 
-    protected T dataCollection;
+    protected U dataCollection;
 
     protected LastUpdatedTextView lastUpdatedTextView;
 
-    public DataReceiverListAdapter(Context context, T dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public DataReceiverListAdapter(Context context, U dataCollection, DataReceiver<?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;
@@ -77,13 +77,34 @@ public abstract class DataReceiverListAdapter<T extends List> extends RecyclerVi
         }
     }
 
-    public T getDataCollection() {
+    public U getDataCollection() {
         return dataCollection;
     }
 
-    public void setDataCollection(T newCollection) {
-        dataCollection = newCollection;
-        notifyDataSetChanged();
+    public void setDataCollection(U newCollection) {
+        for (int i = dataCollection.size() - 1; i >= 0; i--) {
+            T originalItem = dataCollection.get(i);
+            if (!newCollection.contains(originalItem)) {
+                removeItem(i);
+            }
+        }
+
+        for (int i = 0, count = newCollection.size(); i < count; i++) {
+            T newItem = newCollection.get(i);
+            if (!dataCollection.contains(newItem)) {
+                addItem(i, newItem);
+            }
+        }
+    }
+
+    public void removeItem(int position) {
+        dataCollection.remove(position);
+        notifyItemRemoved(position + 1);
+    }
+
+    public void addItem(int position, T newItem) {
+        dataCollection.add(position, newItem);
+        notifyItemInserted(position + 1);
     }
 
     public int getDataCollectionSize() {

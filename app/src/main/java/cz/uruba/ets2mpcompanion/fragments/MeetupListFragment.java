@@ -1,9 +1,7 @@
 package cz.uruba.ets2mpcompanion.fragments;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
@@ -32,18 +30,14 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInfo>, MeetupListAdapter> implements SearchView.OnQueryTextListener {
+public class MeetupListFragment extends DataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
-    private List<MeetupInfo> meetups = new ArrayList<>();
     public static final int MEETUP_FIELD_LOCATION = 1;
     public static final int MEETUP_FIELD_ORGANISER = 1 << 1;
     public static final int MEETUP_FIELD_LANGUAGE = 1 << 2;
     private String[] serverLiterals;
 
-    private List<MenuItem> menuItems = new ArrayList<>();
-
-    private SharedPreferences sharedPref;
     public static final String PREF_SERVER_FILTER_SETTING = "preference_server_filter_setting";
 
     private SearchView searchView;
@@ -51,10 +45,6 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_meetuplist, container, false);
-
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
-
-        setHasOptionsMenu(true);
 
         ButterKnife.bind(this, view);
 
@@ -131,18 +121,18 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
     public void resetMeetupList() {
         if(listAdapter != null) {
-            listAdapter.refreshAdapter(meetups);
+            listAdapter.setDataCollection(dataSet);
             filterByServer(true);
         }
     }
 
     @Override
     public void processData(ArrayList<MeetupInfo> data, boolean notifyUser) {
-        meetups = data;
+        dataSet = data;
 
         lastUpdated = new Date();
 
-        listAdapter.setDataCollection(new ArrayList<>(meetups));
+        listAdapter.setDataCollection(new ArrayList<>(dataSet));
 
         filterByServer();
 
@@ -162,7 +152,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
 
     @Override
     protected void showLoadingOverlay() {
-        hideMenuItems();
+
         super.showLoadingOverlay();
     }
 
@@ -207,11 +197,11 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
     }
 
     private List<MeetupInfo> filterByText(String newText, int fieldsFlag) {
-        return filterByText(newText, fieldsFlag, meetups);
+        return filterByText(newText, fieldsFlag, dataSet);
     }
 
     private List<MeetupInfo> filterByText(String newText, int fieldsFlag, List<MeetupInfo> inputMeetups) {
-        if (meetups.size() < 1) {
+        if (dataSet.size() < 1) {
             return null;
         }
 
@@ -239,7 +229,7 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
             }
         }
 
-        listAdapter.refreshAdapter(filteredMeetups);
+        listAdapter.setDataCollection(filteredMeetups);
         meetupList.scrollToPosition(0);
 
         return filteredMeetups;
@@ -267,19 +257,5 @@ public class MeetupListFragment extends DataReceiverFragment<ArrayList<MeetupInf
         }
 
         return listAdapter.getDataCollection();
-    }
-
-    private void showMenuItems() {
-        if (meetups.size() > 0) {
-            for (MenuItem menuItem : menuItems) {
-                menuItem.setVisible(true);
-            }
-        }
-    }
-
-    private void hideMenuItems() {
-        for (MenuItem menuItem : menuItems) {
-            menuItem.setVisible(false);
-        }
     }
 }

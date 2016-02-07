@@ -66,4 +66,6 @@
     <string name="filter_meetups_server">Filter by server</string>
     <string name="filter_servers">Filter by server</string>
     <string name="filtering_status">Filtering active: %1$s server</string>
+    <string name="games_filtering_all">All games</string>
+    <string name="games_filtering_entry">Only %1$s servers</string>
 </resources>

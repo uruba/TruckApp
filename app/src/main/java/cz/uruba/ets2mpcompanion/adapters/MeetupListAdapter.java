@@ -25,7 +25,7 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>> {
+public class MeetupListAdapter extends DataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
     String filteringMessage = null;
 
     public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
@@ -119,33 +119,6 @@ public class MeetupListAdapter extends DataReceiverListAdapter<List<MeetupInfo>>
         }
 
         super.onBindViewHolder(holder, position);
-    }
-
-    public void refreshAdapter(List<MeetupInfo> newMeetupList) {
-        for (int i = dataCollection.size() - 1; i >= 0; i--) {
-            MeetupInfo meetup = dataCollection.get(i);
-            if (!newMeetupList.contains(meetup)) {
-                removeItem(i);
-            }
-        }
-
-        for (int i = 0, count = newMeetupList.size(); i < count; i++) {
-            MeetupInfo meetup = newMeetupList.get(i);
-            if (!dataCollection.contains(meetup)) {
-                addItem(i, meetup);
-            }
-        }
-    }
-
-    public MeetupInfo removeItem(int position) {
-        MeetupInfo meetup = dataCollection.remove(position);
-        notifyItemRemoved(position + 1);
-        return meetup;
-    }
-
-    public void addItem(int position, MeetupInfo meetup) {
-        dataCollection.add(position, meetup);
-        notifyItemInserted(position + 1);
     }
 
     public void setFilteringMessage() {

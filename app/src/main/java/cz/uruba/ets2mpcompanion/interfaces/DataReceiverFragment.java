@@ -1,19 +1,27 @@
 package cz.uruba.ets2mpcompanion.interfaces;
 
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.Bind;
 import cz.uruba.ets2mpcompanion.R;
 
-public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter> extends Fragment implements DataReceiver<T> {
+public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
+    protected List<T> dataSet = new ArrayList<>();
+
     protected Date lastUpdated;
     protected FABStateChangeListener fabStateChangeListener;
     @Bind(R.id.loading_overlay) protected FrameLayout loadingOverlay;
@@ -23,8 +31,21 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
 
     protected U listAdapter;
 
+    protected List<MenuItem> menuItems = new ArrayList<>();
+
+    protected SharedPreferences sharedPref;
+
     public DataReceiverFragment() {
         fabStateChangeListener = new FABStateChangeListener();
+    }
+
+    @Override
+    public void onActivityCreated (Bundle savedInstanceState) {
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+
+        setHasOptionsMenu(true);
+
+        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -48,6 +69,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
         loadingOverlay.setVisibility(View.VISIBLE);
         fab.hide(fabStateChangeListener.loadingOverlayShown());
         hideEmptyView();
+        hideMenuItems();
     }
 
     protected void hideLoadingOverlay() {
@@ -58,6 +80,21 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
         fab.show(fabStateChangeListener.loadingOverlayHidden());
         if (listAdapter != null && listAdapter.getDataCollectionSize() == 0) {
             showEmptyView();
+        }
+        showMenuItems();
+    }
+
+    protected void showMenuItems() {
+        if (dataSet.size() > 0) {
+            for (MenuItem menuItem : menuItems) {
+                menuItem.setVisible(true);
+            }
+        }
+    }
+
+    protected void hideMenuItems() {
+        for (MenuItem menuItem : menuItems) {
+            menuItem.setVisible(false);
         }
     }
 
@@ -98,7 +135,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
     }
 
     @Override
-    public abstract void processData(T data, boolean notifyUser);
+    public abstract void processData(ArrayList<T> data, boolean notifyUser);
 
     @Override
     public abstract void handleIOException(IOException e);
