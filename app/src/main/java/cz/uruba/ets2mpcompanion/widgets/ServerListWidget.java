@@ -153,7 +153,7 @@ public class ServerListWidget extends AppWidgetProvider {
 
             ServerInfo serverInfo = serverList.get(position);
 
-            remoteView.setTextViewText(R.id.server_name, serverInfo.getServerName());
+            remoteView.setTextViewText(R.id.server_name, String.format(context.getString(R.string.widget_server_name), serverInfo.getServerName(), serverInfo.getGameName()));
             remoteView.setTextViewText(R.id.number_of_players, serverInfo.getFormattedPlayerCountString(context));
             remoteView.setProgressBar(
                     R.id.number_of_players_progressbar,

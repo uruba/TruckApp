@@ -12,7 +12,8 @@
     <string name="server_list_refreshed">The server list has been refreshed</string>
     <string name="meetup_list_refreshed">The meetup list has been refreshed</string>
     <string name="last_updated">Last updated %1$s</string>
-    <string name="widget_title">ETS2MP Status</string>
+    <string name="widget_title">TruckersMP Status</string>
+    <string name="widget_server_name">%1$s (%2$s)</string>
     <string name="server_list_refreshed_widget">ETS2MP server list has been refreshed</string>
     <string name="as_of">As of %1$s</string>
     <string name="not_available_now">N/A right now</string>
