@@ -14,7 +14,8 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -22,16 +23,14 @@ android {
             testCoverageEnabled true
         }
     }
-    sourceSets {
-        release {
-            java.srcDirs = ['src/release/java']
+    productFlavors {
+        production {
+
         }
 
-        debug {
-            java.srcDirs = ['src/debug/java']
+        development {
+
         }
-    }
-    productFlavors {
     }
 }
 
@@ -54,10 +53,10 @@ buildscript {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    androidTestCompile 'com.squareup.okhttp3:mockwebserver:3.0.1'
-    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    androidTestCompile 'com.android.support:support-annotations:23.1.1'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestDevelopmentCompile 'com.squareup.okhttp3:mockwebserver:3.0.1'
+    androidTestDevelopmentCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
+    androidTestDevelopmentCompile 'com.android.support:support-annotations:23.1.1'
+    androidTestDevelopmentCompile 'com.android.support.test:runner:0.4.1'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.jakewharton:butterknife:7.0.1'
