@@ -10,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -68,6 +70,14 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
         return view;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_game_filter, menu);
+
+        menuItems.add(menu.findItem(R.id.action_game_filter));
+        showMenuItems();
+    }
+
     private void fetchServerList() {
         fetchServerList(false);
     }
@@ -107,17 +117,14 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
 
     @Override
     public void processData(ArrayList<ServerInfo> serverList, boolean notifyUser) {
-        if (serverList == null || serverList.isEmpty()) {
-            handleIOException(null);
-            return;
-        }
-
-        listAdapter.notifyDataSetChanged();
+        dataSet = serverList;
 
         lastUpdated = new Date();
 
-        Collections.sort(serverList, Collections.reverseOrder());
-        listAdapter.setDataCollection(serverList);
+        Collections.sort(dataSet, Collections.reverseOrder());
+        listAdapter.setDataCollection(new ArrayList<>(dataSet));
+
+        filterByGame();
 
         hideLoadingOverlay();
 
