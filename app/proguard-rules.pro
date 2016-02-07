@@ -27,3 +27,14 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+
+-keeppackagenames org.jsoup.nodes
+
+-keep class android.support.v7.widget.SearchView { *; }
+# -keep class android.support.v7.internal.view.menu.MenuBuilder { *; }
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+-keep class **.R$*
