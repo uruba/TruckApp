@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/uruba/ETS2MP-Companion.svg)](https://travis-ci.org/uruba/ETS2MP-Companion)
 [![Coverage Status](https://coveralls.io/repos/uruba/ETS2MP-Companion/badge.svg?branch=master&service=github)](https://coveralls.io/github/uruba/ETS2MP-Companion?branch=master)
 
-This will be a companion app for [ETS2MP](https://ets2mp.com/) players, compatible with Android devices. **Even though it's just a preview, you can get the current version directly on [Google Play](https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion), where you may also [opt in to the beta programme](https://play.google.com/apps/testing/cz.uruba.ets2mpcompanion) should you want to test the latest and the greatest, bugs and rough shape of the new features notwithstanding.**
+This will be a companion app for ~~ETS2MP~~ [**TruckersMP**](http://truckersmp.com/) players, compatible with Android devices. **Even though it's just a preview, you can get the current version directly on [Google Play](https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion), where you may also [opt in to the beta programme](https://play.google.com/apps/testing/cz.uruba.ets2mpcompanion) should you want to test the latest and the greatest, bugs and rough shape of the new features notwithstanding.**
 
 It is still very early in the development, so there's not much to see here just yet. However, you are more than welcome to join the effort – if you so will. In that case message me at [uruba@outlook.com](mailto:uruba@outlook.com) and we can talk further. Or not. Pull requests are welcome either way.
 
