@@ -31,7 +31,7 @@ public abstract class FetchJSONTask<T> extends FetchTask<T> {
 
     @Override
     protected AsyncTaskResult<T> doInBackground(Void... params) {
-        InputStream is;
+        InputStream inputStream;
 
         try {
             URL url = new URL(requestURL);
@@ -41,10 +41,10 @@ public abstract class FetchJSONTask<T> extends FetchTask<T> {
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
             connection.connect();
-            is = connection.getInputStream();
+            inputStream = connection.getInputStream();
 
             // Convert the InputStream into a string
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
             StringBuilder contentStringBuilder = new StringBuilder();
             String inputLine;
@@ -52,7 +52,7 @@ public abstract class FetchJSONTask<T> extends FetchTask<T> {
                 contentStringBuilder.append(inputLine);
             }
 
-            is.close();
+            inputStream.close();
 
             T result = processHTTPStream(contentStringBuilder.toString());
             return new AsyncTaskResult<>(result);
