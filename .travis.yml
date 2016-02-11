@@ -33,7 +33,7 @@ env:
     - ADB_INSTALL_TIMEOUT=12
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_c817c1a67a9d_key -iv $encrypted_c817c1a67a9d_iv -in google-services.json.enc -out google-services.json -d
+  - openssl aes-256-cbc -K $encrypted_c817c1a67a9d_key -iv $encrypted_c817c1a67a9d_iv -in ./app/google-services.json.enc -out ./app/google-services.json -d
 
 # Emulator Management: Create, Start and Wait
 before_script:
