@@ -11,12 +11,16 @@ import android.view.animation.AlphaAnimation;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
+import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 
 public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
@@ -35,6 +39,8 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
 
     protected SharedPreferences sharedPref;
 
+    protected Tracker analyticsTracker;
+
     public DataReceiverFragment() {
         fabStateChangeListener = new FABStateChangeListener();
     }
@@ -42,6 +48,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
     @Override
     public void onActivityCreated (Bundle savedInstanceState) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+        analyticsTracker = ((ETS2MPCompanionApplication) getActivity().getApplication()).getAnalyticsTracker();
 
         setHasOptionsMenu(true);
 
@@ -104,6 +111,13 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
 
     protected void hideEmptyView() {
         textEmptyList.setVisibility(View.GONE);
+    }
+
+    protected void submitOnRefreshAnalytics(String actionName) {
+        analyticsTracker.send(new HitBuilders.EventBuilder()
+                .setCategory("Refresh")
+                .setAction(actionName)
+                .build());
     }
 
     protected static class FABStateChangeListener extends FloatingActionButton.OnVisibilityChangedListener {

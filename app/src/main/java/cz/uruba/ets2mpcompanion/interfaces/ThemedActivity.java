@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+
 import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 
@@ -13,6 +15,12 @@ public abstract class ThemedActivity extends AppCompatActivity {
     protected SharedPreferences sharedPref;
     protected boolean isCustomThemeEnabled = false;
     protected String prefThemeColour = "";
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleAnalytics.getInstance(getApplicationContext()).reportActivityStart(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,12 @@ public abstract class ThemedActivity extends AppCompatActivity {
                 reloadActivity();
             }
         }
+    }
+
+    @Override
+    protected void onStop() {
+        GoogleAnalytics.getInstance(getApplicationContext()).reportActivityStop(this);
+        super.onStop();
     }
 
     protected void reloadActivity() {

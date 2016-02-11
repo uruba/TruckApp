@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
 import java.lang.reflect.Method;
 
 import butterknife.Bind;
@@ -25,6 +28,8 @@ public class MainActivity extends ThemedActivity {
     @Bind(R.id.tabs_area) TabLayout tabsArea;
     @Bind(R.id.viewpager) ViewPager viewPager;
 
+    final int SERVER_LIST_FRAG_POS = 0;
+    final int MEETUP_LIST_FRAG_POS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,13 @@ public class MainActivity extends ThemedActivity {
 
         // Lollipop-esque coloured "overscroll" effect for pre-Lollipop versions of Android
         UICompat.setOverscrollEffectColour(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        submitViewPagerAnalytics(viewPager.getCurrentItem());
     }
 
     @Override
@@ -102,9 +114,6 @@ public class MainActivity extends ThemedActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        final int SERVER_LIST_FRAG_POS = 0;
-        final int MEETUP_LIST_FRAG_POS = 1;
-
         // we add two pages – a ServerListFragment one and a MeetupListFragment one
         final ServerListFragment serverListFragment = new ServerListFragment();
         final MeetupListFragment meetupListFragment = new MeetupListFragment();
@@ -127,6 +136,8 @@ public class MainActivity extends ThemedActivity {
                 if (position == MEETUP_LIST_FRAG_POS) {
                     meetupListFragment.resetMeetupList();
                 }
+
+                submitViewPagerAnalytics(position);
             }
 
             @Override
@@ -134,6 +145,24 @@ public class MainActivity extends ThemedActivity {
 
             }
         });
+    }
+
+    private void submitViewPagerAnalytics(int position) {
+        Tracker analyticsTracker = ((ETS2MPCompanionApplication) getApplication())
+                .getAnalyticsTracker();
+
+        switch (position) {
+            case SERVER_LIST_FRAG_POS:
+                analyticsTracker.setScreenName("Fragment – Server list");
+                break;
+            case MEETUP_LIST_FRAG_POS:
+                analyticsTracker.setScreenName("Fragment – Meetup list");
+                break;
+            default:
+                return;
+        }
+
+        analyticsTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override

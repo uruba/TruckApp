@@ -57,6 +57,7 @@ public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerL
             public void onClick(View view) {
                 fetchServerList(true);
                 fetchServerTime();
+                submitOnRefreshAnalytics("Server list");
             }
         });
 

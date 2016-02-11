@@ -52,6 +52,7 @@ public class MeetupListFragment extends DataReceiverFragment<MeetupInfo, MeetupL
             @Override
             public void onClick(View view) {
                 fetchMeetupList(true);
+                submitOnRefreshAnalytics("Meetup list");
             }
         });
 
