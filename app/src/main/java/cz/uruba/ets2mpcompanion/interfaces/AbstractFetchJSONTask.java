@@ -11,9 +11,9 @@ import java.net.URL;
 
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class FetchJSONTask<T> extends FetchTask<T> {
+public abstract class AbstractFetchJSONTask<T> extends AbstractFetchTask<T> {
 
-    public FetchJSONTask(DataReceiverJSON<T> callbackObject, String requestURL, boolean notifyUser) {
+    public AbstractFetchJSONTask(DataReceiverJSON<T> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 

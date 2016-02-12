@@ -13,7 +13,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 
-public abstract class AbstractWebViewActivity extends ThemedActivity {
+public abstract class AbstractWebViewActivity extends AbstractThemedActivity {
     public static final String INTENT_EXTRA_URL = "intentURL";
 
     protected String targetURL;
@@ -22,6 +22,7 @@ public abstract class AbstractWebViewActivity extends ThemedActivity {
     @Bind(R.id.loading_progress) protected ProgressBar loadingProgressIndicator;
     @Bind(R.id.webview) protected WebView webView;
 
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {

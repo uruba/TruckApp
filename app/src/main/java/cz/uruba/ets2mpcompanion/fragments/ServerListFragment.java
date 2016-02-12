@@ -30,13 +30,13 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
-public class ServerListFragment extends DataReceiverFragment<ServerInfo, ServerListAdapter> implements DataReceiverJSON<ArrayList<ServerInfo>> {
+public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> implements DataReceiverJSON<ArrayList<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
 
     private String[] gameLiterals;

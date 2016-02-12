@@ -8,10 +8,10 @@ import java.util.Date;
 import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.FetchJsoupDataTask;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJsoupDataTask;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
 
-public class FetchMeetupDetailTask extends FetchJsoupDataTask<MeetupDetail> {
+public class FetchMeetupDetailTask extends AbstractFetchJsoupDataTask<MeetupDetail> {
 
     public FetchMeetupDetailTask(DataReceiver<MeetupDetail> callbackObject, String requestURL, Map<String, String> cookies, boolean notifyUser) {
         super(callbackObject, requestURL, cookies, notifyUser);

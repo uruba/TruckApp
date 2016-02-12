@@ -7,10 +7,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
-import cz.uruba.ets2mpcompanion.interfaces.FetchJSONTask;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 
-public class FetchServerListTask extends FetchJSONTask<ArrayList<ServerInfo>> {
+public class FetchServerListTask extends AbstractFetchJSONTask<ArrayList<ServerInfo>> {
 
     public FetchServerListTask(DataReceiverJSON<ArrayList<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);

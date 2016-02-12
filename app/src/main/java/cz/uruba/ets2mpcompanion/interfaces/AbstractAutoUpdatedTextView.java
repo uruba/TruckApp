@@ -5,20 +5,20 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-public abstract class AutoUpdatedTextView extends TextView {
+public abstract class AbstractAutoUpdatedTextView extends TextView {
     protected Handler handler = new Handler();
     protected UpdateText updateTextTask = new UpdateText();
     protected boolean isUpdateTextTaskRunning = false;
 
-    public AutoUpdatedTextView(Context context) {
+    public AbstractAutoUpdatedTextView(Context context) {
         super(context);
     }
 
-    public AutoUpdatedTextView(Context context, AttributeSet attrs) {
+    public AbstractAutoUpdatedTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public AutoUpdatedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AbstractAutoUpdatedTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

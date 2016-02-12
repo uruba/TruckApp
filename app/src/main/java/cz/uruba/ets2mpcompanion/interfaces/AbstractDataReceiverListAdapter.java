@@ -15,7 +15,7 @@ import cz.uruba.ets2mpcompanion.adapters.viewholders.EmptyViewHolder;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public abstract class DataReceiverListAdapter<T, U extends List<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
     protected static final int TYPE_LAST_UPDATED = 1;
     protected static final int TYPE_FOOTER = 2;
@@ -30,7 +30,7 @@ public abstract class DataReceiverListAdapter<T, U extends List<T>> extends Recy
 
     protected String filteringMessage = null;
 
-    public DataReceiverListAdapter(Context context, U dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public AbstractDataReceiverListAdapter(Context context, U dataCollection, DataReceiver<?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;

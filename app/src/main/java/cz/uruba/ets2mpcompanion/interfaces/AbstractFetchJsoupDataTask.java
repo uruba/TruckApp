@@ -8,14 +8,14 @@ import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class FetchJsoupDataTask<T> extends FetchTask<T> {
+public abstract class AbstractFetchJsoupDataTask<T> extends AbstractFetchTask<T> {
     private Map<String, String> cookies = null;
 
-    public FetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
+    public AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
-    public FetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, Map<String, String> cookies, boolean notifyUser) {
+    public AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, Map<String, String> cookies, boolean notifyUser) {
         this(callbackObject, requestURL, notifyUser);
         this.cookies = cookies;
     }

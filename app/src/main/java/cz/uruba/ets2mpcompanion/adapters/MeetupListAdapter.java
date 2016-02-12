@@ -21,11 +21,11 @@ import cz.uruba.ets2mpcompanion.MeetupDetailActivity;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithFilterInfoViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public class MeetupListAdapter extends DataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
+public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
     public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
     }

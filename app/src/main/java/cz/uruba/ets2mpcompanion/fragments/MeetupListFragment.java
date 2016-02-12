@@ -26,11 +26,11 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverFragment;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends DataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
+public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     public static final int MEETUP_FIELD_LOCATION = 1;

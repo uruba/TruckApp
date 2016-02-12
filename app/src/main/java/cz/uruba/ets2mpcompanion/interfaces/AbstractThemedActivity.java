@@ -11,7 +11,7 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import cz.uruba.ets2mpcompanion.constants.Themes;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 
-public abstract class ThemedActivity extends AppCompatActivity {
+public abstract class AbstractThemedActivity extends AppCompatActivity {
     protected SharedPreferences sharedPref;
     protected boolean isCustomThemeEnabled = false;
     protected String prefThemeColour = "";

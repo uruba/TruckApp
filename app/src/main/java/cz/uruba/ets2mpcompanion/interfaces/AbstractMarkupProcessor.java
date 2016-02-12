@@ -2,7 +2,7 @@ package cz.uruba.ets2mpcompanion.interfaces;
 
 import java.util.Map;
 
-public abstract class MarkupProcessor {
+public abstract class AbstractMarkupProcessor {
     public abstract String processMarkup(String inputString);
 
     protected String getStringFromMarkup(String string, Map<String, String> matchMap) {

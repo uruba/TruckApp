@@ -8,13 +8,14 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
-import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractThemedActivity;
 
-public class SettingsActivity extends ThemedActivity {
+public class SettingsActivity extends AbstractThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     // implicitly, we want to show an exit animation
     boolean animateExit = true;
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

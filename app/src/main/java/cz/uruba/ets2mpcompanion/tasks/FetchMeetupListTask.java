@@ -7,10 +7,10 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.FetchJsoupDataTask;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJsoupDataTask;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
-public class FetchMeetupListTask extends FetchJsoupDataTask<ArrayList<MeetupInfo>> {
+public class FetchMeetupListTask extends AbstractFetchJsoupDataTask<ArrayList<MeetupInfo>> {
 
     public FetchMeetupListTask(DataReceiver<ArrayList<MeetupInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);

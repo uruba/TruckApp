@@ -24,7 +24,7 @@ import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
 
-public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
+public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
     protected List<T> dataSet = new ArrayList<>();
 
     protected Date lastUpdated;
@@ -42,7 +42,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
 
     protected Tracker analyticsTracker;
 
-    public DataReceiverFragment() {
+    public AbstractDataReceiverFragment() {
         fabStateChangeListener = new FABStateChangeListener();
     }
 

@@ -20,10 +20,10 @@ import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
-import cz.uruba.ets2mpcompanion.interfaces.ThemedActivity;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractThemedActivity;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 
-public class MainActivity extends ThemedActivity {
+public class MainActivity extends AbstractThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.tabs_area) TabLayout tabsArea;
     @Bind(R.id.viewpager) ViewPager viewPager;

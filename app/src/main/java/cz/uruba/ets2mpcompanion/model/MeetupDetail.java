@@ -3,9 +3,9 @@ package cz.uruba.ets2mpcompanion.model;
 import java.util.Date;
 import java.util.HashMap;
 
-import cz.uruba.ets2mpcompanion.interfaces.MarkupProcessor;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractMarkupProcessor;
 
-public class MeetupDetail extends MarkupProcessor {
+public class MeetupDetail extends AbstractMarkupProcessor {
     private String organiser;
     private String server;
     private String location;

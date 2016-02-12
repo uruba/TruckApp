@@ -7,9 +7,9 @@ import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.constants.Numeric;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
-import cz.uruba.ets2mpcompanion.interfaces.FetchJSONTask;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
 
-public class FetchServerTimeTask extends FetchJSONTask<Date> {
+public class FetchServerTimeTask extends AbstractFetchJSONTask<Date> {
 
     public FetchServerTimeTask(DataReceiverJSON<Date> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);

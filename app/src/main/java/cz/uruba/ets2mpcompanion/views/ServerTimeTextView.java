@@ -10,10 +10,10 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import cz.uruba.ets2mpcompanion.R;
-import cz.uruba.ets2mpcompanion.interfaces.AutoUpdatedTextView;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractAutoUpdatedTextView;
 import cz.uruba.ets2mpcompanion.model.ServerTime;
 
-public class ServerTimeTextView extends AutoUpdatedTextView {
+public class ServerTimeTextView extends AbstractAutoUpdatedTextView {
     // hard-coded interval of 1 second = 1000 ms
     private static final long UPDATE_INTERVAL = 1000;
 

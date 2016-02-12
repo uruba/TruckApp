@@ -21,14 +21,14 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithServerTimeViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverListAdapter;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.ServerTime;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
-public class ServerListAdapter extends DataReceiverListAdapter<ServerInfo, List<ServerInfo>> implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInfo, List<ServerInfo>> implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_DISPLAY_SERVER_TIME = "preference_display_server_time";
 
     int colorPrimaryDark;
