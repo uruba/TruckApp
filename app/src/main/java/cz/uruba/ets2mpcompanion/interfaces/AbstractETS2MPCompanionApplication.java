@@ -1,12 +1,14 @@
-package cz.uruba.ets2mpcompanion;
+package cz.uruba.ets2mpcompanion.interfaces;
 
 import android.app.Application;
 
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
 
-public class ETS2MPCompanionApplication extends Application {
-    private Tracker analyticsTracker;
+import cz.uruba.ets2mpcompanion.R;
+
+public abstract class AbstractETS2MPCompanionApplication extends Application {
+    protected Tracker analyticsTracker;
 
     @Override
     public void onCreate() {
@@ -15,7 +17,10 @@ public class ETS2MPCompanionApplication extends Application {
         GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
         analyticsTracker = analytics.newTracker(R.xml.global_tracker);
         analyticsTracker.enableAutoActivityTracking(true);
+        initAnalytics(analytics);
     }
+
+    public abstract void initAnalytics(GoogleAnalytics analytics);
 
     synchronized public Tracker getAnalyticsTracker() {
         return analyticsTracker;
