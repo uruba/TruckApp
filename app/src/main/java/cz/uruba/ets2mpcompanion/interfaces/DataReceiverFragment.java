@@ -22,6 +22,7 @@ import java.util.List;
 import butterknife.Bind;
 import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
+import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
 
 public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
     protected List<T> dataSet = new ArrayList<>();
@@ -115,7 +116,7 @@ public abstract class DataReceiverFragment<T, U extends DataReceiverListAdapter>
 
     protected void submitOnRefreshAnalytics(String actionName) {
         analyticsTracker.send(new HitBuilders.EventBuilder()
-                .setCategory("Refresh")
+                .setCategory(GoogleAnalytics.EVENT_CATEGORY_REFRESH)
                 .setAction(actionName)
                 .build());
     }

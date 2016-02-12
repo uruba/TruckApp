@@ -10,13 +10,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.google.android.gms.analytics.HitBuilders;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ColourChooserAdapter;
+import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
 import cz.uruba.ets2mpcompanion.constants.Themes;
 
 public class ColourChooserPreference extends ListPreference implements AdapterView.OnItemClickListener {
@@ -61,6 +65,12 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
         setValue(themeListKeys.get(position));
+        ((ETS2MPCompanionApplication) getContext().getApplicationContext())
+                .getAnalyticsTracker()
+                .send(new HitBuilders.EventBuilder()
+                    .setCategory(GoogleAnalytics.EVENT_CATEGORY_REFRESH)
+                    .setAction(getValueThemeColour())
+                    .build());
         getDialog().dismiss();
     }
 
