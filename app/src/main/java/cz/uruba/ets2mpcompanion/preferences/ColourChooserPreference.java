@@ -68,7 +68,7 @@ public class ColourChooserPreference extends ListPreference implements AdapterVi
         ((ETS2MPCompanionApplication) getContext().getApplicationContext())
                 .getAnalyticsTracker()
                 .send(new HitBuilders.EventBuilder()
-                    .setCategory(GoogleAnalytics.EVENT_CATEGORY_REFRESH)
+                    .setCategory(GoogleAnalytics.EVENT_CATEGORY_THEME_SWITCH)
                     .setAction(getValueThemeColour())
                     .build());
         getDialog().dismiss();
