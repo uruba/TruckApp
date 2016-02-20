@@ -3,6 +3,7 @@ package cz.uruba.ets2mpcompanion.model;
 import cz.uruba.ets2mpcompanion.constants.URL;
 
 public class MeetupInfo {
+    private String server;
     private String when;
     private String location;
     private String organiser;
@@ -10,7 +11,8 @@ public class MeetupInfo {
     private String participants;
     private String relativeURL;
 
-    public MeetupInfo(String when, String location, String organiser, String language, String participants, String relativeURL) {
+    public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL) {
+        this.server = server;
         this.when = when;
         this.location = location;
         this.organiser = organiser;
@@ -18,6 +20,8 @@ public class MeetupInfo {
         this.participants = participants;
         this.relativeURL = relativeURL;
     }
+
+    public String getServer() { return server; }
 
     public String getWhen() {
         return when;
@@ -44,6 +48,6 @@ public class MeetupInfo {
     }
 
     public String getAbsoluteURL() {
-        return URL.MEETUP_LIST + relativeURL;
+        return URL.MEETUP_LIST + getRelativeURL();
     }
 }

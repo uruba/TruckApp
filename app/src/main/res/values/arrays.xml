@@ -5,7 +5,9 @@
         <item>EU #1</item>
         <item>EU #2</item>
         <item>EU #3</item>
-        <item>US #1</item>
+        <item>US</item>
+        <item>ASIA</item>
+        <item>SA</item>
     </string-array>
     <string-array name="meetup_description_format_strings">
         <item>%organiser%</item>

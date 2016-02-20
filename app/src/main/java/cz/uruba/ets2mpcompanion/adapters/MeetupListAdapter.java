@@ -77,6 +77,7 @@ public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInf
 
                 meetupInfoViewHolder.time.setText(meetupInfo.getWhen());
                 meetupInfoViewHolder.location.setText(meetupInfo.getLocation());
+                meetupInfoViewHolder.server.setText(meetupInfo.getServer());
                 meetupInfoViewHolder.organiser.setText(meetupInfo.getOrganiser());
                 meetupInfoViewHolder.language.setText(meetupInfo.getLanguage());
                 meetupInfoViewHolder.participants.setText(
@@ -122,6 +123,7 @@ public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInf
     public static class MeetupInfoViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.time) TextView time;
         @Bind(R.id.location) TextView location;
+        @Bind(R.id.server) TextView server;
         @Bind(R.id.organiser) TextView organiser;
         @Bind(R.id.language) TextView language;
         @Bind(R.id.participants) TextView participants;

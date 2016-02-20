@@ -30,9 +30,9 @@ public class FetchMeetupListTask extends AbstractFetchJsoupDataTask<ArrayList<Me
         for (Element elem : elem_table_list) {
             Elements elem_data = elem.children();
             int iterCount = 0;
-            String time, location, organiser, language, participants, relativeURL;
+            String server, time, location, organiser, language, participants, relativeURL;
 
-            time = location = organiser = language = participants = relativeURL = "";
+            server = time = location = organiser = language = participants = relativeURL = "";
 
             for (Element data_field : elem_data) {
                 iterCount++;
@@ -40,27 +40,29 @@ public class FetchMeetupListTask extends AbstractFetchJsoupDataTask<ArrayList<Me
                 String elemContent = data_field.text();
                 switch (iterCount) {
                     case 1:
+                        server = elemContent;
+                    case 2:
                         time = elemContent;
                         break;
-                    case 2:
+                    case 3:
                         location = elemContent;
                         break;
-                    case 3:
+                    case 4:
                         organiser = elemContent;
                         break;
-                    case 4:
+                    case 5:
                         language = elemContent;
                         break;
-                    case 5:
+                    case 6:
                         participants = elemContent;
                         break;
-                    case 6:
-                        relativeURL = data_field.select("a").first().attr("href");
+                    case 7:
+                        relativeURL = data_field.select("a").first() != null ? data_field.select("a").first() .attr("href") : "";
                         break;
                 }
             }
 
-            MeetupInfo meetupInfo = new MeetupInfo(time, location, organiser, language, participants, relativeURL);
+            MeetupInfo meetupInfo = new MeetupInfo(server, time, location, organiser, language, participants, relativeURL);
             meetups.add(meetupInfo);
         }
 

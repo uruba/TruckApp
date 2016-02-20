@@ -34,8 +34,9 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     public static final int MEETUP_FIELD_LOCATION = 1;
-    public static final int MEETUP_FIELD_ORGANISER = 1 << 1;
-    public static final int MEETUP_FIELD_LANGUAGE = 1 << 2;
+    public static final int MEETUP_FIELD_SERVER = 1 << 1;
+    public static final int MEETUP_FIELD_ORGANISER = 1 << 2;
+    public static final int MEETUP_FIELD_LANGUAGE = 1 << 3;
     private String[] serverLiterals;
 
     public static final String PREF_SERVER_FILTER_SETTING = "preference_server_filter_setting";
@@ -214,6 +215,9 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
             if ((fieldsFlag & MEETUP_FIELD_LOCATION) == MEETUP_FIELD_LOCATION) {
                 fields.add(meetup.getLocation().toLowerCase());
             }
+            if ((fieldsFlag & MEETUP_FIELD_SERVER) == MEETUP_FIELD_SERVER) {
+                fields.add(meetup.getServer().toLowerCase().replaceAll("\\s+", ""));
+            }
             if ((fieldsFlag & MEETUP_FIELD_ORGANISER) == MEETUP_FIELD_ORGANISER) {
                 fields.add(meetup.getOrganiser().toLowerCase());
             }
@@ -245,9 +249,9 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         String serverLiteral = which == 0 ? "" : serverLiterals[which];
 
         if (searchView != null && (!ignoreQuery && searchView.getQuery().length() > 0)) {
-            filterByText(serverLiteral, MEETUP_FIELD_LOCATION, filterByText(searchView.getQuery().toString()));
+            filterByText(serverLiteral.replaceAll("\\s+",""), MEETUP_FIELD_SERVER, filterByText(searchView.getQuery().toString().replaceAll("\\s+","")));
         } else {
-            filterByText(serverLiteral, MEETUP_FIELD_LOCATION);
+            filterByText(serverLiteral.replaceAll("\\s+",""), MEETUP_FIELD_SERVER);
         }
 
         if (!TextUtils.isEmpty(serverLiteral)) {
