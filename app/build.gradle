@@ -6,7 +6,7 @@ android {
     buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "cz.uruba.ets2mpcompanion"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 23
         versionCode 25
         versionName "0.25"
