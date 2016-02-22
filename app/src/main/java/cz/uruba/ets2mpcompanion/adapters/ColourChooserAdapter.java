@@ -3,6 +3,7 @@ package cz.uruba.ets2mpcompanion.adapters;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -50,7 +51,7 @@ public class ColourChooserAdapter extends BaseAdapter {
         TypedArray typedValue = context.obtainStyledAttributes(themeList.get(position), attr);
         int colour = typedValue.getColor(0, Color.BLACK);
 
-        int rectangleWidth = colourGrid.getColumnWidth();
+        int rectangleWidth = getColumnWidthCompat();
         colourRectangleView = new ColourRectangleView(context, colour, rectangleWidth);
         colourRectangleView.setLayoutParams(
                 new GridView.LayoutParams(
@@ -60,5 +61,15 @@ public class ColourChooserAdapter extends BaseAdapter {
         typedValue.recycle();
 
         return colourRectangleView;
+    }
+
+    private int getColumnWidthCompat() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return colourGrid.getColumnWidth();
+        }
+
+        int spacing = (int) context.getResources().getDimension(R.dimen.colour_grid_spacing);
+
+        return (colourGrid.getWidth() - spacing) / colourGrid.getNumColumns() - spacing;
     }
 }
