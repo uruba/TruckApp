@@ -14,7 +14,7 @@
     <string name="last_updated">Last updated %1$s</string>
     <string name="widget_title">TruckersMP Status</string>
     <string name="widget_server_name">%1$s (%2$s)</string>
-    <string name="server_list_refreshed_widget">ETS2MP server list has been refreshed</string>
+    <string name="server_list_refreshed_widget">TruckersMP server list has been refreshed</string>
     <string name="as_of">As of %1$s</string>
     <string name="not_available_now">N/A right now</string>
     <string name="LastUpdatedTextView_LAST_UPDATED">Last updated %1$s</string>
@@ -52,7 +52,7 @@
     <string name="no">No</string>
     <string name="settings_category_title_meetup_reminders">Meetup reminders</string>
     <string name="settings_title_meetup_reminders_default">Calendar event title</string>
-    <string name="title_meetup_reminders_default">ETS2MP Meetup</string>
+    <string name="title_meetup_reminders_default">TruckersMP Meetup</string>
     <string name="dialog_title_meetup_details">The meetup\'s details</string>
     <string name="settings_description_meetup_reminders_default">Calendar event description</string>
     <string name="description_meetup_reminders_default" formatted="false">Organiser: %organiser%\nServer: %server%\nLocation: %location%\nDestination: %destination%</string>
@@ -61,9 +61,9 @@
     <string name="settings_category_general">General</string>
     <string name="settings_title_display_server_time">Display game time</string>
     <string name="settings_summary_display_server_time">Enable label displaying the server game time</string>
-    <string name="action_ets2mp_home">ETS2MP Homepage</string>
-    <string name="action_ets2mp_forum">ETS2MP Forum</string>
-    <string name="action_ets2mp_convoys">ETS2MP Convoys</string>
+    <string name="action_ets2mp_home">TruckersMP Homepage</string>
+    <string name="action_ets2mp_forum">TruckersMP Forum</string>
+    <string name="action_ets2mp_convoys">TruckersMP Convoys</string>
     <string name="filter_meetups_server">Filter by server</string>
     <string name="filter_servers">Filter by server</string>
     <string name="filtering_status">Filtering active: %1$s servers</string>

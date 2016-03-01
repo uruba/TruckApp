@@ -75,20 +75,25 @@ public class MeetupDetailActivity extends AbstractWebViewActivity implements Dat
     @Override
     protected void onPageFinished(WebView view, String url) {
         // we have to check that we are on the ets2c.com site to define special behaviour there
-        if (url.contains(URL.MEETUP_LIST)) {
+        if (url.contains(URL.ETS2MP_CONVOYS)) {
             if (url.equals(targetURL)) {
                 // if we are on a meetup's detail webpage, we fetch it once more as a JSOUP object
                 // to accomplish this, we need proper session cookies to be handed over to let the site know that we're logged in
                 String cookies = CookieManager.getInstance().getCookie(url);
                 Map<String, String> cookieMap = new HashMap<>();
-                for (String cookie : cookies.split("; ")) {
-                    String[] splitCookie = cookie.split("=", 2);
-                    cookieMap.put(splitCookie[0], splitCookie[1]);
+
+                try {
+                    for (String cookie : cookies.split("; ")) {
+                        String[] splitCookie = cookie.split("=", 2);
+                        cookieMap.put(splitCookie[0], splitCookie[1]);
+                    }
+                } catch (NullPointerException e) {
+                    return;
                 }
 
                 new FetchMeetupDetailTask(this, url, cookieMap, false).execute();
                 // the result is handled in the respective callback method
-            } else if (url.equals(URL.MEETUP_LIST)) {
+            } else if (url.equals(URL.ETS2MP_CONVOYS)) {
                 view.loadUrl(targetURL);
             }
 

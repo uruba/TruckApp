@@ -48,6 +48,6 @@ public class MeetupInfo {
     }
 
     public String getAbsoluteURL() {
-        return URL.MEETUP_LIST + getRelativeURL();
+        return URL.ETS2MP_CONVOYS + getRelativeURL();
     }
 }
