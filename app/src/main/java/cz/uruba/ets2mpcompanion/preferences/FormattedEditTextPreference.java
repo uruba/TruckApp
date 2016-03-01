@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.DialogPreference;
@@ -27,6 +28,7 @@ import cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout;
 /** This class was adapted from the Android's internal EditTextPreference class
  *  You can browse it here: https://github.com/android/platform_frameworks_base/blob/master/core/java/android/preference/EditTextPreference.java
  */
+@SuppressWarnings("deprecation")
 public class FormattedEditTextPreference extends DialogPreference {
     private ArrayList<CharSequence> formatStrings;
     private String defaultText;
@@ -84,8 +86,10 @@ public class FormattedEditTextPreference extends DialogPreference {
             }
 
             textView.setText(formatString);
-            textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
-            textView.setBackground(backgroundDrawable);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                textView.setTextColor(getContext().getResources().getColor(android.R.color.white));
+                textView.setBackground(backgroundDrawable);
+            }
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
