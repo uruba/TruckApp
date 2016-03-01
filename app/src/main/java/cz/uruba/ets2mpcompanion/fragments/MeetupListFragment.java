@@ -239,6 +239,13 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         listAdapter.setDataCollection(filteredMeetups);
         meetupList.scrollToPosition(0);
 
+        if (listAdapter.getDataCollectionSize() == 0) {
+            textEmptyList.setText(getString(R.string.no_meetups_found));
+            textEmptyList.setVisibility(View.VISIBLE);
+        } else {
+            textEmptyList.setVisibility(View.GONE);
+        }
+
         return filteredMeetups;
     }
 

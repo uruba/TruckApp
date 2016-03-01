@@ -20,13 +20,13 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.MeetupDetailActivity;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithFilterInfoViewHolder;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
-    public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
     }
 
@@ -61,7 +61,7 @@ public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInf
             case TYPE_LAST_UPDATED:
                 LastUpdatedWithFilterInfoViewHolder lastUpdatedWithFilterInfoViewHolder = (LastUpdatedWithFilterInfoViewHolder) holder;
 
-                if (!TextUtils.isEmpty(filteringMessage)) {
+                if (!TextUtils.isEmpty(filteringMessage) && callbackDataReceiver.getDataSetSize() > 0) {
                     lastUpdatedWithFilterInfoViewHolder.filteringStatus.setVisibility(View.VISIBLE);
                     lastUpdatedWithFilterInfoViewHolder.filteringStatus.setText(filteringMessage);
                 } else {

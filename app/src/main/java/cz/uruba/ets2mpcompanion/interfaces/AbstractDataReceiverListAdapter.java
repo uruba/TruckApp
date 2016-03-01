@@ -22,7 +22,7 @@ public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> exte
 
     protected Context context;
 
-    protected DataReceiver<?> callbackDataReceiver;
+    protected AbstractDataReceiverFragment<?, ?> callbackDataReceiver;
 
     protected U dataCollection;
 
@@ -30,7 +30,7 @@ public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> exte
 
     protected String filteringMessage = null;
 
-    public AbstractDataReceiverListAdapter(Context context, U dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public AbstractDataReceiverListAdapter(Context context, U dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;

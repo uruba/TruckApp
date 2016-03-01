@@ -24,7 +24,7 @@
     <string name="LastUpdatedTextView_MINUTE">minute</string>
     <string name="LastUpdatedTextView_JUST_NOW">just now</string>
     <string name="settings_title_theme_colour">Theme color</string>
-    <string name="data_not_loaded">Data not loaded</string>
+    <string name="data_not_loaded">No data loaded.</string>
     <string name="settings_category_title_appearance">Appearance</string>
     <string name="settings_title_use_custom_theme">Use a custom theme</string>
     <string name="settings_category_title_widget">Widget</string>
@@ -70,4 +70,5 @@
     <string name="games_filtering_all">All games</string>
     <string name="games_filtering_entry">Only %1$s servers</string>
     <string name="filter_games">Filter by game</string>
+    <string name="no_meetups_found">No meetups have been found.\n\nPlease try different filtering options.</string>
 </resources>

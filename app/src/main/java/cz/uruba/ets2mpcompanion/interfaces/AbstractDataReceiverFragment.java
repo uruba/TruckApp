@@ -86,7 +86,7 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
         loadingOverlay.setAnimation(fadeOutAnimation);
         loadingOverlay.setVisibility(View.GONE);
         fab.show(fabStateChangeListener.loadingOverlayHidden());
-        if (listAdapter != null && listAdapter.getDataCollectionSize() == 0) {
+        if (listAdapter != null && dataSet.size() == 0) {
             showEmptyView();
         }
         showMenuItems();
@@ -107,6 +107,7 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
     }
 
     protected void showEmptyView() {
+        textEmptyList.setText(getString(R.string.data_not_loaded));
         textEmptyList.setVisibility(View.VISIBLE);
     }
 
@@ -157,5 +158,9 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
 
     public U getListAdapter() {
         return listAdapter;
+    }
+
+    public int getDataSetSize() {
+        return dataSet.size();
     }
 }

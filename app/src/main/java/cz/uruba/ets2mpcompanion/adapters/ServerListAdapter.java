@@ -20,7 +20,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithServerTimeViewHolder;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.ServerTime;
@@ -38,7 +38,7 @@ public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInf
 
     private SharedPreferences sharedPref;
 
-    public ServerListAdapter(Context context, List<ServerInfo> dataCollection, DataReceiver<?> callbackDataReceiver) {
+    public ServerListAdapter(Context context, List<ServerInfo> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
         colorPrimaryDark = UICompat.getThemeColour(R.attr.colorPrimaryDark, context);
         tint = new ColorStateList(
