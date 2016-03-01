@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,10 +29,11 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
+public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener, DataReceiverJSON<ArrayList<MeetupInfo>> {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     public static final int MEETUP_FIELD_LOCATION = 1;
@@ -261,5 +264,12 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         }
 
         return listAdapter.getDataCollection();
+    }
+
+    @Override
+    public void handleJSONException(JSONException e) {
+        hideLoadingOverlay();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();
     }
 }

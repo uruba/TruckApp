@@ -1,71 +1,44 @@
 package cz.uruba.ets2mpcompanion.tasks;
 
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJsoupDataTask;
+import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 
-public class FetchMeetupListTask extends AbstractFetchJsoupDataTask<ArrayList<MeetupInfo>> {
+public class FetchMeetupListTask extends AbstractFetchJSONTask<ArrayList<MeetupInfo>> {
 
-    public FetchMeetupListTask(DataReceiver<ArrayList<MeetupInfo>> callbackObject, String requestURL, boolean notifyUser) {
+    public FetchMeetupListTask(DataReceiverJSON<ArrayList<MeetupInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
     @Override
-    protected ArrayList<MeetupInfo> processJsoupData(Document document) {
-        if (document == null) {
-            return null;
-        }
+    protected ArrayList<MeetupInfo> processHTTPStream(String stream) throws JSONException {
+        ArrayList<MeetupInfo> meetupList = new ArrayList<>();
+        JSONArray itemsArray;
 
-        ArrayList<MeetupInfo> meetups = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject(stream);
+        itemsArray = jsonObject.getJSONArray("items");
 
-        Elements elem_table_list = document.select(".table_list .row");
-        elem_table_list.remove(0);
+        for (int i = 0; i < itemsArray.length(); i++) {
+            JSONObject item = itemsArray.getJSONObject(i);
 
-        for (Element elem : elem_table_list) {
-            Elements elem_data = elem.children();
-            int iterCount = 0;
-            String server, time, location, organiser, language, participants, relativeURL;
-
-            server = time = location = organiser = language = participants = relativeURL = "";
-
-            for (Element data_field : elem_data) {
-                iterCount++;
-
-                String elemContent = data_field.text();
-                switch (iterCount) {
-                    case 1:
-                        server = elemContent;
-                    case 2:
-                        time = elemContent;
-                        break;
-                    case 3:
-                        location = elemContent;
-                        break;
-                    case 4:
-                        organiser = elemContent;
-                        break;
-                    case 5:
-                        language = elemContent;
-                        break;
-                    case 6:
-                        participants = elemContent;
-                        break;
-                    case 7:
-                        relativeURL = data_field.select("a").first() != null ? data_field.select("a").first() .attr("href") : "";
-                        break;
-                }
-            }
+            String server = item.getString("server");
+            String time = item.getString("time");
+            String location = item.getString("location");
+            String organiser = item.getString("organiser");
+            String language = item.getString("language");
+            String participants = item.getString("participants").trim();
+            String relativeURL = item.getString("relativeURL");
 
             MeetupInfo meetupInfo = new MeetupInfo(server, time, location, organiser, language, participants, relativeURL);
-            meetups.add(meetupInfo);
+            meetupList.add(meetupInfo);
         }
 
-        return meetups;
+        return meetupList;
     }
 }
