@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -88,8 +89,20 @@ public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInf
                 if (serverTime != null && sharedPref.getBoolean(PREF_DISPLAY_SERVER_TIME, true) && dataCollection.size() > 0) {
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.VISIBLE);
                     lastUpdatedWithServerTimeViewHolder.serverTime.setServerTime(serverTime);
+                    lastUpdatedWithServerTimeViewHolder.lastUpdated.setLayoutParams(
+                            new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.WRAP_CONTENT,
+                                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                            )
+                    );
                 } else {
                     lastUpdatedWithServerTimeViewHolder.serverTime.setVisibility(View.GONE);
+                    lastUpdatedWithServerTimeViewHolder.lastUpdated.setLayoutParams(
+                            new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.MATCH_PARENT,
+                                    RelativeLayout.LayoutParams.WRAP_CONTENT
+                            )
+                    );
                 }
 
                 if (!TextUtils.isEmpty(filteringMessage)) {

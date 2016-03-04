@@ -11,6 +11,7 @@
         android:textColor="@android:color/darker_gray"
         android:id="@+id/last_updated"
         android:layout_alignParentTop="true"
+        android:gravity="center"
         />
 
     <cz.uruba.ets2mpcompanion.views.ServerTimeTextView
