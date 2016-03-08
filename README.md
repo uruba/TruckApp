@@ -12,7 +12,7 @@ It is still very early in the development, so there's not much to see here just 
 
 ## Get involved
 
-*If you have any suggestion or want to report an issue, you can post in [the application's thread on the ETS2MP discussion board](http://forum.ets2mp.com/index.php?/topic/22715-unofficial-ets2mp-companion-android-application-concept/) or you can use the issue tracker here on GitHub.*
+*If you have any suggestion or want to report an issue, you can post in [the application's thread on the TruckersMP discussion board](https://forum.truckersmp.com/index.php?/topic/22715-unofficial-ets2mp-companion-android-application-concept/) or you can use the issue tracker here on GitHub.*
 
 
 **At this stage of development, everything is up for a discussion – especially the feature set that the app is to contain. Every comment, suggestion or critique is therefore very welcome.**
