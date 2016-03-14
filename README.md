@@ -10,6 +10,11 @@ This will be a companion app for ~~ETS2MP~~ [**TruckersMP**](http://truckersmp.c
   <a href="https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge-border.png" width="180" /></a>
 </p>
 
+Or maybe you're looking for the [Windows 10 Mobile version](https://github.com/uruba/ETS2MP-Companion-Windows) (which is even more barebones right now, but that's going to change).
+<p align="center">
+  <a href="https://www.microsoft.com/store/apps/9nblggh4qsf0?ocid=badge"><img src="https://assets.windowsphone.com/d86ab9b4-2f3d-4a94-92f8-1598073e7343/English_Get_it_Win_10_InvariantCulture_Default.png" srcset="https://assets.windowsphone.com/5d2bd562-d242-4538-85f4-857d6457404b/English_Get_it_Win_10_InvariantCulture_Default.png 2x"  alt="Get it on Windows 10" /></a>
+</p>
+
 ## Current state
 
 It is still very early in the development, so there's not much to see here just yet. However, you are more than welcome to join the effort – if you so will. In that case message me at [uruba@outlook.com](mailto:uruba@outlook.com) and we can talk further. Or not. Pull requests are welcome either way.
