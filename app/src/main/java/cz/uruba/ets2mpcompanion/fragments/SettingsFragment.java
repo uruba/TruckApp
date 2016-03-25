@@ -23,8 +23,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String PREF_WIDGET_TOAST_ENABLED = "preference_widget_toast";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_TITLE = "preference_meetup_reminders_default_title";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION = "preference_meetup_reminders_default_description";
-    public static final String PREF_AUTO_REFRESH_SERVER_LIST = "preference_auto_refresh_server_list";
-    public static final String PREF_AUTO_REFRESH_MEETUP_LIST = "preference_auto_refresh_meetup_list";
     public static final String PREF_AUTO_REFRESH_INTERVAL = "preference_auto_refresh_interval";
 
     public static final String[] preferencesSummaryUpdatedFor =
