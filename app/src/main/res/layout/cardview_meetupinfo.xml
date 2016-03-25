@@ -1,113 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/meetup_card"
+    android:layout_gravity="center"
+    android:layout_marginBottom="2dp"
+    card_view:cardUseCompatPadding="true"
+    card_view:cardPreventCornerOverlap="false"
+    card_view:cardElevation="2dp"
+    card_view:cardCornerRadius="2dp">
 
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/meetup_card"
-        android:layout_gravity="center"
-        android:layout_marginBottom="2dp"
-        card_view:cardUseCompatPadding="true"
-        card_view:cardPreventCornerOverlap="false"
-        card_view:cardElevation="2dp"
-        card_view:cardCornerRadius="2dp">
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:id="@+id/top_row">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:textColor="@android:color/darker_gray"
-                    android:id="@+id/time"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:textColor="@android:color/darker_gray"
-                    android:id="@+id/participants"
-                    />
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/second_row"
-                android:layout_below="@+id/top_row">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/location"
-                    android:textStyle="bold"
-                    />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/server"
-                    android:textColor="@android:color/secondary_text_dark"
-                    android:layout_marginLeft="5dp"
-                    />
-
-            </LinearLayout>
-
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:id="@+id/top_row">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/organiser"
-                android:layout_below="@+id/second_row"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:textColor="@android:color/darker_gray"
+                android:id="@+id/time"
                 />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/language"
-                android:textStyle="italic"
-                android:layout_below="@+id/organiser"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@android:color/darker_gray"
+                android:id="@+id/participants"
                 />
 
-            <ImageView
+        </LinearLayout>
+
+
+        <cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/second_row"
+            android:horizontalSpacing="6dp"
+            android:layout_below="@+id/top_row">
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_more_vert_24dp"
-                android:layout_marginRight="-10dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:id="@+id/more"
-                android:alpha="0.3"
+                android:id="@+id/location"
+                android:textStyle="bold"
                 />
 
-        </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/server"
+                android:textColor="@android:color/secondary_text_dark"
+                />
 
-    </android.support.v7.widget.CardView>
+        </cz.uruba.ets2mpcompanion.views.viewgroups.RowedLayout>
 
-</LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/organiser"
+            android:layout_below="@+id/second_row"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/language"
+            android:textStyle="italic"
+            android:layout_below="@+id/organiser"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert_24dp"
+            android:layout_marginRight="-10dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/more"
+            android:alpha="0.3"
+            />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
