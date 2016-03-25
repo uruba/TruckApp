@@ -34,6 +34,25 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="preference_category_auto_refresh"
+        android:title="@string/settings_category_auto_refresh">
+
+        <CheckBoxPreference
+            android:key="preference_auto_refresh_server_list"
+            android:title="@string/settings_title_auto_refresh_lists"
+            android:summary="@string/settings_summary_auto_refresh_lists"
+            android:defaultValue="false"
+            />
+
+        <cz.uruba.ets2mpcompanion.preferences.AutoRefreshIntervalPreference
+            android:key="preference_auto_refresh_interval"
+            android:title="@string/settings_title_auto_refresh_interval"
+            android:defaultValue="0"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="preference_category_title_meetup_reminders"
         android:title="@string/settings_category_title_meetup_reminders">
 

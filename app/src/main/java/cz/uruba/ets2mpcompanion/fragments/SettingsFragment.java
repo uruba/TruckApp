@@ -12,6 +12,7 @@ import java.util.Arrays;
 
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.SettingsActivity;
+import cz.uruba.ets2mpcompanion.preferences.AutoRefreshIntervalPreference;
 import cz.uruba.ets2mpcompanion.preferences.ColourChooserPreference;
 import cz.uruba.ets2mpcompanion.preferences.CustomEditTextPreference;
 import cz.uruba.ets2mpcompanion.preferences.FormattedEditTextPreference;
@@ -22,12 +23,16 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String PREF_WIDGET_TOAST_ENABLED = "preference_widget_toast";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_TITLE = "preference_meetup_reminders_default_title";
     public static final String PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION = "preference_meetup_reminders_default_description";
+    public static final String PREF_AUTO_REFRESH_SERVER_LIST = "preference_auto_refresh_server_list";
+    public static final String PREF_AUTO_REFRESH_MEETUP_LIST = "preference_auto_refresh_meetup_list";
+    public static final String PREF_AUTO_REFRESH_INTERVAL = "preference_auto_refresh_interval";
 
     public static final String[] preferencesSummaryUpdatedFor =
             {
                 PREF_THEME_COLOUR,
                 PREF_MEETUP_REMINDERS_DEFAULT_TITLE,
-                PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION
+                PREF_MEETUP_REMINDERS_DEFAULT_DESCRIPTION,
+                PREF_AUTO_REFRESH_INTERVAL
             };
 
     @Override
@@ -86,6 +91,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             currentValue = ((FormattedEditTextPreference) preference).getText();
         } else if (preference instanceof CustomEditTextPreference) {
             currentValue = ((CustomEditTextPreference) preference).getText();
+        } else if (preference instanceof AutoRefreshIntervalPreference){
+            int minutesTotal = ((AutoRefreshIntervalPreference) preference).getIntervalLengthMinutes();
+            currentValue = minutesTotal > 0 ?
+                    String.format(getString(R.string.settings_summary_auto_refresh_interval), minutesTotal / 60, minutesTotal % 60) :
+                    getString(R.string.settings_summary_auto_refresh_interval_never);
         } else {
             return;
         }

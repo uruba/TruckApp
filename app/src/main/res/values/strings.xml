@@ -3,7 +3,7 @@
     <string name="main_label">TruckApp – TruckersMP Info</string>
 
     <string name="action_settings">Settings</string>
-    <string name="player_count"> %1$d / %2$d players</string>
+    <string name="player_count">%1$d / %2$d players</string>
     <string name="json_error">The received data could not be resolved. Please try again later.</string>
     <string name="download_error">The data could not be downloaded. Please try again later.</string>
     <string name="download_error_IOException">The data could not be downloaded. Please check your internet connection.</string>
@@ -72,12 +72,12 @@
     <string name="games_filtering_entry">Only %1$s servers</string>
     <string name="filter_games">Filter by game</string>
     <string name="no_meetups_found">No meetups have been found.\n\nPlease try different filtering options.</string>
-    <string name="settings_title_auto_refresh_server_list">Server list</string>
-    <string name="settings_title_auto_refresh_meetup_list">Meetup list</string>
-    <string name="settings_summary_auto_refresh_server_list">Refresh the server list automatically</string>
-    <string name="settings_summary_auto_refresh_meetup_list">Refresh the meetup list automatically</string>
+    <string name="settings_title_auto_refresh_lists">Server/meetup list</string>
+    <string name="settings_summary_auto_refresh_lists">Refresh the lists automatically</string>
     <string name="settings_title_auto_refresh_interval">Refresh interval</string>
     <string name="settings_category_auto_refresh">Auto-refresh</string>
     <string name="hours">Hours</string>
     <string name="minutes">Minutes</string>
+    <string name="settings_summary_auto_refresh_interval">%1$d hours, %2$d minutes</string>
+    <string name="settings_summary_auto_refresh_interval_never">Never</string>
 </resources>
