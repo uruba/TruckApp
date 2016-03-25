@@ -6,13 +6,22 @@
 
 This will be a companion app for ~~ETS2MP~~ [**TruckersMP**](http://truckersmp.com/) players, compatible with Android devices. **Even though it's just a preview, you can get the current version directly on [Google Play](https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion), where you may also [opt in to the beta programme](https://play.google.com/apps/testing/cz.uruba.ets2mpcompanion) should you want to test the latest and the greatest, bugs and rough shape of the new features notwithstanding.**
 
+<p align="center">
+  <a href="https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge-border.png" width="180" /></a>
+</p>
+
+Or maybe you're looking for the [Windows 10 Mobile version](https://github.com/uruba/ETS2MP-Companion-Windows) (which is even more barebones right now, but that's going to change).
+<p align="center">
+  <a href="https://www.microsoft.com/store/apps/9nblggh4qsf0?ocid=badge"><img src="https://assets.windowsphone.com/d86ab9b4-2f3d-4a94-92f8-1598073e7343/English_Get_it_Win_10_InvariantCulture_Default.png" srcset="https://assets.windowsphone.com/5d2bd562-d242-4538-85f4-857d6457404b/English_Get_it_Win_10_InvariantCulture_Default.png 2x"  alt="Get it on Windows 10" /></a>
+</p>
+
 ## Current state
 
 It is still very early in the development, so there's not much to see here just yet. However, you are more than welcome to join the effort – if you so will. In that case message me at [uruba@outlook.com](mailto:uruba@outlook.com) and we can talk further. Or not. Pull requests are welcome either way.
 
 ## Get involved
 
-*If you have any suggestion or want to report an issue, you can post in [the application's thread on the ETS2MP discussion board](http://forum.ets2mp.com/index.php?/topic/22715-unofficial-ets2mp-companion-android-application-concept/) or you can use the issue tracker here on GitHub.*
+*If you have any suggestion or want to report an issue, you can post in [the application's thread on the TruckersMP discussion board](https://forum.truckersmp.com/index.php?/topic/22715-unofficial-ets2mp-companion-android-application-concept/) or you can use the issue tracker here on GitHub.*
 
 
 **At this stage of development, everything is up for a discussion – especially the feature set that the app is to contain. Every comment, suggestion or critique is therefore very welcome.**
