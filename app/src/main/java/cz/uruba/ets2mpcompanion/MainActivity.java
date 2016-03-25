@@ -130,10 +130,10 @@ public class MainActivity extends AbstractThemedActivity {
 
             @Override
             public void onPageSelected(int position) {
-                // if we move to the "meetup list" fragment,
+                // if we move away from the "meetup list" fragment,
                 // we want to cancel any filtering possibly made beforehand,
                 // so we reset its adapter
-                if (position == MEETUP_LIST_FRAG_POS) {
+                if (position != MEETUP_LIST_FRAG_POS) {
                     meetupListFragment.resetMeetupList();
                 }
 
