@@ -28,6 +28,7 @@
             android:title="@string/settings_title_theme_colour"
             android:summary="@string/settings_summary_theme_colour"
             android:dependency="preference_custom_theme"
+            android:defaultValue="RedTheme"
             />
 
     </PreferenceCategory>
