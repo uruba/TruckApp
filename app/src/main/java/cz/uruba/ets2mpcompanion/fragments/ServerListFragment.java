@@ -55,7 +55,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchServerList(true);
+                fetchDataList(true);
                 fetchServerTime();
                 submitOnRefreshAnalytics("Server list");
             }
@@ -68,7 +68,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
         gameLiterals = getResources().getStringArray(R.array.game_names);
 
-        fetchServerList();
+        this.fetchDataList();
         fetchServerTime();
 
         return view;
@@ -93,17 +93,14 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
         }
     }
 
-    private void fetchServerList() {
-        fetchServerList(false);
-    }
-
-    private void fetchServerList(boolean notifyUser) {
+    @Override
+    protected void fetchDataList(boolean notifyUser) {
         showLoadingOverlay();
 
         new FetchServerListTask(this, URL.SERVER_LIST, notifyUser).execute();
     }
 
-    private void fetchServerTime() {
+    protected void fetchServerTime() {
         new FetchServerTimeTask(new DataReceiverJSON<Date>() {
             private Date lastUpdated = new Date();
 

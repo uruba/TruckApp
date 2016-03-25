@@ -150,6 +150,12 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
         }
     }
 
+    protected abstract void fetchDataList(boolean notifyUser);
+
+    protected void fetchDataList() {
+        fetchDataList(false);
+    }
+
     @Override
     public abstract void processData(ArrayList<T> data, boolean notifyUser);
 

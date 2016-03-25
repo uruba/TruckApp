@@ -55,7 +55,7 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchMeetupList(true);
+                fetchDataList(true);
                 submitOnRefreshAnalytics("Meetup list");
             }
         });
@@ -67,7 +67,7 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
 
         serverLiterals = getResources().getStringArray(R.array.server_names);
 
-        fetchMeetupList();
+        fetchDataList();
 
         return view;
     }
@@ -106,18 +106,15 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_meetup_filter:
-                    showFilterDialog();
+                showFilterDialog();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
-    private void fetchMeetupList() {
-        fetchMeetupList(false);
-    }
-
-    private void fetchMeetupList(boolean notifyUser) {
+    @Override
+    protected void fetchDataList(boolean notifyUser) {
         showLoadingOverlay();
 
         new FetchMeetupListTask(this, URL.MEETUP_LIST, notifyUser).execute();
