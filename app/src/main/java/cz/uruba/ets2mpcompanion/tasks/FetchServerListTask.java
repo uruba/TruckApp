@@ -5,19 +5,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public class FetchServerListTask extends AbstractFetchJSONTask<ArrayList<ServerInfo>> {
+public class FetchServerListTask extends AbstractFetchJSONTask<DataSet<ServerInfo>> {
 
-    public FetchServerListTask(DataReceiverJSON<ArrayList<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
+    public FetchServerListTask(DataReceiverJSON<DataSet<ServerInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
     @Override
-    protected ArrayList<ServerInfo> processHTTPStream(String stream) throws JSONException {
+    protected DataSet<ServerInfo> processHTTPStream(String stream) throws JSONException {
         ArrayList<ServerInfo> serverList = new ArrayList<>();
         JSONArray responseArray;
 
@@ -37,6 +39,6 @@ public class FetchServerListTask extends AbstractFetchJSONTask<ArrayList<ServerI
             serverList.add(serverInfo);
         }
 
-        return serverList;
+        return new DataSet<>(serverList, new Date());
     }
 }

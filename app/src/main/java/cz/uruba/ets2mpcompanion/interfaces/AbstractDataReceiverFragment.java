@@ -15,6 +15,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,11 +24,11 @@ import butterknife.Bind;
 import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataReceiverListAdapter> extends Fragment implements DataReceiver<ArrayList<T>> {
-    protected List<T> dataSet = new ArrayList<>();
+public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter> extends Fragment implements DataReceiver<DataSet<T>> {
+    protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
-    protected Date lastUpdated;
     protected FABStateChangeListener fabStateChangeListener;
     @Bind(R.id.loading_overlay) protected FrameLayout loadingOverlay;
     @Bind(R.id.fab) protected FloatingActionButton fab;
@@ -67,7 +68,7 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
 
     @Override
     public Date getLastUpdated() {
-        return lastUpdated;
+        return dataSet.getLastUpdated();
     }
 
     protected void showLoadingOverlay() {
@@ -86,14 +87,14 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
         loadingOverlay.setAnimation(fadeOutAnimation);
         loadingOverlay.setVisibility(View.GONE);
         fab.show(fabStateChangeListener.loadingOverlayHidden());
-        if (listAdapter != null && dataSet.size() == 0) {
+        if (listAdapter != null && dataSet.getCollection().size() == 0) {
             showEmptyView();
         }
         showMenuItems();
     }
 
     protected void showMenuItems() {
-        if (dataSet.size() > 0) {
+        if (dataSet.getCollection().size() > 0) {
             for (MenuItem menuItem : menuItems) {
                 menuItem.setVisible(true);
             }
@@ -157,7 +158,7 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
     }
 
     @Override
-    public abstract void processData(ArrayList<T> data, boolean notifyUser);
+    public abstract void processData(DataSet<T> data, boolean notifyUser);
 
     @Override
     public abstract void handleIOException(IOException e);
@@ -167,6 +168,6 @@ public abstract class AbstractDataReceiverFragment<T, U extends AbstractDataRece
     }
 
     public int getDataSetSize() {
-        return dataSet.size();
+        return dataSet.getCollection().size();
     }
 }

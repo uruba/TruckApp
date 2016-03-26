@@ -33,10 +33,11 @@ import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
-public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> implements DataReceiverJSON<ArrayList<ServerInfo>> {
+public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> implements DataReceiverJSON<DataSet<ServerInfo>> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
 
     private String[] gameLiterals;
@@ -128,13 +129,12 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
     }
 
     @Override
-    public void processData(ArrayList<ServerInfo> serverList, boolean notifyUser) {
+    public void processData(DataSet<ServerInfo> serverList, boolean notifyUser) {
         dataSet = serverList;
 
-        lastUpdated = new Date();
 
-        Collections.sort(dataSet, Collections.reverseOrder());
-        listAdapter.resetDataCollection(new ArrayList<>(dataSet));
+        Collections.sort(dataSet.getCollection(), Collections.reverseOrder());
+        listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
 
         filterByGame();
 
@@ -189,7 +189,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
     }
 
     private void filterByGame() {
-        filterByGame(dataSet);
+        filterByGame(dataSet.getCollection());
     }
 
     private void filterByGame(List<ServerInfo> inputServers) {

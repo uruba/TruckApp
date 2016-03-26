@@ -5,19 +5,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public class FetchMeetupListTask extends AbstractFetchJSONTask<ArrayList<MeetupInfo>> {
+public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInfo>> {
 
-    public FetchMeetupListTask(DataReceiverJSON<ArrayList<MeetupInfo>> callbackObject, String requestURL, boolean notifyUser) {
+    public FetchMeetupListTask(DataReceiverJSON<DataSet<MeetupInfo>> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
     @Override
-    protected ArrayList<MeetupInfo> processHTTPStream(String stream) throws JSONException {
+    protected DataSet<MeetupInfo> processHTTPStream(String stream) throws JSONException {
         ArrayList<MeetupInfo> meetupList = new ArrayList<>();
         JSONArray itemsArray;
 
@@ -39,6 +41,6 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<ArrayList<MeetupI
             meetupList.add(meetupInfo);
         }
 
-        return meetupList;
+        return new DataSet<>(meetupList, new Date());
     }
 }

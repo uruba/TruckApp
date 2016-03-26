@@ -3,9 +3,11 @@ package cz.uruba.ets2mpcompanion.model;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 import cz.uruba.ets2mpcompanion.R;
 
-public class ServerInfo implements Comparable<ServerInfo> {
+public class ServerInfo implements Comparable<ServerInfo>, Serializable {
     private boolean online;
     private String gameName;
     private String serverName;

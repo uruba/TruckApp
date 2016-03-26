@@ -20,7 +20,6 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -31,9 +30,10 @@ import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener, DataReceiverJSON<ArrayList<MeetupInfo>> {
+public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener, DataReceiverJSON<DataSet<MeetupInfo>> {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     public static final int MEETUP_FIELD_LOCATION = 1;
@@ -122,18 +122,16 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
 
     public void resetMeetupList() {
         if(listAdapter != null) {
-            listAdapter.setDataCollection(dataSet);
+            listAdapter.setDataCollection(dataSet.getCollection());
             filterByServer(true);
         }
     }
 
     @Override
-    public void processData(ArrayList<MeetupInfo> data, boolean notifyUser) {
+    public void processData(DataSet<MeetupInfo> data, boolean notifyUser) {
         dataSet = data;
 
-        lastUpdated = new Date();
-
-        listAdapter.setDataCollection(new ArrayList<>(dataSet));
+        listAdapter.setDataCollection(new ArrayList<>(dataSet.getCollection()));
 
         filterByServer();
 
@@ -198,11 +196,11 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
     }
 
     private List<MeetupInfo> filterByText(String newText, int fieldsFlag) {
-        return filterByText(newText, fieldsFlag, dataSet);
+        return filterByText(newText, fieldsFlag, dataSet.getCollection());
     }
 
     private List<MeetupInfo> filterByText(String newText, int fieldsFlag, List<MeetupInfo> inputMeetups) {
-        if (dataSet.size() < 1) {
+        if (dataSet.getCollection().size() < 1) {
             return null;
         }
 

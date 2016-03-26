@@ -20,10 +20,8 @@ import org.json.JSONException;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
@@ -33,6 +31,7 @@ import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 
@@ -95,12 +94,12 @@ public class ServerListWidget extends AppWidgetProvider {
         }
     }
 
-    public static class ServerListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, DataReceiverJSON<ArrayList<ServerInfo>> {
+    public static class ServerListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, DataReceiverJSON<DataSet<ServerInfo>> {
         Context context;
 
         int widgetID;
 
-        List<ServerInfo> serverList = new ArrayList<>();
+        DataSet<ServerInfo> serverList;
 
         public ServerListWidgetRemoteViewsFactory(Context context, Intent intent) {
             this.context = context;
@@ -124,7 +123,7 @@ public class ServerListWidget extends AppWidgetProvider {
                     return;
                 }
 
-                Collections.sort(serverList, Collections.reverseOrder());
+                Collections.sort(serverList.getCollection(), Collections.reverseOrder());
 
                 refreshRemoteViews(String.format(context.getString(R.string.as_of), new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault()).format(new Date())));
 
@@ -137,13 +136,13 @@ public class ServerListWidget extends AppWidgetProvider {
         @Override
         public void onDestroy() {
             if (serverList != null) {
-                serverList.clear();
+                serverList.getCollection().clear();
             }
         }
 
         @Override
         public int getCount() {
-            return serverList == null ? 0 : serverList.size();
+            return serverList == null ? 0 : serverList.getCollection().size();
         }
 
         @Override
@@ -151,7 +150,7 @@ public class ServerListWidget extends AppWidgetProvider {
             RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                     R.layout.item_serverinfo_remoteview);
 
-            ServerInfo serverInfo = serverList.get(position);
+            ServerInfo serverInfo = serverList.getCollection().get(position);
 
             remoteView.setTextViewText(R.id.server_name, String.format(context.getString(R.string.widget_server_name), serverInfo.getServerName(), serverInfo.getGameName()));
             remoteView.setTextViewText(R.id.number_of_players, serverInfo.getFormattedPlayerCountString(context));
@@ -191,7 +190,7 @@ public class ServerListWidget extends AppWidgetProvider {
         }
 
         @Override
-        public void processData(ArrayList<ServerInfo> data, boolean notifyUser) {
+        public void processData(DataSet<ServerInfo> data, boolean notifyUser) {
 
         }
 
