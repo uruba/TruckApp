@@ -1,8 +1,8 @@
-# ETS2MP-Companion
+# TruckApp – A TruckersMP companion app
 
-[![GitHub release](https://img.shields.io/github/release/uruba/ETS2MP-Companion.svg)](https://github.com/uruba/ETS2MP-Companion/releases)
-[![Build Status](https://travis-ci.org/uruba/ETS2MP-Companion.svg)](https://travis-ci.org/uruba/ETS2MP-Companion)
-[![Coverage Status](https://coveralls.io/repos/uruba/ETS2MP-Companion/badge.svg?branch=master&service=github)](https://coveralls.io/github/uruba/ETS2MP-Companion?branch=master)
+[![GitHub release](https://img.shields.io/github/release/uruba/TruckApp.svg)](https://github.com/uruba/TruckApp/releases)
+[![Build Status](https://travis-ci.org/uruba/TruckApp.svg)](https://travis-ci.org/uruba/TruckApp)
+[![Coverage Status](https://coveralls.io/repos/github/uruba/TruckApp/badge.svg?branch=master)](https://coveralls.io/github/uruba/TruckApp?branch=master)
 
 This will be a companion app for ~~ETS2MP~~ [**TruckersMP**](http://truckersmp.com/) players, compatible with Android devices. **Even though it's just a preview, you can get the current version directly on [Google Play](https://play.google.com/store/apps/details?id=cz.uruba.ets2mpcompanion), where you may also [opt in to the beta programme](https://play.google.com/apps/testing/cz.uruba.ets2mpcompanion) should you want to test the latest and the greatest, bugs and rough shape of the new features notwithstanding.**
 
