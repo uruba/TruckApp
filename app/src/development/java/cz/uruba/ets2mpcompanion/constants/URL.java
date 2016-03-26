@@ -7,5 +7,5 @@ public class URL {
 
     public static final String ETS2MP_HOMEPAGE = "http://localhost:52734/";
     public static final String ETS2MP_FORUM = "http://localhost:52734/";
-    public static final String ETS2MP_CONVOYS = MEETUP_LIST;
+    public static final String ETS2MP_CONVOYS = "http://localhost:52734/";
 }
