@@ -64,7 +64,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
             long updateInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
 
-            if (updateInterval >= 60 * 1000) {
+            if (updateInterval > 0) {
                 handler.postDelayed(this, updateInterval);
             }
         }
@@ -195,13 +195,15 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
-    protected void attachHandlers() {
+    protected void attachHandlers(boolean noRestore) {
         handler.removeCallbacks(runTask);
 
         long autoRefreshInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
 
         if (!sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) || autoRefreshInterval == 0) {
-            restorePersistedDataSet();
+            if (!noRestore) {
+                restorePersistedDataSet();
+            }
             return;
         }
 
@@ -217,6 +219,10 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         } else {
             handler.postDelayed(runTask, autoRefreshInterval - sinceLastRefresh);
         }
+    }
+
+    protected void attachHandlers() {
+        attachHandlers(false);
     }
 
     protected DataSet<T> retrievePersistedDataSet() {
@@ -242,7 +248,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
         this.dataSet = retrievePersistedDataSet();
 
-        if (this.dataSet != null && !this.dataSet.getCollection().isEmpty()) {
+        if (!this.dataSet.getCollection().isEmpty()) {
             listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
             Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.persisted_data_retrieved), Snackbar.LENGTH_LONG).show();
         }
@@ -275,7 +281,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
         persistDataSet();
 
-        attachHandlers();
+        attachHandlers(true);
     }
 
     @Override
