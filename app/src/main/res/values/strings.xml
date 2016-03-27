@@ -71,8 +71,8 @@
     <string name="games_filtering_entry">Only %1$s servers</string>
     <string name="filter_games">Filter by game</string>
     <string name="no_meetups_found">No meetups have been found.\n\nPlease try different filtering options.</string>
-    <string name="settings_title_auto_refresh_lists">Server/meetup list</string>
-    <string name="settings_summary_auto_refresh_lists">Refresh the lists automatically</string>
+    <string name="settings_title_auto_refresh_lists">Auto list refresh</string>
+    <string name="settings_summary_auto_refresh_lists">Refresh the server/meetup list automatically</string>
     <string name="settings_title_auto_refresh_interval">Refresh interval</string>
     <string name="settings_category_auto_refresh">Auto-refresh</string>
     <string name="hours">Hours</string>
