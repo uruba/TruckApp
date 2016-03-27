@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.activities;
 
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;

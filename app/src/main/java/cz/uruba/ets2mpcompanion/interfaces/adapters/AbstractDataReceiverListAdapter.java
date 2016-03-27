@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.adapters;
 
 import android.content.Context;
 import android.support.v4.widget.Space;
@@ -13,6 +13,7 @@ import java.util.List;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.EmptyViewHolder;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
+import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

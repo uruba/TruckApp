@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

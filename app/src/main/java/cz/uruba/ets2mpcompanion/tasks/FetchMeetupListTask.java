@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Date;
 
-import cz.uruba.ets2mpcompanion.interfaces.AbstractFetchJSONTask;
+import cz.uruba.ets2mpcompanion.interfaces.tasks.AbstractFetchJSONTask;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;

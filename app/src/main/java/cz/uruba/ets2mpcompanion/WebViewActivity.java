@@ -3,7 +3,7 @@ package cz.uruba.ets2mpcompanion;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-import cz.uruba.ets2mpcompanion.interfaces.AbstractWebViewActivity;
+import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractWebViewActivity;
 
 public class WebViewActivity extends AbstractWebViewActivity {
     public static final String INTENT_ACTIVITY_TITLE = "intentTitle";

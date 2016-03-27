@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,6 +24,8 @@ import butterknife.Bind;
 import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
+import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdapter;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
 public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter> extends Fragment implements DataReceiver<DataSet<T>> {

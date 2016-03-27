@@ -21,7 +21,7 @@ import java.util.Map;
 
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractWebViewActivity;
+import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractWebViewActivity;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.model.MeetupDetail;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupDetailTask;

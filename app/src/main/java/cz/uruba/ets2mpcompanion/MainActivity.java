@@ -20,7 +20,7 @@ import cz.uruba.ets2mpcompanion.adapters.ViewPagerAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractThemedActivity;
+import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractThemedActivity;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 
 public class MainActivity extends AbstractThemedActivity {

@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.R;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractAutoUpdatedTextView;
+import cz.uruba.ets2mpcompanion.interfaces.views.AbstractAutoUpdatedTextView;
 
 public class LastUpdatedTextView extends AbstractAutoUpdatedTextView {
     String LAST_UPDATED;

@@ -10,7 +10,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 import cz.uruba.ets2mpcompanion.R;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractAutoUpdatedTextView;
+import cz.uruba.ets2mpcompanion.interfaces.views.AbstractAutoUpdatedTextView;
 import cz.uruba.ets2mpcompanion.model.ServerTime;
 
 public class ServerTimeTextView extends AbstractAutoUpdatedTextView {

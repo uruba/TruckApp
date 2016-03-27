@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.tasks;
 
 import org.json.JSONException;
 
@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 public abstract class AbstractFetchJSONTask<T> extends AbstractFetchTask<T> {

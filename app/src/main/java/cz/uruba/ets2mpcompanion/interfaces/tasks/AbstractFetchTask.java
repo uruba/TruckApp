@@ -1,7 +1,8 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.tasks;
 
 import android.os.AsyncTask;
 
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 public abstract class AbstractFetchTask<T> extends AsyncTask<Void, Void, AsyncTaskResult<T>> {

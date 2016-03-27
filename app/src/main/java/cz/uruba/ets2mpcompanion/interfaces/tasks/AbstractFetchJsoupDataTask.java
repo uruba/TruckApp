@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.interfaces;
+package cz.uruba.ets2mpcompanion.interfaces.tasks;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.Map;
 
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 public abstract class AbstractFetchJsoupDataTask<T> extends AbstractFetchTask<T> {

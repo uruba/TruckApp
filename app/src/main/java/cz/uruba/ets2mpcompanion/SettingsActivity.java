@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
-import cz.uruba.ets2mpcompanion.interfaces.AbstractThemedActivity;
+import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractThemedActivity;
 
 public class SettingsActivity extends AbstractThemedActivity {
     @Bind(R.id.toolbar) Toolbar toolbar;
