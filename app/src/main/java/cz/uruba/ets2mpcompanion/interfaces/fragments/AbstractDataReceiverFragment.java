@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import org.json.JSONException;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,11 +33,11 @@ import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
 import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter<T>> extends Fragment implements DataReceiver<DataSet<T>> {
+public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter<T>> extends Fragment implements DataReceiverJSON<DataSet<T>> {
     protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
     protected FABStateChangeListener fabStateChangeListener;
@@ -224,6 +227,19 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     @Override
     public void handleIOException(IOException e) {
         restorePersistedDataSet();
+
+        hideLoadingOverlay();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void handleJSONException(JSONException e) {
+        restorePersistedDataSet();
+
+        hideLoadingOverlay();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();
     }
 
     public U getListAdapter() {

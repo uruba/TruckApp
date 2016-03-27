@@ -36,7 +36,7 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
-public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> implements DataReceiverJSON<DataSet<ServerInfo>> {
+public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> {
     @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
 
     private String[] gameLiterals;
@@ -140,24 +140,6 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
         if (notifyUser) {
             Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.server_list_refreshed), Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public void handleIOException(IOException e) {
-        super.handleIOException(e);
-
-        hideLoadingOverlay();
-
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void handleJSONException(JSONException e) {
-        restorePersistedDataSet();
-
-        hideLoadingOverlay();
-
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();
     }
 
     private void showFilterDialog() {

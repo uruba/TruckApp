@@ -16,9 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.json.JSONException;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +24,12 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
-import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
 import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
-public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener, DataReceiverJSON<DataSet<MeetupInfo>> {
+public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
     @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     public static final int MEETUP_FIELD_LOCATION = 1;
@@ -257,23 +253,5 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         }
 
         return listAdapter.getDataCollection();
-    }
-
-    @Override
-    public void handleIOException(IOException e) {
-        super.handleIOException(e);
-
-        hideLoadingOverlay();
-
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void handleJSONException(JSONException e) {
-        restorePersistedDataSet();
-
-        hideLoadingOverlay();
-
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();
     }
 }
