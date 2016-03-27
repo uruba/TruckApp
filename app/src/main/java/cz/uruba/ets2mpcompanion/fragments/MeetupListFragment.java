@@ -27,8 +27,8 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
-import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
+import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
@@ -66,8 +66,6 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         meetupList.setAdapter(listAdapter);
 
         serverLiterals = getResources().getStringArray(R.array.server_names);
-
-        fetchDataList();
 
         return view;
     }
@@ -128,7 +126,7 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
     }
 
     @Override
-    public void processData(DataSet<MeetupInfo> data, boolean notifyUser) {
+    public void handleReceivedData(DataSet<MeetupInfo> data, boolean notifyUser) {
         dataSet = data;
 
         listAdapter.setDataCollection(new ArrayList<>(dataSet.getCollection()));
@@ -140,13 +138,6 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
         if (notifyUser) {
             Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    public void handleIOException(IOException e) {
-        hideLoadingOverlay();
-
-        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -269,7 +260,18 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
     }
 
     @Override
+    public void handleIOException(IOException e) {
+        super.handleIOException(e);
+
+        hideLoadingOverlay();
+
+        Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
     public void handleJSONException(JSONException e) {
+        restorePersistedDataSet();
+
         hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();

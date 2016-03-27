@@ -1,5 +1,6 @@
 package cz.uruba.ets2mpcompanion.interfaces.fragments;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,7 +15,11 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,11 +29,12 @@ import butterknife.Bind;
 import cz.uruba.ets2mpcompanion.ETS2MPCompanionApplication;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.constants.GoogleAnalytics;
-import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdapter;
+import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
+import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdapter;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter> extends Fragment implements DataReceiver<DataSet<T>> {
+public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter<T>> extends Fragment implements DataReceiver<DataSet<T>> {
     protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
     protected FABStateChangeListener fabStateChangeListener;
@@ -55,6 +61,16 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         analyticsTracker = ((ETS2MPCompanionApplication) getActivity().getApplication()).getAnalyticsTracker();
 
         setHasOptionsMenu(true);
+
+        DataSet<T> persistedDataSet = retrievePersistedDataSet();
+
+        if (persistedDataSet == null
+            || System.currentTimeMillis() - persistedDataSet.getLastUpdated().getTime() > sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0)
+        ) {
+            fetchDataList();
+        } else {
+            restorePersistedDataSet();
+        }
 
         super.onActivityCreated(savedInstanceState);
     }
@@ -153,17 +169,62 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
+    protected DataSet<T> retrievePersistedDataSet() {
+        try {
+            FileInputStream fis = getContext().openFileInput(getClass().getName() + ".persisted");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            Object readObject = is.readObject();
+            is.close();
+
+            if(readObject != null) {
+                //noinspection unchecked
+                return (DataSet<T>) readObject;
+            }
+        } catch (IOException | ClassNotFoundException | ClassCastException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    protected void restorePersistedDataSet() {
+        this.dataSet = retrievePersistedDataSet();
+
+        if (this.dataSet != null) {
+            listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
+        }
+    }
+
+    protected void persistDataSet() {
+        try {
+            FileOutputStream fos = getContext().openFileOutput(getClass().getName() + ".persisted", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(dataSet);
+            oos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected abstract void fetchDataList(boolean notifyUser);
 
     protected void fetchDataList() {
         fetchDataList(false);
     }
 
-    @Override
-    public abstract void processData(DataSet<T> data, boolean notifyUser);
+    protected abstract void handleReceivedData(DataSet<T> data, boolean notifyUser);
 
     @Override
-    public abstract void handleIOException(IOException e);
+    public final void processData(DataSet<T> data, boolean notifyUser) {
+        handleReceivedData(data, notifyUser);
+
+        persistDataSet();
+    }
+
+    @Override
+    public void handleIOException(IOException e) {
+        restorePersistedDataSet();
+    }
 
     public U getListAdapter() {
         return listAdapter;

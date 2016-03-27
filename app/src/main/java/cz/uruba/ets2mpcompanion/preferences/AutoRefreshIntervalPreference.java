@@ -3,7 +3,6 @@ package cz.uruba.ets2mpcompanion.preferences;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -17,7 +16,7 @@ import cz.uruba.ets2mpcompanion.views.ThemedNumberPicker;
 public class AutoRefreshIntervalPreference extends DialogPreference {
     @Bind(R.id.hour_picker) ThemedNumberPicker hourPicker;
     @Bind(R.id.minute_picker) ThemedNumberPicker minutePicker;
-    private int intervalLengthMinutes;
+    private long intervalLengthMillis;
 
     public AutoRefreshIntervalPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -27,13 +26,13 @@ public class AutoRefreshIntervalPreference extends DialogPreference {
         this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
-    public int getIntervalLengthMinutes() {
-        return intervalLengthMinutes;
+    public long getIntervalLengthMillis() {
+        return intervalLengthMillis;
     }
 
-    public void setIntervalLengthMinutes(int intervalLengthMinutes) {
-        this.intervalLengthMinutes = intervalLengthMinutes;
-        persistInt(intervalLengthMinutes);
+    public void setIntervalLengthMillis(long intervalLengthMillis) {
+        this.intervalLengthMillis = intervalLengthMillis;
+        persistLong(intervalLengthMillis);
     }
 
     @Override
@@ -74,8 +73,8 @@ public class AutoRefreshIntervalPreference extends DialogPreference {
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        hourPicker.setValue(getIntervalLengthMinutes() / 60);
-        minutePicker.setValue(getIntervalLengthMinutes() % 60);
+        hourPicker.setValue((int)(getIntervalLengthMillis() / (60 * 60 * 1000)));
+        minutePicker.setValue((int)((getIntervalLengthMillis() % (60 * 60 * 1000)) / (60 * 1000)));
     }
 
     @Override
@@ -83,20 +82,15 @@ public class AutoRefreshIntervalPreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
 
         if (positiveResult) {
-            int value = hourPicker.getValue() * 60 + minutePicker.getValue();
+            int value = hourPicker.getValue() * (60 * 60 * 1000) + minutePicker.getValue() * (60 * 1000);
             if (callChangeListener(value)) {
-                setIntervalLengthMinutes(value);
+                setIntervalLengthMillis(value);
             }
         }
     }
 
     @Override
-    protected Object onGetDefaultValue(TypedArray a, int index) {
-        return a.getInt(index, intervalLengthMinutes);
-    }
-
-    @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        setIntervalLengthMinutes(restoreValue ? getPersistedInt(intervalLengthMinutes) : (int) defaultValue);
+        setIntervalLengthMillis(restoreValue ? getPersistedLong(intervalLengthMillis) : (long) defaultValue);
     }
 }

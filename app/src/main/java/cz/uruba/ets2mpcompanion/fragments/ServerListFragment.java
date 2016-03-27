@@ -2,7 +2,6 @@ package cz.uruba.ets2mpcompanion.fragments;
 
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
@@ -30,8 +29,8 @@ import butterknife.ButterKnife;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.ServerListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
-import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
+import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
@@ -42,7 +41,6 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
     private String[] gameLiterals;
 
-    private SharedPreferences sharedPref;
     public static final String PREF_GAME_FILTER_SETTING = "preference_game_filter_setting";
 
     @Override
@@ -69,7 +67,6 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
         gameLiterals = getResources().getStringArray(R.array.game_names);
 
-        this.fetchDataList();
         fetchServerTime();
 
         return view;
@@ -129,7 +126,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
     }
 
     @Override
-    public void processData(DataSet<ServerInfo> serverList, boolean notifyUser) {
+    public void handleReceivedData(DataSet<ServerInfo> serverList, boolean notifyUser) {
         dataSet = serverList;
 
 
@@ -147,6 +144,8 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
     @Override
     public void handleIOException(IOException e) {
+        super.handleIOException(e);
+
         hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.download_error_IOException), Snackbar.LENGTH_LONG).show();
@@ -154,6 +153,8 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
     @Override
     public void handleJSONException(JSONException e) {
+        restorePersistedDataSet();
+
         hideLoadingOverlay();
 
         Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.json_error), Snackbar.LENGTH_SHORT).show();

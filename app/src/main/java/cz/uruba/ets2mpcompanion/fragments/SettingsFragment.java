@@ -90,7 +90,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         } else if (preference instanceof CustomEditTextPreference) {
             currentValue = ((CustomEditTextPreference) preference).getText();
         } else if (preference instanceof AutoRefreshIntervalPreference){
-            int minutesTotal = ((AutoRefreshIntervalPreference) preference).getIntervalLengthMinutes();
+            long millisTotal = ((AutoRefreshIntervalPreference) preference).getIntervalLengthMillis();
+            long minutesTotal = millisTotal / (60 * 1000);
             currentValue = minutesTotal > 0 ?
                     String.format(getString(R.string.settings_summary_auto_refresh_interval), minutesTotal / 60, minutesTotal % 60) :
                     getString(R.string.settings_summary_auto_refresh_interval_never);

@@ -16,7 +16,7 @@ import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public abstract class AbstractDataReceiverListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
     protected static final int TYPE_LAST_UPDATED = 1;
     protected static final int TYPE_FOOTER = 2;
@@ -25,13 +25,13 @@ public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> exte
 
     protected AbstractDataReceiverFragment<?, ?> callbackDataReceiver;
 
-    protected U dataCollection;
+    protected List<T> dataCollection;
 
     protected LastUpdatedTextView lastUpdatedTextView;
 
     protected String filteringMessage = null;
 
-    public AbstractDataReceiverListAdapter(Context context, U dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
+    public AbstractDataReceiverListAdapter(Context context, List<T> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;
@@ -80,16 +80,16 @@ public abstract class AbstractDataReceiverListAdapter<T, U extends List<T>> exte
         }
     }
 
-    public U getDataCollection() {
+    public List<T> getDataCollection() {
         return dataCollection;
     }
 
-    public void resetDataCollection(U newCollection) {
+    public void resetDataCollection(List<T> newCollection) {
         dataCollection = newCollection;
         notifyDataSetChanged();
     }
 
-    public void setDataCollection(U newCollection) {
+    public void setDataCollection(List<T> newCollection) {
         for (int i = dataCollection.size() - 1; i >= 0; i--) {
             T originalItem = dataCollection.get(i);
             if (!newCollection.contains(originalItem)) {

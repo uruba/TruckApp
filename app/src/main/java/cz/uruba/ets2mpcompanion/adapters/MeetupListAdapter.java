@@ -25,7 +25,7 @@ import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdap
 import cz.uruba.ets2mpcompanion.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
-public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInfo, List<MeetupInfo>> {
+public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInfo> {
     public MeetupListAdapter(Context context, List<MeetupInfo> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
     }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DataSet<T extends Serializable> {
+public class DataSet<T extends Serializable> implements Serializable {
     private ArrayList<T> collection;
     private Date lastUpdated;
 

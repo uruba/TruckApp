@@ -29,7 +29,7 @@ import cz.uruba.ets2mpcompanion.utils.UICompat;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 
-public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInfo, List<ServerInfo>> implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInfo> implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String PREF_DISPLAY_SERVER_TIME = "preference_display_server_time";
 
     int colorPrimaryDark;
