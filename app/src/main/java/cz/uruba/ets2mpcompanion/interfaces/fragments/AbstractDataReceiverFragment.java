@@ -3,6 +3,7 @@ package cz.uruba.ets2mpcompanion.interfaces.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -46,6 +47,29 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     @Bind(R.id.fragment_wrapper) protected FrameLayout fragmentWrapper;
     @Bind(R.id.text_empty_list) protected TextView textEmptyList;
 
+    protected Handler handler = new Handler();
+    protected Runnable runTask = new Runnable() {
+        @Override
+        public void run() {
+            DataSet<T> persistedDataSet = retrievePersistedDataSet();
+
+            if (persistedDataSet == null
+                    || persistedDataSet.getLastUpdated() == null
+                    || System.currentTimeMillis() - persistedDataSet.getLastUpdated().getTime() > sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0)
+                    ) {
+                fetchDataList(true);
+            } else {
+                restorePersistedDataSet();
+            }
+
+            long updateInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
+
+            if (updateInterval >= 60 * 1000) {
+                handler.postDelayed(this, updateInterval);
+            }
+        }
+    };
+
     protected U listAdapter;
 
     protected List<MenuItem> menuItems = new ArrayList<>();
@@ -65,16 +89,6 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
         setHasOptionsMenu(true);
 
-        DataSet<T> persistedDataSet = retrievePersistedDataSet();
-
-        if (persistedDataSet == null
-            || System.currentTimeMillis() - persistedDataSet.getLastUpdated().getTime() > sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0)
-        ) {
-            fetchDataList();
-        } else {
-            restorePersistedDataSet();
-        }
-
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -82,9 +96,18 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     public void onResume() {
         super.onResume();
 
+        attachHandlers();
+
         if (listAdapter != null) {
             listAdapter.restartLastUpdatedTextView();
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        handler.removeCallbacks(runTask);
     }
 
     @Override
@@ -172,6 +195,30 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
+    protected void attachHandlers() {
+        handler.removeCallbacks(runTask);
+
+        long autoRefreshInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
+
+        if (!sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) || autoRefreshInterval == 0) {
+            restorePersistedDataSet();
+            return;
+        }
+
+        if (dataSet.getLastUpdated() == null) {
+            handler.post(runTask);
+            return;
+        }
+
+        long sinceLastRefresh = System.currentTimeMillis() - dataSet.getLastUpdated().getTime();
+
+        if (sinceLastRefresh > autoRefreshInterval) {
+            handler.post(runTask);
+        } else {
+            handler.postDelayed(runTask, autoRefreshInterval - sinceLastRefresh);
+        }
+    }
+
     protected DataSet<T> retrievePersistedDataSet() {
         try {
             FileInputStream fis = getContext().openFileInput(getClass().getName() + ".persisted");
@@ -187,15 +234,20 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
             e.printStackTrace();
         }
 
-        return null;
+        return dataSet;
     }
 
     protected void restorePersistedDataSet() {
+        showLoadingOverlay();
+
         this.dataSet = retrievePersistedDataSet();
 
-        if (this.dataSet != null) {
+        if (this.dataSet != null && !this.dataSet.getCollection().isEmpty()) {
             listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
+            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.persisted_data_retrieved), Snackbar.LENGTH_LONG).show();
         }
+
+        hideLoadingOverlay();
     }
 
     protected void persistDataSet() {
@@ -222,6 +274,8 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         handleReceivedData(data, notifyUser);
 
         persistDataSet();
+
+        attachHandlers();
     }
 
     @Override
