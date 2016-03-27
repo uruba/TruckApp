@@ -1,5 +1,8 @@
 package cz.uruba.ets2mpcompanion.test;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.v4.app.Fragment;
@@ -17,6 +20,7 @@ import cz.uruba.ets2mpcompanion.MainActivity;
 import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.fragments.MeetupListFragment;
 import cz.uruba.ets2mpcompanion.fragments.ServerListFragment;
+import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.test.utils.ViewPagerIdlingResource;
 import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
@@ -55,10 +59,17 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         super(MainActivity.class);
     }
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     @Before
     protected void setUp() throws Exception {
         super.setUp();
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, true);
+        editor.putLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 60 * 1000);
+        editor.commit();
 
         mockServer = new MockWebServer();
 
