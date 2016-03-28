@@ -204,7 +204,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
         long autoRefreshInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
 
-        if (sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) || autoRefreshInterval != 0) {
+        if (sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) && autoRefreshInterval != 0) {
             handler.post(runTask);
         }
     }
