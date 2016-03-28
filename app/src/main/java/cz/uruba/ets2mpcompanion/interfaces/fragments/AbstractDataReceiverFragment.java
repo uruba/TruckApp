@@ -54,18 +54,18 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
             DataSet<T> persistedDataSet = retrievePersistedDataSet();
 
             if (persistedDataSet == null
-                    || persistedDataSet.getLastUpdated() == null
-                    || System.currentTimeMillis() - persistedDataSet.getLastUpdated().getTime() > sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0)
-                    ) {
+                    || persistedDataSet.getLastUpdated() == null) {
                 fetchDataList(true);
-            } else {
-                restorePersistedDataSet();
+                return;
             }
 
-            long updateInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
+            long autoRefreshInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
+            long sinceLastRefresh = System.currentTimeMillis() - persistedDataSet.getLastUpdated().getTime();
 
-            if (updateInterval > 0) {
-                handler.postDelayed(this, updateInterval);
+            if (sinceLastRefresh >= autoRefreshInterval) {
+                fetchDataList(true);
+            } else {
+                handler.postDelayed(this, autoRefreshInterval - sinceLastRefresh);
             }
         }
     };
@@ -198,26 +198,14 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     protected void attachHandlers(boolean noRestore) {
         handler.removeCallbacks(runTask);
 
+        if (!noRestore) {
+            restorePersistedDataSet();
+        }
+
         long autoRefreshInterval = sharedPref.getLong(SettingsFragment.PREF_AUTO_REFRESH_INTERVAL, 0);
 
-        if (!sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) || autoRefreshInterval == 0) {
-            if (!noRestore) {
-                restorePersistedDataSet();
-            }
-            return;
-        }
-
-        if (dataSet.getLastUpdated() == null) {
+        if (sharedPref.getBoolean(SettingsFragment.PREF_AUTO_REFRESH_ENABLED, false) || autoRefreshInterval != 0) {
             handler.post(runTask);
-            return;
-        }
-
-        long sinceLastRefresh = System.currentTimeMillis() - dataSet.getLastUpdated().getTime();
-
-        if (sinceLastRefresh > autoRefreshInterval) {
-            handler.post(runTask);
-        } else {
-            handler.postDelayed(runTask, autoRefreshInterval - sinceLastRefresh);
         }
     }
 
@@ -250,7 +238,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
         if (!this.dataSet.getCollection().isEmpty()) {
             listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
-            Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.persisted_data_retrieved), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(fragmentWrapper, R.string.persisted_data_retrieved, Snackbar.LENGTH_LONG);
         }
 
         hideLoadingOverlay();
