@@ -55,7 +55,6 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
             @Override
             public void onClick(View view) {
                 fetchDataList(true);
-                fetchServerTime();
                 submitOnRefreshAnalytics("Server list");
             }
         });
@@ -127,8 +126,9 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
     @Override
     public void handleReceivedData(DataSet<ServerInfo> serverList, boolean notifyUser) {
-        dataSet = serverList;
+        fetchServerTime();
 
+        dataSet = serverList;
 
         Collections.sort(dataSet.getCollection(), Collections.reverseOrder());
         listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
