@@ -60,7 +60,7 @@
     <string name="server_time">Game time: %1$s</string>
     <string name="settings_category_general">General</string>
     <string name="settings_title_display_server_time">Display game time</string>
-    <string name="settings_summary_display_server_time">Enable label displaying the server game time</string>
+    <string name="settings_summary_display_server_time">Enable a label displaying the server game time</string>
     <string name="action_ets2mp_home">TruckersMP Homepage</string>
     <string name="action_ets2mp_forum">TruckersMP Forum</string>
     <string name="action_ets2mp_convoys">TruckersMP Convoys</string>
