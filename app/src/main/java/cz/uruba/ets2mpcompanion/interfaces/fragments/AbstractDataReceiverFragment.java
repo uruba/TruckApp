@@ -235,7 +235,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         showLoadingOverlay();
 
         DataSet<T> persistedDataSet = retrievePersistedDataSet();
-        
+
         if (persistedDataSet != null && !persistedDataSet.getCollection().isEmpty()) {
             this.dataSet = persistedDataSet;
             listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
