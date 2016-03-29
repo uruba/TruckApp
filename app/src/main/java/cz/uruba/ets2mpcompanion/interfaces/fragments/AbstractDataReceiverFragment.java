@@ -198,7 +198,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     protected void attachHandlers(boolean noRestore) {
         handler.removeCallbacks(runTask);
 
-        if (!noRestore) {
+        if (!noRestore && this.dataSet.getCollection().isEmpty()) {
             restorePersistedDataSet();
         }
 
@@ -234,9 +234,10 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     protected void restorePersistedDataSet() {
         showLoadingOverlay();
 
-        this.dataSet = retrievePersistedDataSet();
-
-        if (!this.dataSet.getCollection().isEmpty()) {
+        DataSet<T> persistedDataSet = retrievePersistedDataSet();
+        
+        if (persistedDataSet != null && !persistedDataSet.getCollection().isEmpty()) {
+            this.dataSet = persistedDataSet;
             listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
             Snackbar.make(fragmentWrapper, R.string.persisted_data_retrieved, Snackbar.LENGTH_LONG);
         }
