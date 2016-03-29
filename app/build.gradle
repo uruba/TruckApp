@@ -8,8 +8,8 @@ android {
         applicationId "cz.uruba.ets2mpcompanion"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 30
-        versionName "0.27-beta2"
+        versionCode 31
+        versionName "0.27-beta3"
         testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
