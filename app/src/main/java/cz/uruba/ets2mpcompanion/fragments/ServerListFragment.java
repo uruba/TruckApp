@@ -135,8 +135,6 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
         filterByGame();
 
-        hideLoadingOverlay();
-
         if (notifyUser) {
             Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.server_list_refreshed), Snackbar.LENGTH_LONG).show();
         }

@@ -237,8 +237,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         DataSet<T> persistedDataSet = retrievePersistedDataSet();
 
         if (persistedDataSet != null && !persistedDataSet.getCollection().isEmpty()) {
-            this.dataSet = persistedDataSet;
-            listAdapter.resetDataCollection(new ArrayList<>(dataSet.getCollection()));
+            handleReceivedData(persistedDataSet, false);
             Snackbar.make(fragmentWrapper, R.string.persisted_data_retrieved, Snackbar.LENGTH_LONG);
         }
 
@@ -267,6 +266,8 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     @Override
     public final void processData(DataSet<T> data, boolean notifyUser) {
         handleReceivedData(data, notifyUser);
+
+        hideLoadingOverlay();
 
         persistDataSet();
 

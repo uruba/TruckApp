@@ -129,17 +129,9 @@ public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo,
 
         filterByServer();
 
-        hideLoadingOverlay();
-
         if (notifyUser) {
             Snackbar.make(fragmentWrapper, this.getResources().getString(R.string.meetup_list_refreshed), Snackbar.LENGTH_SHORT).show();
         }
-    }
-
-    @Override
-    protected void showLoadingOverlay() {
-
-        super.showLoadingOverlay();
     }
 
     @Override
