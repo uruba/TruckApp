@@ -80,4 +80,5 @@
     <string name="settings_summary_auto_refresh_interval">%1$d hours, %2$d minutes</string>
     <string name="settings_summary_auto_refresh_interval_never">Never</string>
     <string name="persisted_data_retrieved">Restored data from cache</string>
+    <string name="no_trips_yet">Looks like you\'ve not saved any trips yet.</string>
 </resources>
