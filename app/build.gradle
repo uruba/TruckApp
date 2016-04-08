@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 32
         versionName "0.27"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
         release {
