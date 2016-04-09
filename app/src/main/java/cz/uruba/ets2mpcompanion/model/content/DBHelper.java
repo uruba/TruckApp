@@ -1,8 +1,10 @@
-package cz.uruba.ets2mpcompanion.model.DB.Contracts;
+package cz.uruba.ets2mpcompanion.model.content;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import cz.uruba.ets2mpcompanion.model.content.contracts.TripLoggerContract;
 
 public class DBHelper extends SQLiteOpenHelper {
 

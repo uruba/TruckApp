@@ -1,4 +1,4 @@
-package cz.uruba.ets2mpcompanion.model.DB.Contracts;
+package cz.uruba.ets2mpcompanion.model.content.contracts;
 
 import android.net.Uri;
 import android.provider.BaseColumns;

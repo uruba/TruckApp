@@ -2,7 +2,7 @@ package cz.uruba.ets2mpcompanion.test;
 
 import android.test.InstrumentationTestCase;
 
-import cz.uruba.ets2mpcompanion.model.DB.Contracts.TripLoggerContract;
+import cz.uruba.ets2mpcompanion.model.content.contracts.TripLoggerContract;
 
 public class UnitTestTripLogger extends InstrumentationTestCase {
 
