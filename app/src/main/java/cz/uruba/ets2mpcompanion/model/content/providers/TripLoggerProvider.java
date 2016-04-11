@@ -1,0 +1,67 @@
+package cz.uruba.ets2mpcompanion.model.content.providers;
+
+import android.content.ContentProvider;
+import android.content.ContentValues;
+import android.content.UriMatcher;
+import android.database.Cursor;
+import android.net.Uri;
+import android.support.annotation.Nullable;
+
+import cz.uruba.ets2mpcompanion.model.content.contracts.TripLoggerContract;
+
+public class TripLoggerProvider extends ContentProvider {
+
+    private static final int TRIP_LIST = 1;
+    private static final int TRIP_ENTRY = 2;
+    private static final int CARGO_LIST = 11;
+    private static final int CARGO_ENTRY = 12;
+    private static final int CITY_LIST = 21;
+    private static final int CITY_ENTRY = 22;
+    private static final int GAME_LIST = 31;
+    private static final int GAME_ENTRY = 32;
+    private static final UriMatcher uriMatcher;
+    static {
+        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "trips", TRIP_LIST);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "trips/#", TRIP_ENTRY);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "cargoes", CARGO_LIST);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "cargoes/#", CARGO_ENTRY);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "cities", CITY_LIST);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "cities/#", CITY_ENTRY);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "games", GAME_LIST);
+        uriMatcher.addURI(TripLoggerContract.AUTHORITY, "games/#", GAME_ENTRY);
+    }
+
+    @Override
+    public boolean onCreate() {
+        return false;
+    }
+
+    @Nullable
+    @Override
+    public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public String getType(Uri uri) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Uri insert(Uri uri, ContentValues contentValues) {
+        return null;
+    }
+
+    @Override
+    public int delete(Uri uri, String s, String[] strings) {
+        return 0;
+    }
+
+    @Override
+    public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
+        return 0;
+    }
+}
