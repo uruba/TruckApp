@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import cz.uruba.ets2mpcompanion.model.content.DBHelper;
 import cz.uruba.ets2mpcompanion.model.content.contracts.TripLoggerContract;
 
 public class TripLoggerProvider extends ContentProvider {
@@ -32,9 +33,13 @@ public class TripLoggerProvider extends ContentProvider {
         uriMatcher.addURI(TripLoggerContract.AUTHORITY, "games/#", GAME_ENTRY);
     }
 
+    private DBHelper databaseHelper;
+
     @Override
     public boolean onCreate() {
-        return false;
+        databaseHelper = new DBHelper(getContext());
+
+        return true;
     }
 
     @Nullable
