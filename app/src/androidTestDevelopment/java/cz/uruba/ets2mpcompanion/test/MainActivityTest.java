@@ -49,9 +49,9 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     private final List<Integer> optionsMenuEntries = new ArrayList<>(
             Arrays.asList(
                     R.string.action_settings,
-                    R.string.action_ets2mp_home,
-                    R.string.action_ets2mp_forum,
-                    R.string.action_ets2mp_convoys
+                    R.string.action_truckersmp_home,
+                    R.string.action_truckersmp_forum,
+                    R.string.action_truckersmp_convoys
             )
     );
 

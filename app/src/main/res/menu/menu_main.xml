@@ -7,16 +7,16 @@
         android:icon="@drawable/ic_settings_24dp"
         app:showAsAction="never" />
 
-    <item android:id="@+id/link_ets2mp_home"
-        android:title="@string/action_ets2mp_home"
+    <item android:id="@+id/link_truckersmp_home"
+        android:title="@string/action_truckersmp_home"
         android:icon="@drawable/ic_globe_24dp"
         app:showAsAction="never" />
-    <item android:id="@+id/link_ets2mp_forum"
-        android:title="@string/action_ets2mp_forum"
+    <item android:id="@+id/link_truckersmp_forum"
+        android:title="@string/action_truckersmp_forum"
         android:icon="@drawable/ic_globe_24dp"
         app:showAsAction="never" />
-    <item android:id="@+id/link_ets2mp_convoys"
-        android:title="@string/action_ets2mp_convoys"
+    <item android:id="@+id/link_truckersmp_convoys"
+        android:title="@string/action_truckersmp_convoys"
         android:icon="@drawable/ic_globe_24dp"
         app:showAsAction="never" />
 

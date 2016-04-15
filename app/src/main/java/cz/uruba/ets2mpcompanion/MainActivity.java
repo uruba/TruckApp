@@ -87,22 +87,22 @@ public class MainActivity extends AbstractThemedActivity {
                 intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 return true;
-            case R.id.link_ets2mp_home:
+            case R.id.link_truckersmp_home:
                 intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_HOMEPAGE);
-                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_home));
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_truckersmp_home));
                 startActivity(intent);
                 return true;
-            case R.id.link_ets2mp_forum:
+            case R.id.link_truckersmp_forum:
                 intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_FORUM);
-                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_forum));
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_truckersmp_forum));
                 startActivity(intent);
                 return true;
-            case R.id.link_ets2mp_convoys:
+            case R.id.link_truckersmp_convoys:
                 intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra(WebViewActivity.INTENT_EXTRA_URL, URL.ETS2MP_CONVOYS);
-                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_ets2mp_convoys));
+                intent.putExtra(WebViewActivity.INTENT_ACTIVITY_TITLE, getString(R.string.action_truckersmp_convoys));
                 startActivity(intent);
                 return true;
             default:

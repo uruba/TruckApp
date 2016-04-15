@@ -61,9 +61,9 @@
     <string name="settings_category_general">General</string>
     <string name="settings_title_display_server_time">Display game time</string>
     <string name="settings_summary_display_server_time">Enable a label displaying the server game time</string>
-    <string name="action_ets2mp_home">TruckersMP Homepage</string>
-    <string name="action_ets2mp_forum">TruckersMP Forum</string>
-    <string name="action_ets2mp_convoys">TruckersMP Convoys</string>
+    <string name="action_truckersmp_home">TruckersMP Homepage</string>
+    <string name="action_truckersmp_forum">TruckersMP Forum</string>
+    <string name="action_truckersmp_convoys">TruckersMP Convoys</string>
     <string name="filter_meetups_server">Filter by server</string>
     <string name="filter_servers">Filter by server</string>
     <string name="filtering_status">Filtering active: %1$s servers</string>
