@@ -21,13 +21,15 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInf
     @Override
     protected DataSet<MeetupInfo> processHTTPStream(String stream) throws JSONException {
         ArrayList<MeetupInfo> meetupList = new ArrayList<>();
-        JSONArray itemsArray;
+        JSONArray ets2cArray;
 
         JSONObject jsonObject = new JSONObject(stream);
-        itemsArray = jsonObject.getJSONArray("items");
+        jsonObject = jsonObject.getJSONObject("items");
 
-        for (int i = 0; i < itemsArray.length(); i++) {
-            JSONObject item = itemsArray.getJSONObject(i);
+        ets2cArray = jsonObject.getJSONArray("ets2c");
+
+        for (int i = 0; i < ets2cArray.length(); i++) {
+            JSONObject item = ets2cArray.getJSONObject(i);
 
             String server = item.getString("server");
             String time = item.getString("time");
