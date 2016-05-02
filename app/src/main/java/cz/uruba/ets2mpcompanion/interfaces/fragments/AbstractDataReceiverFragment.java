@@ -232,6 +232,10 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     }
 
     protected void restorePersistedDataSet() {
+        if (!dataSet.getCollection().isEmpty()) {
+            return;
+        }
+
         showLoadingOverlay();
 
         DataSet<T> persistedDataSet = retrievePersistedDataSet();
