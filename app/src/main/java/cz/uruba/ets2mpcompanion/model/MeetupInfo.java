@@ -12,8 +12,9 @@ public class MeetupInfo implements Serializable {
     private String language;
     private String participants;
     private String relativeURL;
+    private MeetupSite meetupSite;
 
-    public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL) {
+    public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL, MeetupSite meetupSite) {
         this.server = server;
         this.when = when;
         this.location = location;
@@ -21,6 +22,7 @@ public class MeetupInfo implements Serializable {
         this.language = language;
         this.participants = participants;
         this.relativeURL = relativeURL;
+        this.meetupSite = meetupSite;
     }
 
     public String getServer() { return server; }
@@ -51,5 +53,13 @@ public class MeetupInfo implements Serializable {
 
     public String getAbsoluteURL() {
         return URL.ETS2MP_CONVOYS + getRelativeURL();
+    }
+
+    public MeetupSite getMeetupSite() {
+        return meetupSite;
+    }
+
+    public enum MeetupSite {
+        ETS2C, TRUCKERSEVENTS
     }
 }

@@ -29,13 +29,13 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInf
         ets2cArray = jsonObject.getJSONArray("ets2c");
         truckersEventsArray = jsonObject.getJSONArray("truckers.events");
 
-        processJSONArray(ets2cArray, meetupList);
-        processJSONArray(truckersEventsArray, meetupList);
+        processJSONArray(ets2cArray, meetupList, MeetupInfo.MeetupSite.ETS2C);
+        processJSONArray(truckersEventsArray, meetupList, MeetupInfo.MeetupSite.TRUCKERSEVENTS);
 
         return new DataSet<>(meetupList, new Date());
     }
 
-    private void processJSONArray(JSONArray array, ArrayList<MeetupInfo> meetupListToAddTo) throws JSONException {
+    private void processJSONArray(JSONArray array, ArrayList<MeetupInfo> meetupListToAddTo, MeetupInfo.MeetupSite meetupSite) throws JSONException {
         for (int i = 0; i < array.length(); i++) {
             JSONObject item = array.getJSONObject(i);
 
@@ -47,7 +47,7 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInf
             String participants = item.getString("participants").trim();
             String relativeURL = item.getString("relativeURL");
 
-            MeetupInfo meetupInfo = new MeetupInfo(server, time, location, organiser, language, participants, relativeURL);
+            MeetupInfo meetupInfo = new MeetupInfo(server, time, location, organiser, language, participants, relativeURL, meetupSite);
             meetupListToAddTo.add(meetupInfo);
         }
     }
