@@ -25,7 +25,7 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.MeetupListAdapter;
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
-import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.interfaces.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 

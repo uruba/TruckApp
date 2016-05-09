@@ -22,7 +22,7 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.adapters.viewholders.LastUpdatedWithFilterInfoViewHolder;
 import cz.uruba.ets2mpcompanion.interfaces.fragments.AbstractDataReceiverFragment;
 import cz.uruba.ets2mpcompanion.interfaces.adapters.AbstractDataReceiverListAdapter;
-import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.interfaces.model.MeetupInfo;
 import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 
 public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInfo> {

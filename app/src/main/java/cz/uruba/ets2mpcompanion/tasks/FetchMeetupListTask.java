@@ -9,7 +9,9 @@ import java.util.Date;
 
 import cz.uruba.ets2mpcompanion.interfaces.tasks.AbstractFetchJSONTask;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiverJSON;
-import cz.uruba.ets2mpcompanion.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.interfaces.model.MeetupInfo;
+import cz.uruba.ets2mpcompanion.model.MeetupInfoETS2C;
+import cz.uruba.ets2mpcompanion.model.MeetupInfoTRUCKERSEVENTS;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
 public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInfo>> {
@@ -29,13 +31,13 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInf
         ets2cArray = jsonObject.getJSONArray("ets2c");
         truckersEventsArray = jsonObject.getJSONArray("truckers.events");
 
-        processJSONArray(ets2cArray, meetupList, MeetupInfo.MeetupSite.ETS2C);
-        processJSONArray(truckersEventsArray, meetupList, MeetupInfo.MeetupSite.TRUCKERSEVENTS);
+        processJSONArray(ets2cArray, meetupList, MeetupInfoETS2C.class);
+        processJSONArray(truckersEventsArray, meetupList, MeetupInfoTRUCKERSEVENTS.class);
 
         return new DataSet<>(meetupList, new Date());
     }
 
-    private void processJSONArray(JSONArray array, ArrayList<MeetupInfo> meetupListToAddTo, MeetupInfo.MeetupSite meetupSite) throws JSONException {
+    private void processJSONArray(JSONArray array, ArrayList<MeetupInfo> meetupListToAddTo, Class<? extends MeetupInfo> meetupSite) throws JSONException {
         for (int i = 0; i < array.length(); i++) {
             JSONObject item = array.getJSONObject(i);
 
@@ -47,7 +49,17 @@ public class FetchMeetupListTask extends AbstractFetchJSONTask<DataSet<MeetupInf
             String participants = item.getString("participants").trim();
             String relativeURL = item.getString("relativeURL");
 
-            MeetupInfo meetupInfo = new MeetupInfo(server, time, location, organiser, language, participants, relativeURL, meetupSite);
+            MeetupInfo meetupInfo;
+
+            if (meetupSite.equals(MeetupInfoETS2C.class)) {
+                meetupInfo = new MeetupInfoETS2C(server, time, location, organiser, language, participants, relativeURL);
+            } else
+            if (meetupSite.equals(MeetupInfoTRUCKERSEVENTS.class)) {
+                meetupInfo = new MeetupInfoTRUCKERSEVENTS(server, time, location, organiser, language, participants, relativeURL);
+            } else {
+                continue;
+            }
+
             meetupListToAddTo.add(meetupInfo);
         }
     }

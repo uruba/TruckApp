@@ -1,20 +1,20 @@
-package cz.uruba.ets2mpcompanion.model;
+package cz.uruba.ets2mpcompanion.interfaces.model;
 
 import java.io.Serializable;
 
 import cz.uruba.ets2mpcompanion.constants.URL;
 
-public class MeetupInfo implements Serializable {
-    private String server;
-    private String when;
-    private String location;
-    private String organiser;
-    private String language;
-    private String participants;
-    private String relativeURL;
-    private MeetupSite meetupSite;
+public abstract class MeetupInfo implements Serializable {
+    protected String server;
+    protected String when;
+    protected String location;
+    protected String organiser;
+    protected String language;
+    protected String participants;
+    protected String relativeURL;
+    protected final String baseURL;
 
-    public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL, MeetupSite meetupSite) {
+    public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL, String baseURL) {
         this.server = server;
         this.when = when;
         this.location = location;
@@ -22,7 +22,7 @@ public class MeetupInfo implements Serializable {
         this.language = language;
         this.participants = participants;
         this.relativeURL = relativeURL;
-        this.meetupSite = meetupSite;
+        this.baseURL = baseURL;
     }
 
     public String getServer() { return server; }
@@ -52,14 +52,6 @@ public class MeetupInfo implements Serializable {
     }
 
     public String getAbsoluteURL() {
-        return URL.ETS2MP_CONVOYS + getRelativeURL();
-    }
-
-    public MeetupSite getMeetupSite() {
-        return meetupSite;
-    }
-
-    public enum MeetupSite {
-        ETS2C, TRUCKERSEVENTS
+        return baseURL + getRelativeURL();
     }
 }

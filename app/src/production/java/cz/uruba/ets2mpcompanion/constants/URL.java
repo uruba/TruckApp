@@ -8,4 +8,5 @@ public class URL {
     public static final String ETS2MP_HOMEPAGE = "http://ets2mp.com/";
     public static final String ETS2MP_FORUM = "https://forum.truckersmp.com/";
     public static final String ETS2MP_CONVOYS = "http://ets2c.com/";
+    public static final String TRUCKERS_EVENTS = "http://truckers.events/";
 }
