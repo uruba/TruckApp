@@ -12,7 +12,7 @@ public abstract class MeetupInfo implements Serializable {
     protected String language;
     protected String participants;
     protected String relativeURL;
-    protected final String baseURL;
+    protected String baseURL;
 
     public MeetupInfo(String server, String when, String location, String organiser, String language, String participants, String relativeURL, String baseURL) {
         this.server = server;
