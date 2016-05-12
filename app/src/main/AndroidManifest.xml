@@ -75,5 +75,7 @@
         <service android:name=".widgets.ServerListWidget$WidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false" />
+
+        <provider android:name=".model.content.providers.TripLoggerProvider" android:authorities="cz.uruba.ets2mpcompanion.triplogger" />
     </application>
 </manifest>
