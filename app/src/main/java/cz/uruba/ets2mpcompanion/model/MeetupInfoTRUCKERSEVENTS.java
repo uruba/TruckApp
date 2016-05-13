@@ -1,7 +1,5 @@
 package cz.uruba.ets2mpcompanion.model;
 
-import java.io.Serializable;
-
 import cz.uruba.ets2mpcompanion.constants.URL;
 import cz.uruba.ets2mpcompanion.interfaces.model.MeetupInfo;
 

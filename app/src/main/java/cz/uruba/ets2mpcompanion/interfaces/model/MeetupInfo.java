@@ -2,8 +2,6 @@ package cz.uruba.ets2mpcompanion.interfaces.model;
 
 import java.io.Serializable;
 
-import cz.uruba.ets2mpcompanion.constants.URL;
-
 public abstract class MeetupInfo implements Serializable {
     protected String server;
     protected String when;
