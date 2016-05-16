@@ -91,29 +91,34 @@ public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInf
                                 meetupInfo.getParticipants()
                         )
                 );
-                meetupInfoViewHolder.more.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        PopupMenu popup = new PopupMenu(context, v);
-                        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                            @Override
-                            public boolean onMenuItemClick(MenuItem item) {
-                                switch (item.getItemId()) {
-                                    case R.id.show_meetup_detail:
-                                        Intent meetupDetailIntent = new Intent(context, MeetupDetailActivity.class);
-                                        meetupDetailIntent.putExtra(MeetupDetailActivity.INTENT_EXTRA_URL, meetupInfo.getAbsoluteURL());
-                                        context.startActivity(meetupDetailIntent);
-                                        return true;
-                                    default:
-                                        return false;
+
+                if (TextUtils.isEmpty(meetupInfo.getRelativeURL())) {
+                    meetupInfoViewHolder.more.setVisibility(View.GONE);
+                } else {
+                    meetupInfoViewHolder.more.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            PopupMenu popup = new PopupMenu(context, v);
+                            popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    switch (item.getItemId()) {
+                                        case R.id.show_meetup_detail:
+                                            Intent meetupDetailIntent = new Intent(context, MeetupDetailActivity.class);
+                                            meetupDetailIntent.putExtra(MeetupDetailActivity.INTENT_EXTRA_URL, meetupInfo.getAbsoluteURL());
+                                            context.startActivity(meetupDetailIntent);
+                                            return true;
+                                        default:
+                                            return false;
+                                    }
                                 }
-                            }
-                        });
-                        MenuInflater inflater = popup.getMenuInflater();
-                        inflater.inflate(R.menu.menu_meetup_entry, popup.getMenu());
-                        popup.show();
-                    }
-                });
+                            });
+                            MenuInflater inflater = popup.getMenuInflater();
+                            inflater.inflate(R.menu.menu_meetup_entry, popup.getMenu());
+                            popup.show();
+                        }
+                    });
+                }
                 break;
         }
 
