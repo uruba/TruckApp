@@ -1,14 +1,22 @@
 package cz.uruba.ets2mpcompanion.interfaces.filters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
-public abstract class Filter<T> {
+import cz.uruba.ets2mpcompanion.model.general.DataSet;
+
+public abstract class Filter {
     protected Context context;
-    protected T data;
-    protected FilterCallback<T> callback;
+    protected DataSet data;
+    protected FilterCallback<DataSet> callback;
 
-    public Filter(Context context, T data, FilterCallback<T> callback) {
+    protected SharedPreferences sharedPref;
+
+    public Filter(Context context, DataSet data, FilterCallback<DataSet> callback) {
         this.data = data;
         this.callback = callback;
+
+        this.sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 }
