@@ -95,6 +95,7 @@ public class MeetupListAdapter extends AbstractDataReceiverListAdapter<MeetupInf
                 if (TextUtils.isEmpty(meetupInfo.getRelativeURL())) {
                     meetupInfoViewHolder.more.setVisibility(View.GONE);
                 } else {
+                    meetupInfoViewHolder.more.setVisibility(View.VISIBLE);
                     meetupInfoViewHolder.more.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
