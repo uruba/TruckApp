@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import java.io.Serializable;
-import java.util.List;
 
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
