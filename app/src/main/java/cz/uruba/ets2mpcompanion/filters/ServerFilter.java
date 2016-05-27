@@ -14,10 +14,10 @@ import cz.uruba.ets2mpcompanion.interfaces.filters.FilterCallback;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-public class ServerFilter extends Filter {
+public class ServerFilter extends Filter<ServerInfo> {
     private String[] gameLiterals;
 
-    public ServerFilter(Context context, DataSet data, FilterCallback<DataSet> callback) {
+    public ServerFilter(Context context, DataSet<ServerInfo> data, FilterCallback<ServerInfo> callback) {
         super(context, data, callback);
 
         gameLiterals = context.getResources().getStringArray(R.array.game_names);
