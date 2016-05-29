@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import cz.uruba.ets2mpcompanion.R;
@@ -61,12 +62,13 @@ public class ServerFilter extends Filter<ServerInfo> {
 
         String gameLiteral = which < 0 ? "" : gameLiterals[which];
 
-        List<ServerInfo> filteredServers = new ArrayList<>();
+        ArrayList<ServerInfo> filteredServers = new ArrayList<>();
         for (ServerInfo server : inputServers) {
             if (server.getGameName().contains(gameLiteral)) {
                 filteredServers.add(server);
             }
         }
 
+        callback.dataFiltered(new DataSet<ServerInfo>(filteredServers, new Date()));
     }
 }
