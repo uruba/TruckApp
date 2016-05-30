@@ -69,6 +69,6 @@ public class ServerFilter extends Filter<ServerInfo> {
             }
         }
 
-        callback.dataFiltered(new DataSet<ServerInfo>(filteredServers, new Date()));
+        callback.dataFiltered(new DataSet<>(filteredServers, new Date()));
     }
 }
