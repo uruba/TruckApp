@@ -30,15 +30,16 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
 public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
-    @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
+    @Bind(R.id.recyclerview_meetuplist)
+    private RecyclerView meetupList;
 
-    public static final int MEETUP_FIELD_LOCATION = 1;
-    public static final int MEETUP_FIELD_SERVER = 1 << 1;
-    public static final int MEETUP_FIELD_ORGANISER = 1 << 2;
-    public static final int MEETUP_FIELD_LANGUAGE = 1 << 3;
+    private static final int MEETUP_FIELD_LOCATION = 1;
+    private static final int MEETUP_FIELD_SERVER = 1 << 1;
+    private static final int MEETUP_FIELD_ORGANISER = 1 << 2;
+    private static final int MEETUP_FIELD_LANGUAGE = 1 << 3;
     private String[] serverLiterals;
 
-    public static final String PREF_SERVER_FILTER_SETTING = "preference_server_filter_setting";
+    private static final String PREF_SERVER_FILTER_SETTING = "preference_server_filter_setting";
 
     private SearchView searchView;
 
