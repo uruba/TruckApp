@@ -37,11 +37,12 @@ import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
 public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> {
-    @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
+    @Bind(R.id.recyclerview_serverlist)
+    private RecyclerView serverList;
 
     private String[] gameLiterals;
 
-    public static final String PREF_GAME_FILTER_SETTING = "preference_game_filter_setting";
+    private static final String PREF_GAME_FILTER_SETTING = "preference_game_filter_setting";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
         new FetchServerListTask(this, URL.SERVER_LIST, notifyUser).execute();
     }
 
-    protected void fetchServerTime() {
+    private void fetchServerTime() {
         new FetchServerTimeTask(new DataReceiverJSON<Date>() {
             private Date lastUpdated = new Date();
 
