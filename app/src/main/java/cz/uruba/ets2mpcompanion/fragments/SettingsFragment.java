@@ -26,7 +26,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public static final String PREF_AUTO_REFRESH_ENABLED = "preference_auto_refresh_enabled";
     public static final String PREF_AUTO_REFRESH_INTERVAL = "preference_auto_refresh_interval";
 
-    public static final String[] preferencesSummaryUpdatedFor =
+    private static final String[] preferencesSummaryUpdatedFor =
             {
                 PREF_THEME_COLOUR,
                 PREF_MEETUP_REMINDERS_DEFAULT_TITLE,
