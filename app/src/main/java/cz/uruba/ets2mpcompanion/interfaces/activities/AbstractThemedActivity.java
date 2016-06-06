@@ -13,8 +13,8 @@ import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 
 public abstract class AbstractThemedActivity extends AppCompatActivity {
     protected SharedPreferences sharedPref;
-    protected boolean isCustomThemeEnabled = false;
-    protected String prefThemeColour = "";
+    private boolean isCustomThemeEnabled = false;
+    private String prefThemeColour = "";
 
     @Override
     protected void onStart() {
@@ -59,7 +59,7 @@ public abstract class AbstractThemedActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    protected void reloadActivity() {
+    private void reloadActivity() {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
