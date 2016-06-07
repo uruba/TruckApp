@@ -18,8 +18,10 @@ public abstract class AbstractWebViewActivity extends AbstractThemedActivity {
 
     protected String targetURL;
 
-    @Bind(R.id.toolbar) protected Toolbar toolbar;
-    @Bind(R.id.loading_progress) protected ProgressBar loadingProgressIndicator;
+    @Bind(R.id.toolbar)
+    private Toolbar toolbar;
+    @Bind(R.id.loading_progress)
+    private ProgressBar loadingProgressIndicator;
     @Bind(R.id.webview) protected WebView webView;
 
     @SuppressWarnings("ConstantConditions")
