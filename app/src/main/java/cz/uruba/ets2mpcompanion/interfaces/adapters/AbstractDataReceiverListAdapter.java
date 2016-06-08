@@ -19,7 +19,7 @@ import cz.uruba.ets2mpcompanion.views.LastUpdatedTextView;
 public abstract class AbstractDataReceiverListAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     protected static final int TYPE_DATA_ENTRY = 0;
     protected static final int TYPE_LAST_UPDATED = 1;
-    protected static final int TYPE_FOOTER = 2;
+    private static final int TYPE_FOOTER = 2;
 
     protected Context context;
 
@@ -31,7 +31,7 @@ public abstract class AbstractDataReceiverListAdapter<T> extends RecyclerView.Ad
 
     protected String filteringMessage = null;
 
-    public AbstractDataReceiverListAdapter(Context context, List<T> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
+    protected AbstractDataReceiverListAdapter(Context context, List<T> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         this.context = context;
         this.dataCollection = dataCollection;
         this.callbackDataReceiver = callbackDataReceiver;
@@ -105,12 +105,12 @@ public abstract class AbstractDataReceiverListAdapter<T> extends RecyclerView.Ad
         }
     }
 
-    public void removeItem(int position) {
+    private void removeItem(int position) {
         dataCollection.remove(position);
         notifyItemRemoved(position + 1);
     }
 
-    public void addItem(int position, T newItem) {
+    private void addItem(int position, T newItem) {
         dataCollection.add(position, newItem);
         notifyItemInserted(position + 1);
     }
