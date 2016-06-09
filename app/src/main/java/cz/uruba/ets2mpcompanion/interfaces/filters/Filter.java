@@ -15,7 +15,7 @@ public abstract class Filter<T extends Serializable> {
 
     protected SharedPreferences sharedPref;
 
-    public Filter(Context context, DataSet<T> data, FilterCallback<T> callback) {
+    protected Filter(Context context, DataSet<T> data, FilterCallback<T> callback) {
         this.data = data;
         this.callback = callback;
 
