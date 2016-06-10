@@ -41,14 +41,15 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter<T>> extends Fragment implements DataReceiverJSON<DataSet<T>> {
     protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
-    protected FABStateChangeListener fabStateChangeListener;
-    @Bind(R.id.loading_overlay) protected FrameLayout loadingOverlay;
+    private FABStateChangeListener fabStateChangeListener;
+    @Bind(R.id.loading_overlay)
+    private FrameLayout loadingOverlay;
     @Bind(R.id.fab) protected FloatingActionButton fab;
     @Bind(R.id.fragment_wrapper) protected FrameLayout fragmentWrapper;
     @Bind(R.id.text_empty_list) protected TextView textEmptyList;
 
-    protected Handler handler = new Handler();
-    protected Runnable runTask = new Runnable() {
+    private Handler handler = new Handler();
+    private Runnable runTask = new Runnable() {
         @Override
         public void run() {
             DataSet<T> persistedDataSet = retrievePersistedDataSet();
@@ -76,7 +77,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
     protected SharedPreferences sharedPref;
 
-    protected Tracker analyticsTracker;
+    private Tracker analyticsTracker;
 
     public AbstractDataReceiverFragment() {
         fabStateChangeListener = new FABStateChangeListener();
@@ -145,18 +146,18 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
-    protected void hideMenuItems() {
+    private void hideMenuItems() {
         for (MenuItem menuItem : menuItems) {
             menuItem.setVisible(false);
         }
     }
 
-    protected void showEmptyView() {
+    private void showEmptyView() {
         textEmptyList.setText(getString(R.string.data_not_loaded));
         textEmptyList.setVisibility(View.VISIBLE);
     }
 
-    protected void hideEmptyView() {
+    private void hideEmptyView() {
         textEmptyList.setVisibility(View.GONE);
     }
 
@@ -195,7 +196,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
-    protected void attachHandlers(boolean noRestore) {
+    private void attachHandlers(boolean noRestore) {
         handler.removeCallbacks(runTask);
 
         if (!noRestore && this.dataSet.getCollection().isEmpty()) {
@@ -209,11 +210,11 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         }
     }
 
-    protected void attachHandlers() {
+    private void attachHandlers() {
         attachHandlers(false);
     }
 
-    protected DataSet<T> retrievePersistedDataSet() {
+    private DataSet<T> retrievePersistedDataSet() {
         try {
             FileInputStream fis = getContext().openFileInput(getClass().getName() + ".persisted");
             ObjectInputStream is = new ObjectInputStream(fis);
@@ -231,7 +232,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         return dataSet;
     }
 
-    protected void restorePersistedDataSet() {
+    private void restorePersistedDataSet() {
         if (!dataSet.getCollection().isEmpty()) {
             return;
         }
@@ -248,7 +249,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
         hideLoadingOverlay();
     }
 
-    protected void persistDataSet() {
+    private void persistDataSet() {
         try {
             FileOutputStream fos = getContext().openFileOutput(getClass().getName() + ".persisted", Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
