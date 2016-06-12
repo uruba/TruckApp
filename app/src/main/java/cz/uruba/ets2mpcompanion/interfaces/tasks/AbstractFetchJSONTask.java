@@ -14,7 +14,7 @@ import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 public abstract class AbstractFetchJSONTask<T> extends AbstractFetchTask<T> {
 
-    public AbstractFetchJSONTask(DataReceiverJSON<T> callbackObject, String requestURL, boolean notifyUser) {
+    protected AbstractFetchJSONTask(DataReceiverJSON<T> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
