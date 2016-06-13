@@ -12,11 +12,11 @@ import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 public abstract class AbstractFetchJsoupDataTask<T> extends AbstractFetchTask<T> {
     private Map<String, String> cookies = null;
 
-    public AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
+    private AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
         super(callbackObject, requestURL, notifyUser);
     }
 
-    public AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, Map<String, String> cookies, boolean notifyUser) {
+    protected AbstractFetchJsoupDataTask(DataReceiver<T> callbackObject, String requestURL, Map<String, String> cookies, boolean notifyUser) {
         this(callbackObject, requestURL, notifyUser);
         this.cookies = cookies;
     }
