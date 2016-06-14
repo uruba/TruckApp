@@ -5,12 +5,12 @@ import android.os.AsyncTask;
 import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
-public abstract class AbstractFetchTask<T> extends AsyncTask<Void, Void, AsyncTaskResult<T>> {
-    protected DataReceiver<T> callbackObject;
-    protected String requestURL;
-    protected boolean notifyUser;
+abstract class AbstractFetchTask<T> extends AsyncTask<Void, Void, AsyncTaskResult<T>> {
+    DataReceiver<T> callbackObject;
+    String requestURL;
+    private boolean notifyUser;
 
-    public AbstractFetchTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
+    AbstractFetchTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
         super();
         this.callbackObject = callbackObject;
         this.requestURL = requestURL;
