@@ -6,9 +6,9 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 public abstract class AbstractAutoUpdatedTextView extends TextView {
-    protected Handler handler = new Handler();
-    protected UpdateText updateTextTask = new UpdateText();
-    protected boolean isUpdateTextTaskRunning = false;
+    private Handler handler = new Handler();
+    private UpdateText updateTextTask = new UpdateText();
+    private boolean isUpdateTextTaskRunning = false;
 
     public AbstractAutoUpdatedTextView(Context context) {
         super(context);
@@ -34,7 +34,7 @@ public abstract class AbstractAutoUpdatedTextView extends TextView {
         stopAutoRefresh();
     }
 
-    public boolean startAutoRefresh() {
+    protected boolean startAutoRefresh() {
         if (!isUpdateTextTaskRunning) {
             handler.post(updateTextTask);
             isUpdateTextTaskRunning = true;
@@ -44,7 +44,7 @@ public abstract class AbstractAutoUpdatedTextView extends TextView {
         return false;
     }
 
-    public boolean stopAutoRefresh() {
+    private boolean stopAutoRefresh() {
         if (isUpdateTextTaskRunning) {
             handler.removeCallbacks(updateTextTask);
             isUpdateTextTaskRunning = false;
