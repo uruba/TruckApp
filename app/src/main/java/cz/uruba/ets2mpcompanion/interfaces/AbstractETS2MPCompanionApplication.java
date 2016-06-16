@@ -8,7 +8,7 @@ import com.google.android.gms.analytics.Tracker;
 import cz.uruba.ets2mpcompanion.R;
 
 public abstract class AbstractETS2MPCompanionApplication extends Application {
-    protected Tracker analyticsTracker;
+    private Tracker analyticsTracker;
 
     @Override
     public void onCreate() {
@@ -20,7 +20,7 @@ public abstract class AbstractETS2MPCompanionApplication extends Application {
         initAnalytics(analytics);
     }
 
-    public abstract void initAnalytics(GoogleAnalytics analytics);
+    protected abstract void initAnalytics(GoogleAnalytics analytics);
 
     synchronized public Tracker getAnalyticsTracker() {
         return analyticsTracker;
