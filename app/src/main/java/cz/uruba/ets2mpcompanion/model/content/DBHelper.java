@@ -8,8 +8,8 @@ import cz.uruba.ets2mpcompanion.model.content.contracts.TripLoggerContract;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final int DB_VERSION = 1;
-    public static final String DB_NAME = "truckapp_data";
+    private static final int DB_VERSION = 1;
+    private static final String DB_NAME = "truckapp_data";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
