@@ -11,7 +11,7 @@ public class ServerTime {
         setServerTime(serverTime);
     }
 
-    public void setServerTime(Date serverTime) {
+    private void setServerTime(Date serverTime) {
         this.serverTime = serverTime;
         this.serverTimeFreshToDate = new Date();
     }
