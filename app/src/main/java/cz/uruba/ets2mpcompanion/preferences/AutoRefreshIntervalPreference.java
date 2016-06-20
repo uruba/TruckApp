@@ -14,8 +14,10 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.views.ThemedNumberPicker;
 
 public class AutoRefreshIntervalPreference extends DialogPreference {
-    @Bind(R.id.hour_picker) ThemedNumberPicker hourPicker;
-    @Bind(R.id.minute_picker) ThemedNumberPicker minutePicker;
+    @Bind(R.id.hour_picker)
+    private ThemedNumberPicker hourPicker;
+    @Bind(R.id.minute_picker)
+    private ThemedNumberPicker minutePicker;
     private long intervalLengthMillis;
 
     public AutoRefreshIntervalPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -30,7 +32,7 @@ public class AutoRefreshIntervalPreference extends DialogPreference {
         return intervalLengthMillis;
     }
 
-    public void setIntervalLengthMillis(long intervalLengthMillis) {
+    private void setIntervalLengthMillis(long intervalLengthMillis) {
         this.intervalLengthMillis = intervalLengthMillis;
         persistLong(intervalLengthMillis);
     }
