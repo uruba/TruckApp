@@ -61,7 +61,7 @@ public abstract class AbstractAutoUpdatedTextView extends TextView {
 
     protected abstract long processAndDisplay();
 
-    protected class UpdateText implements Runnable {
+    private class UpdateText implements Runnable {
         @Override
         public void run() {
             long newUpdateInterval = processAndDisplay();
