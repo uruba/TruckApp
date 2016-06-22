@@ -18,18 +18,19 @@ import cz.uruba.ets2mpcompanion.R;
  *  You can browse it here: https://github.com/android/platform_frameworks_base/blob/master/core/java/android/preference/EditTextPreference.java
  */
 public class CustomEditTextPreference extends DialogPreference {
-    @Bind(R.id.edit_text) EditText editText;
+    @Bind(R.id.edit_text)
+    private EditText editText;
     private String text;
 
-    public CustomEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
+    CustomEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomEditTextPreference(Context context, AttributeSet attrs) {
+    CustomEditTextPreference(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.dialogPreferenceStyle);
     }
 
-    public CustomEditTextPreference(Context context) {
+    CustomEditTextPreference(Context context) {
         this(context, null);
     }
 
@@ -37,7 +38,7 @@ public class CustomEditTextPreference extends DialogPreference {
         return text;
     }
 
-    public void setText(String text) {
+    void setText(String text) {
         this.text = text;
         persistString(text);
     }
