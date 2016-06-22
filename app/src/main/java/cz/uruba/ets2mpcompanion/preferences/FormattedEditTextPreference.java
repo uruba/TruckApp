@@ -33,8 +33,10 @@ public class FormattedEditTextPreference extends DialogPreference {
     private ArrayList<CharSequence> formatStrings;
     private String defaultText;
 
-    @Bind(R.id.edit_text) EditText editText;
-    @Bind(R.id.container_insert_format_string_buttons) RowedLayout containerButtons;
+    @Bind(R.id.edit_text)
+    private EditText editText;
+    @Bind(R.id.container_insert_format_string_buttons)
+    private RowedLayout containerButtons;
     private String text;
 
     public FormattedEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -65,7 +67,7 @@ public class FormattedEditTextPreference extends DialogPreference {
         return text;
     }
 
-    public void setText(String text) {
+    private void setText(String text) {
         this.text = text;
         persistString(text);
     }
