@@ -17,7 +17,7 @@ public class UICompat {
         return getThemeColour(attr, context.getTheme());
     }
 
-    public static int getThemeColour(int attr, Resources.Theme theme) {
+    private static int getThemeColour(int attr, Resources.Theme theme) {
         TypedValue typedValue = new TypedValue();
         theme.resolveAttribute(attr, typedValue, true);
         return typedValue.data;
@@ -28,7 +28,7 @@ public class UICompat {
     }
 
     @SuppressWarnings("deprecation")
-    public static void setOverscrollEffectColour(Context context, int colour) {
+    private static void setOverscrollEffectColour(Context context, int colour) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
@@ -51,7 +51,7 @@ public class UICompat {
     }
 
     @SuppressWarnings("deprecation")
-    public static void setProgressBarColour(ProgressBar progressBar, int colour) {
+    private static void setProgressBarColour(ProgressBar progressBar, int colour) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return;
         }
