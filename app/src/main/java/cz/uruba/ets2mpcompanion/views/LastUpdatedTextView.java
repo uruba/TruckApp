@@ -11,14 +11,14 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.interfaces.views.AbstractAutoUpdatedTextView;
 
 public class LastUpdatedTextView extends AbstractAutoUpdatedTextView {
-    String LAST_UPDATED;
-    String AGO;
-    String DAY;
-    String HOUR;
-    String MINUTE;
-    String JUST_NOW;
+    private String LAST_UPDATED;
+    private String AGO;
+    private String DAY;
+    private String HOUR;
+    private String MINUTE;
+    private String JUST_NOW;
 
-    Date time;
+    private Date time;
 
     public LastUpdatedTextView(Context context) {
         this(context, null);
