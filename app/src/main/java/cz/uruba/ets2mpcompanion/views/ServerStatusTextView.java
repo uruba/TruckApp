@@ -8,10 +8,10 @@ import android.widget.TextView;
 import cz.uruba.ets2mpcompanion.R;
 
 public class ServerStatusTextView extends TextView {
-    static final CharSequence TEXT_OFFLINE = "offline";
-    static final CharSequence TEXT_ONLINE = "online";
+    private static final CharSequence TEXT_OFFLINE = "offline";
+    private static final CharSequence TEXT_ONLINE = "online";
 
-    int textColourOnline = -1;
+    private int textColourOnline = -1;
 
     public ServerStatusTextView(Context context) {
         super(context);
