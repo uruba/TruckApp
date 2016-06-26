@@ -36,7 +36,7 @@ import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 
 public class ServerListWidget extends AppWidgetProvider {
-    static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
+    private static final String ACTION_REFRESH = "cz.uruba.ets2mpcompanion.widgets.action.SERVERLIST_REFRESH";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] widgetIDs) {
@@ -58,7 +58,7 @@ public class ServerListWidget extends AppWidgetProvider {
     }
 
     // TODO – Find out if there is a way not to recreate the whole RemoteViews object in the ServerListWidgetRemoteViewsFactory.onDataSetChanged() method
-    public static RemoteViews newRemoteViews(Context context, int widgetID) {
+    private static RemoteViews newRemoteViews(Context context, int widgetID) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                 R.layout.widget_serverlist);
 
