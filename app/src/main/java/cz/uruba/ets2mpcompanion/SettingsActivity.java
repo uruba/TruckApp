@@ -11,9 +11,10 @@ import cz.uruba.ets2mpcompanion.fragments.SettingsFragment;
 import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractThemedActivity;
 
 public class SettingsActivity extends AbstractThemedActivity {
-    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.toolbar)
+    private Toolbar toolbar;
     // implicitly, we want to show an exit animation
-    boolean animateExit = true;
+    private boolean animateExit = true;
 
     @SuppressWarnings("ConstantConditions")
     @Override
