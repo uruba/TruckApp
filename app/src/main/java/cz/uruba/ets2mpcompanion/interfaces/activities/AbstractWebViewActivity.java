@@ -42,6 +42,7 @@ public abstract class AbstractWebViewActivity extends AbstractThemedActivity {
         initWebView();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     protected void initWebView() {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
