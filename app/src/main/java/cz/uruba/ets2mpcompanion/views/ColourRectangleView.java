@@ -1,11 +1,13 @@
 package cz.uruba.ets2mpcompanion.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.View;
 
+@SuppressLint("ViewConstructor")
 public class ColourRectangleView extends View {
     private Paint paint;
     private Rect rectangle;
