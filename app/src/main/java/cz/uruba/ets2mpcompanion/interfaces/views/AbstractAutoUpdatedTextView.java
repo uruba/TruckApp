@@ -6,8 +6,8 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 public abstract class AbstractAutoUpdatedTextView extends TextView {
-    private Handler handler = new Handler();
-    private UpdateText updateTextTask = new UpdateText();
+    private final Handler handler = new Handler();
+    private final UpdateText updateTextTask = new UpdateText();
     private boolean isUpdateTextTaskRunning = false;
 
     public AbstractAutoUpdatedTextView(Context context) {
