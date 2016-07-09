@@ -86,12 +86,7 @@ public class ServerListWidget extends AppWidgetProvider {
         public RemoteViewsFactory onGetViewFactory(Intent intent) {
             return (new ServerListWidgetRemoteViewsFactory(getBaseContext(), intent));
         }
-
-        @Nullable
-        @Override
-        public IBinder onBind(Intent intent) {
-            return super.onBind(intent);
-        }
+        
     }
 
     public static class ServerListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, DataReceiverJSON<DataSet<ServerInfo>> {
