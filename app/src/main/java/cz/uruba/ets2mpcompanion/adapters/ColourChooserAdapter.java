@@ -15,10 +15,10 @@ import cz.uruba.ets2mpcompanion.R;
 import cz.uruba.ets2mpcompanion.views.ColourRectangleView;
 
 public class ColourChooserAdapter extends BaseAdapter {
-    private GridView colourGrid;
+    private final GridView colourGrid;
 
-    private Context context;
-    private List<Integer> themeList;
+    private final Context context;
+    private final List<Integer> themeList;
 
     public ColourChooserAdapter(Context context, List<Integer> themeList, GridView colourGrid) {
         this.context = context;
