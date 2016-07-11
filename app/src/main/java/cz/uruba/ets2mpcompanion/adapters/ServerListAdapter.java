@@ -32,12 +32,12 @@ import cz.uruba.ets2mpcompanion.views.ServerStatusTextView;
 public class ServerListAdapter extends AbstractDataReceiverListAdapter<ServerInfo> implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String PREF_DISPLAY_SERVER_TIME = "preference_display_server_time";
 
-    private int colorPrimaryDark;
-    private ColorStateList tint;
+    private final int colorPrimaryDark;
+    private final ColorStateList tint;
 
     private ServerTime serverTime;
 
-    private SharedPreferences sharedPref;
+    private final SharedPreferences sharedPref;
 
     public ServerListAdapter(Context context, List<ServerInfo> dataCollection, AbstractDataReceiverFragment<?, ?> callbackDataReceiver) {
         super(context, dataCollection, callbackDataReceiver);
