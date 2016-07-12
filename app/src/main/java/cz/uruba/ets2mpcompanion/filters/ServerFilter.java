@@ -16,7 +16,7 @@ import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
 class ServerFilter extends Filter<ServerInfo> {
-    private String[] gameLiterals;
+    private final String[] gameLiterals;
 
     public ServerFilter(Context context, DataSet<ServerInfo> data, FilterCallback<ServerInfo> callback) {
         super(context, data, callback);
