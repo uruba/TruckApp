@@ -100,7 +100,7 @@ public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo,
 
     private void fetchServerTime() {
         new FetchServerTimeTask(new DataReceiverJSON<Date>() {
-            private Date lastUpdated = new Date();
+            private final Date lastUpdated = new Date();
 
             @Override
             public void processData(Date data, boolean notifyUser) {
