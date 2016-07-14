@@ -21,9 +21,9 @@ public abstract class AbstractDataReceiverListAdapter<T> extends RecyclerView.Ad
     protected static final int TYPE_LAST_UPDATED = 1;
     private static final int TYPE_FOOTER = 2;
 
-    protected Context context;
+    protected final Context context;
 
-    protected AbstractDataReceiverFragment<?, ?> callbackDataReceiver;
+    protected final AbstractDataReceiverFragment<?, ?> callbackDataReceiver;
 
     protected List<T> dataCollection;
 
