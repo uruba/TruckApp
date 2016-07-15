@@ -10,10 +10,10 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
 public abstract class Filter<T extends Serializable> {
     protected Context context;
-    protected DataSet<T> data;
-    protected FilterCallback<T> callback;
+    protected final DataSet<T> data;
+    protected final FilterCallback<T> callback;
 
-    protected SharedPreferences sharedPref;
+    protected final SharedPreferences sharedPref;
 
     protected Filter(Context context, DataSet<T> data, FilterCallback<T> callback) {
         this.data = data;
