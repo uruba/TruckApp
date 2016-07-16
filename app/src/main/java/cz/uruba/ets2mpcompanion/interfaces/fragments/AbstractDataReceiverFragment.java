@@ -41,15 +41,15 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 public abstract class AbstractDataReceiverFragment<T extends Serializable, U extends AbstractDataReceiverListAdapter<T>> extends Fragment implements DataReceiverJSON<DataSet<T>> {
     protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
-    private FABStateChangeListener fabStateChangeListener;
+    private final FABStateChangeListener fabStateChangeListener;
     @Bind(R.id.loading_overlay)
     private FrameLayout loadingOverlay;
     @Bind(R.id.fab) protected FloatingActionButton fab;
     @Bind(R.id.fragment_wrapper) protected FrameLayout fragmentWrapper;
     @Bind(R.id.text_empty_list) protected TextView textEmptyList;
 
-    private Handler handler = new Handler();
-    private Runnable runTask = new Runnable() {
+    private final Handler handler = new Handler();
+    private final Runnable runTask = new Runnable() {
         @Override
         public void run() {
             DataSet<T> persistedDataSet = retrievePersistedDataSet();
@@ -73,7 +73,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
 
     protected U listAdapter;
 
-    protected List<MenuItem> menuItems = new ArrayList<>();
+    protected final List<MenuItem> menuItems = new ArrayList<>();
 
     protected SharedPreferences sharedPref;
 
