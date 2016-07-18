@@ -6,9 +6,9 @@ import cz.uruba.ets2mpcompanion.interfaces.DataReceiver;
 import cz.uruba.ets2mpcompanion.tasks.result.AsyncTaskResult;
 
 abstract class AbstractFetchTask<T> extends AsyncTask<Void, Void, AsyncTaskResult<T>> {
-    DataReceiver<T> callbackObject;
-    String requestURL;
-    private boolean notifyUser;
+    final DataReceiver<T> callbackObject;
+    final String requestURL;
+    private final boolean notifyUser;
 
     AbstractFetchTask(DataReceiver<T> callbackObject, String requestURL, boolean notifyUser) {
         super();
