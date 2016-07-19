@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DataSet<T extends Serializable> implements Serializable {
-    private ArrayList<T> collection;
-    private Date lastUpdated;
+    private final ArrayList<T> collection;
+    private final Date lastUpdated;
 
     public DataSet(ArrayList<T> collection, Date lastUpdated) {
         this.collection = collection;
