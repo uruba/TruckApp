@@ -6,12 +6,12 @@ import java.util.HashMap;
 import cz.uruba.ets2mpcompanion.interfaces.AbstractMarkupProcessor;
 
 public class MeetupDetail extends AbstractMarkupProcessor {
-    private String organiser;
-    private String server;
-    private String location;
-    private String destination;
-    private boolean trailerRequired;
-    private Date meetupDate;
+    private final String organiser;
+    private final String server;
+    private final String location;
+    private final String destination;
+    private final boolean trailerRequired;
+    private final Date meetupDate;
 
     public MeetupDetail(String organiser, String server, String location, String destination, boolean trailerRequired, Date meetupDate) {
         this.organiser = organiser;
