@@ -8,11 +8,11 @@ import java.io.Serializable;
 import cz.uruba.ets2mpcompanion.R;
 
 public class ServerInfo implements Comparable<ServerInfo>, Serializable {
-    private boolean online;
-    private String gameName;
-    private String serverName;
-    private int playerCountCurrent;
-    private int playerCountCapacity;
+    private final boolean online;
+    private final String gameName;
+    private final String serverName;
+    private final int playerCountCurrent;
+    private final int playerCountCapacity;
 
     public ServerInfo(boolean online, String gameName, String serverName, int playerCountCurrent, int playerCountCapacity) {
         this.online = online;
