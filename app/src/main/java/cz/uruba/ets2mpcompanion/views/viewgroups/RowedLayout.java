@@ -140,7 +140,7 @@ public class RowedLayout extends ViewGroup {
     }
 
     private class Row {
-        private List<Element> elements = new ArrayList<>();
+        private final List<Element> elements = new ArrayList<>();
         private int totalWidth, totalHeight;
 
         public Row() {
@@ -170,8 +170,9 @@ public class RowedLayout extends ViewGroup {
         }
 
         public class Element {
-            View element;
-            int premeasuredWidth, premeasuredHeight;
+            final View element;
+            final int premeasuredWidth;
+            final int premeasuredHeight;
 
             public Element(View element, int premeasuredWidth, int premeasuredHeight) {
                 this.element = element;
