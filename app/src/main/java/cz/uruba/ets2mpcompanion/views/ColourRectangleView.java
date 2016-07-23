@@ -9,8 +9,8 @@ import android.view.View;
 
 @SuppressLint("ViewConstructor")
 public class ColourRectangleView extends View {
-    private Paint paint;
-    private Rect rectangle;
+    private final Paint paint;
+    private final Rect rectangle;
 
     public ColourRectangleView(Context context, int colour, int sideLength) {
         super(context);
