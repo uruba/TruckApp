@@ -20,7 +20,7 @@ public class ServerTimeTextView extends AbstractAutoUpdatedTextView {
     private ServerTime serverTime;
     private Context context;
 
-    private DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
+    private final DateFormat dateFormat = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
 
     public ServerTimeTextView(Context context) {
         this(context, null);
