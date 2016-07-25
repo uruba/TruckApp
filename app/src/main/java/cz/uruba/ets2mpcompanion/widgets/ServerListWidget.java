@@ -90,9 +90,9 @@ public class ServerListWidget extends AppWidgetProvider {
     }
 
     public static class ServerListWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory, DataReceiverJSON<DataSet<ServerInfo>> {
-        Context context;
+        final Context context;
 
-        int widgetID;
+        final int widgetID;
 
         DataSet<ServerInfo> serverList;
 
