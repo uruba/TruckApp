@@ -30,8 +30,7 @@ import cz.uruba.ets2mpcompanion.model.general.DataSet;
 import cz.uruba.ets2mpcompanion.tasks.FetchMeetupListTask;
 
 public class MeetupListFragment extends AbstractDataReceiverFragment<MeetupInfo, MeetupListAdapter> implements SearchView.OnQueryTextListener {
-    @Bind(R.id.recyclerview_meetuplist)
-    private RecyclerView meetupList;
+    @Bind(R.id.recyclerview_meetuplist) RecyclerView meetupList;
 
     private static final int MEETUP_FIELD_LOCATION = 1;
     private static final int MEETUP_FIELD_SERVER = 1 << 1;
