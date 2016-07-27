@@ -37,8 +37,7 @@ import cz.uruba.ets2mpcompanion.tasks.FetchServerListTask;
 import cz.uruba.ets2mpcompanion.tasks.FetchServerTimeTask;
 
 public class ServerListFragment extends AbstractDataReceiverFragment<ServerInfo, ServerListAdapter> {
-    @Bind(R.id.recyclerview_serverlist)
-    private RecyclerView serverList;
+    @Bind(R.id.recyclerview_serverlist) RecyclerView serverList;
 
     private String[] gameLiterals;
 
