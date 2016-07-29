@@ -42,8 +42,7 @@ public abstract class AbstractDataReceiverFragment<T extends Serializable, U ext
     protected DataSet<T> dataSet = new DataSet<>(new ArrayList<T>(), null);
 
     private final FABStateChangeListener fabStateChangeListener;
-    @Bind(R.id.loading_overlay)
-    private FrameLayout loadingOverlay;
+    @Bind(R.id.loading_overlay) FrameLayout loadingOverlay;
     @Bind(R.id.fab) protected FloatingActionButton fab;
     @Bind(R.id.fragment_wrapper) protected FrameLayout fragmentWrapper;
     @Bind(R.id.text_empty_list) protected TextView textEmptyList;
