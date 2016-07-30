@@ -24,12 +24,9 @@ import cz.uruba.ets2mpcompanion.interfaces.activities.AbstractThemedActivity;
 import cz.uruba.ets2mpcompanion.utils.UICompat;
 
 public class MainActivity extends AbstractThemedActivity {
-    @Bind(R.id.toolbar)
-    private Toolbar toolbar;
-    @Bind(R.id.tabs_area)
-    private TabLayout tabsArea;
-    @Bind(R.id.viewpager)
-    private ViewPager viewPager;
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.tabs_area) TabLayout tabsArea;
+    @Bind(R.id.viewpager) ViewPager viewPager;
 
     private final int SERVER_LIST_FRAG_POS = 0;
     private final int MEETUP_LIST_FRAG_POS = 1;
