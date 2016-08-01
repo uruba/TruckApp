@@ -18,8 +18,7 @@ import cz.uruba.ets2mpcompanion.R;
  *  You can browse it here: https://github.com/android/platform_frameworks_base/blob/master/core/java/android/preference/EditTextPreference.java
  */
 public class CustomEditTextPreference extends DialogPreference {
-    @Bind(R.id.edit_text)
-    private EditText editText;
+    @Bind(R.id.edit_text) EditText editText;
     private String text;
 
     CustomEditTextPreference(Context context, AttributeSet attrs, int defStyleAttr) {
