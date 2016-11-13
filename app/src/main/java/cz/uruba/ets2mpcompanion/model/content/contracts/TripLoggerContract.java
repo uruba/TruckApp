@@ -8,7 +8,7 @@ public final class TripLoggerContract {
 
     public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".triplogger";
 
-    private static final Uri BASE_CONTENT_URI = new Uri.Builder()
+    public static final Uri BASE_CONTENT_URI = new Uri.Builder()
             .scheme("content")
             .authority(AUTHORITY)
             .build();
