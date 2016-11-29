@@ -15,16 +15,17 @@ import cz.uruba.ets2mpcompanion.interfaces.filters.FilterCallback;
 import cz.uruba.ets2mpcompanion.model.ServerInfo;
 import cz.uruba.ets2mpcompanion.model.general.DataSet;
 
-class ServerFilter extends Filter<ServerInfo> {
+/** TODO: Test if this works **/
+public class ServerFilter extends Filter<ServerInfo> {
     private final String[] gameLiterals;
 
-    public ServerFilter(Context context, DataSet<ServerInfo> data, FilterCallback<ServerInfo> callback) {
-        super(context, data, callback);
+    public ServerFilter(Context context, FilterCallback<ServerInfo> callback) {
+        super(context, callback);
 
         gameLiterals = context.getResources().getStringArray(R.array.game_names);
     }
 
-    private void showFilterDialog() {
+    public void showFilterDialog(final List<ServerInfo> inputServers) {
         String[] choices = new String[gameLiterals.length + 1];
 
         int i = 0;
@@ -44,7 +45,7 @@ class ServerFilter extends Filter<ServerInfo> {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 sharedPref.edit().putInt(Preferences.PREF_GAME_FILTER_SETTING, which).apply();
-                                filterByGame();
+                                filterByGame(inputServers);
                                 dialog.dismiss();
                             }
                         })
@@ -53,14 +54,8 @@ class ServerFilter extends Filter<ServerInfo> {
                 .show();
     }
 
-    private void filterByGame() {
-        filterByGame(data.getCollection());
-    }
-
-    private void filterByGame(List<ServerInfo> inputServers) {
-        int which = sharedPref.getInt(Preferences.PREF_GAME_FILTER_SETTING, 0) - 1;
-
-        String gameLiteral = which < 0 ? "" : gameLiterals[which];
+    public void filterByGame(List<ServerInfo> inputServers) {
+        String gameLiteral = getCurrentGameLiteral();
 
         ArrayList<ServerInfo> filteredServers = new ArrayList<>();
         for (ServerInfo server : inputServers) {
@@ -70,5 +65,11 @@ class ServerFilter extends Filter<ServerInfo> {
         }
 
         callback.dataFiltered(new DataSet<>(filteredServers, new Date()));
+    }
+
+    public String getCurrentGameLiteral() {
+        int which = sharedPref.getInt(Preferences.PREF_GAME_FILTER_SETTING, 0) - 1;
+
+        return which < 0 ? "" : gameLiterals[which];
     }
 }
