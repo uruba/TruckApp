@@ -3,6 +3,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="player_count">%1$d / %2$d players</string>
+    <string name="player_count_queue">%1$d waiting in queue</string>
     <string name="json_error">The received data could not be resolved. Please try again later.</string>
     <string name="download_error">The data could not be downloaded. Please try again later.</string>
     <string name="download_error_IOException">The data could not be downloaded. Please check your internet connection.</string>

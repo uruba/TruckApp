@@ -34,8 +34,9 @@ public class FetchServerListTask extends AbstractFetchJSONTask<DataSet<ServerInf
             String serverName = item.getString("name");
             int playerCountCurrent = item.getInt("players");
             int playerCountCapacity = item.getInt("maxplayers");
+            int playerCountWaitQueue = item.getInt("queue");
 
-            ServerInfo serverInfo = new ServerInfo(online, gameName, serverName, playerCountCurrent, playerCountCapacity);
+            ServerInfo serverInfo = new ServerInfo(online, gameName, serverName, playerCountCurrent, playerCountCapacity, playerCountWaitQueue);
             serverList.add(serverInfo);
         }
 

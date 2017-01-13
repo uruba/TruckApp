@@ -13,13 +13,15 @@ public class ServerInfo implements Comparable<ServerInfo>, Serializable {
     private final String serverName;
     private final int playerCountCurrent;
     private final int playerCountCapacity;
+    private final int playerCountWaitQueue;
 
-    public ServerInfo(boolean online, String gameName, String serverName, int playerCountCurrent, int playerCountCapacity) {
+    public ServerInfo(boolean online, String gameName, String serverName, int playerCountCurrent, int playerCountCapacity, int playerCountWaitQueue) {
         this.online = online;
         this.gameName = gameName;
         this.serverName = serverName;
         this.playerCountCurrent = playerCountCurrent;
         this.playerCountCapacity = playerCountCapacity;
+        this.playerCountWaitQueue = playerCountWaitQueue;
     }
 
     public boolean isOnline() {
@@ -42,19 +44,39 @@ public class ServerInfo implements Comparable<ServerInfo>, Serializable {
         return playerCountCapacity;
     }
 
+    public int getPlayerCountWaitQueue() {
+        return playerCountWaitQueue;
+    }
+
     @Override
     public int compareTo(@NonNull ServerInfo another) {
         return this.playerCountCurrent - another.playerCountCurrent;
     }
 
     public String getFormattedPlayerCountString(Context context) {
-        return String.format(
+        StringBuilder playerCountStringBuilder = new StringBuilder();
+
+        playerCountStringBuilder.append(String.format(
                 context
                         .getResources()
                         .getString(R.string.player_count),
                 playerCountCurrent,
                 playerCountCapacity
-        );
+        ));
+
+        if (this.playerCountWaitQueue > 0) {
+            playerCountStringBuilder.append(String.format(
+                    " (%1$s)",
+                    String.format(
+                            context
+                                    .getResources()
+                                    .getString(R.string.player_count_queue),
+                            playerCountWaitQueue
+                    )
+            ));
+        }
+
+        return playerCountStringBuilder.toString();
     }
 
     public float getPlayerCountRatio() {
