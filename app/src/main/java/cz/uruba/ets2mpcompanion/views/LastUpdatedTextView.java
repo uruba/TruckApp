@@ -14,8 +14,11 @@ public class LastUpdatedTextView extends AbstractAutoUpdatedTextView {
     private String LAST_UPDATED;
     private String AGO;
     private String DAY;
+    private String DAYS;
     private String HOUR;
+    private String HOURS;
     private String MINUTE;
+    private String MINUTES;
     private String JUST_NOW;
 
     private Date time;
@@ -37,8 +40,11 @@ public class LastUpdatedTextView extends AbstractAutoUpdatedTextView {
         LAST_UPDATED = context.getString(R.string.LastUpdatedTextView_LAST_UPDATED);
         AGO = context.getString(R.string.LastUpdatedTextView_AGO);
         DAY = context.getString(R.string.LastUpdatedTextView_DAY);
+        DAYS = context.getString(R.string.LastUpdatedTextView_DAYS);
         HOUR = context.getString(R.string.LastUpdatedTextView_HOUR);
+        HOURS = context.getString(R.string.LastUpdatedTextView_HOURS);
         MINUTE = context.getString(R.string.LastUpdatedTextView_MINUTE);
+        MINUTES = context.getString(R.string.LastUpdatedTextView_MINUTES);
         JUST_NOW = context.getString(R.string.LastUpdatedTextView_JUST_NOW);
     }
 
@@ -85,10 +91,21 @@ public class LastUpdatedTextView extends AbstractAutoUpdatedTextView {
             }
 
             long timeInUnits = timeDivide(timeDifference, divisor);
+
+            if (timeInUnits > 1) {
+                if (timeUnit.equals(DAY)) {
+                    timeUnit = DAYS;
+                } else if (timeUnit.equals(HOUR)) {
+                    timeUnit = HOURS;
+                } else if (timeUnit.equals(MINUTE)) {
+                    timeUnit = MINUTES;
+                }
+            }
+
             builtString = String.format(
                     AGO,
                     timeInUnits,
-                    timeUnit + (timeInUnits > 1 ? "s" : "")
+                    timeUnit
             );
 
         } else {

@@ -118,8 +118,8 @@ public class MainActivity extends AbstractThemedActivity {
         final ServerListFragment serverListFragment = new ServerListFragment();
         final MeetupListFragment meetupListFragment = new MeetupListFragment();
 
-        adapter.addFragment(serverListFragment, "SERVERS", SERVER_LIST_FRAG_POS);
-        adapter.addFragment(meetupListFragment, "MEETUPS", MEETUP_LIST_FRAG_POS);
+        adapter.addFragment(serverListFragment, getString(R.string.tab_servers), SERVER_LIST_FRAG_POS);
+        adapter.addFragment(meetupListFragment, getString(R.string.tab_meetups), MEETUP_LIST_FRAG_POS);
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="server_names">
+        <item>Všechny servery</item>
+        <item>EU #1</item>
+        <item>EU #2</item>
+        <item>EU #3</item>
+        <item>US</item>
+        <item>ASIA</item>
+        <item>SA</item>
+    </string-array>
+</resources>

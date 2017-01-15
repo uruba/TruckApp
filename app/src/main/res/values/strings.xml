@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TruckApp</string>
+    <string name="app_name" translatable="false">TruckApp</string>
 
     <string name="action_settings">Settings</string>
     <string name="player_count">%1$d / %2$d players</string>
@@ -21,8 +21,11 @@
     <string name="LastUpdatedTextView_LAST_UPDATED">Last updated %1$s</string>
     <string name="LastUpdatedTextView_AGO">%1$d %2$s ago</string>
     <string name="LastUpdatedTextView_DAY">day</string>
+    <string name="LastUpdatedTextView_DAYS">days</string>
     <string name="LastUpdatedTextView_HOUR">hour</string>
+    <string name="LastUpdatedTextView_HOURS">hours</string>
     <string name="LastUpdatedTextView_MINUTE">minute</string>
+    <string name="LastUpdatedTextView_MINUTES">minutes</string>
     <string name="LastUpdatedTextView_JUST_NOW">just now</string>
     <string name="settings_title_theme_colour">Theme color</string>
     <string name="data_not_loaded">No data loaded.</string>
@@ -82,4 +85,6 @@
     <string name="settings_summary_auto_refresh_interval_never">Never</string>
     <string name="persisted_data_retrieved">Restored data from cache</string>
     <string name="no_trips_yet">Looks like you\'ve not saved any trips yet.</string>
+    <string name="tab_servers">SERVERS</string>
+    <string name="tab_meetups">MEETUPS</string>
 </resources>
