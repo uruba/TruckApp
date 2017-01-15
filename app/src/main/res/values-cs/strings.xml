@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TruckApp</string>
     <string name="yes">Ano</string>
     <string name="widget_title">Stav TruckersMP</string>
     <string name="widget_loading">Načítám…</string>
@@ -86,4 +85,5 @@
     <string name="as_of">K %1$s</string>
     <string name="tab_servers">SERVERY</string>
     <string name="tab_meetups">SRAZY</string>
+    <string name="no_trips_yet">Ještě jste neuložili žádný záznam cesty.</string>
 </resources>

@@ -9,4 +9,14 @@
         <item>ASIA</item>
         <item>SA</item>
     </string-array>
+    <string-array name="meetup_description_format_strings">
+        <item>%organiser%</item>
+        <item>%server%</item>
+        <item>%location%</item>
+        <item>%destination%</item>
+    </string-array>
+    <string-array name="game_names">
+        <item>ETS2</item>
+        <item>ATS</item>
+    </string-array>
 </resources>
