@@ -3,13 +3,13 @@ apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "cz.uruba.ets2mpcompanion"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 34
-        versionName "0.28"
+        versionCode 35
+        versionName "0.29"
         testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
@@ -22,13 +22,14 @@ android {
             testCoverageEnabled true
         }
     }
+    flavorDimensions "stage"
     productFlavors {
         production {
-
+            dimension "stage"
         }
 
         development {
-
+            dimension "stage"
         }
     }
 }
@@ -58,6 +59,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
+    annotationProcessor 'com.jakewharton:butterknife:7.0.1'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:cardview-v7:23.2.1'
     compile 'com.android.support:recyclerview-v7:23.2.1'
