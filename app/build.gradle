@@ -3,13 +3,13 @@ apply plugin: 'com.github.kt3k.coveralls'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "cz.uruba.ets2mpcompanion"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 35
-        versionName "0.29"
+        versionCode 36
+        versionName "0.29.1"
         testInstrumentationRunner "cz.uruba.ets2mpcompanion.test.testrunners.ScreenUnlockedTestRunner"
     }
     buildTypes {
